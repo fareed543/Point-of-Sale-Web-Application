@@ -292,8 +292,8 @@ if (isset($_GET['report'])) {
                                             <tr>
                                                 <th width="12%"><?php echo $lang_date; ?></th>
                                                 <th width="5%"><?php echo $lang_sale_id; ?></th>
-                                                <th width="12%"><?php echo $lang_users; ?></th>
-                                                <th width="12%"><?php echo $lang_outlets; ?></th>
+                                                <th width="8%"><?php echo $lang_users; ?></th>
+                                                <th width="15%"><?php echo $lang_outlets; ?></th>
                                                 <th width="10%"><?php echo $lang_payment_methods; ?></th>
                                                 <th width="10%"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</th>
                                                 <th width="10%"><?php echo $lang_cost; ?> (<?php echo $site_currency; ?>)</th>
@@ -408,14 +408,14 @@ if (isset($_GET['report'])) {
                                                             if ($order_type == '1') {
                                                                 ?>
                                                                 <a onclick="openReceipt('<?= base_url() ?>pos/view_invoice?id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-                                                                    <i class="icono-list" style="color: #005b8a;"></i>
+                                                                    <i class="fa fa-print fa-2x" style="color: #005b8a;"></i>
                                                                 </a>
                                                                 <?php
                                                             }
                                                             if ($order_type == '2') {
                                                                 ?>
                                                                 <a onclick="openReceipt('<?= base_url() ?>returnorder/printReturn?return_id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-                                                                    <i class="icono-list" style="color: #005b8a;"></i>
+                                                                    <i class="fa fa-print fa-2x" style="color: #005b8a;"></i>
                                                                 </a>
                                                             <?php }
                                                             ?>
@@ -434,8 +434,23 @@ if (isset($_GET['report'])) {
                                             unset($orderResult);
                                             ?>
                                         </tbody>
+                                        <?php if ($orderRows > 0) { ?>
+                                            <tfoot>
+                                                <tr>
+                                                    <th width="12%"></th>
+                                                    <th width="5%"></th>
+                                                    <th width="8%"></th>
+                                                    <th width="15%"></th>
+                                                    <th width="10%">Total</th>
+                                                    <th width="10%"><?php echo number_format($all_grand_amt, 2, '.', ''); ?></th>
+                                                    <th width="10%"><?php echo number_format($all_cost_amt, 2, '.', ''); ?></th>
+                                                    <th width="10%"><?php echo number_format($all_tax_amt, 2, '.', ''); ?></th>
+                                                    <th width="10%"><?php echo number_format($all_profit_amt, 2, '.', ''); ?></th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </tfoot>
+                                        <?php } ?>
                                     </table>
-
                                 </div>
                             </div>
                         </div>

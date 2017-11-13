@@ -48,7 +48,7 @@ $login_name = $result[0]->fullname;
         <link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/datepicker3.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/styles.css" rel="stylesheet">
-
+		<link href="<?= base_url() ?>assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/icono.min.css" rel="stylesheet">
 
         <!--[if lt IE 9]>

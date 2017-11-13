@@ -115,7 +115,7 @@ require_once 'includes/header.php';
                                                         </a>
 
                                                         <a href="<?= base_url() ?>sales/deleteSuspended?id=<?php echo $sus_id; ?>" style="text-decoration: none; margin-left: 5px;" title="Delete" onclick="return confirm('<?php echo $lang_confirm_to_delete_bill; ?>')">
-                                                            <i class="icono-crossCircle" style="color: #F00"></i>
+                                                            <i class="fa fa-times fa-2x" style="color: #F00"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

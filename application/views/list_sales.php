@@ -194,19 +194,19 @@ require_once 'includes/header.php';
                                                         if ($order_type == '1') {
                                                             ?>
                                                             <a onclick="openReceipt('<?= base_url() ?>pos/view_invoice?id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-                                                                <i class="icono-list" style="color: #005b8a;"></i>
+                                                                <i class="fa fa-print fa-2x" style="color: #005b8a;"></i>
                                                             </a>
                                                             <?php
                                                         }
                                                         if ($order_type == '2') {
                                                             ?>
                                                             <a onclick="openReceipt('<?= base_url() ?>returnorder/printReturn?return_id=<?php echo $order_id; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Receipt">
-                                                                <i class="icono-list" style="color: #005b8a;"></i>
+                                                                <i class="fa fa-print fa-2x" style="color: #005b8a;"></i>
                                                             </a>
                                                         <?php }
                                                         ?>
                                                         <a href="<?= base_url() ?>sales/deleteSale?id=<?php echo $order_id; ?>" style="text-decoration: none; margin-left: 5px;" title="Delete" onclick="return confirm('Are you confirm to delete this Sale?')">
-                                                            <i class="icono-crossCircle" style="color: #F00"></i>
+                                                            <i class="fa fa-times fa-2x" style="color: #F00"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

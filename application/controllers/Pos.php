@@ -100,6 +100,10 @@ class Pos extends CI_Controller {
         $data['lang_out_of_stock'] = $this->lang->line('out_of_stock');
         $data['lang_please_update_inven'] = $this->lang->line('please_update_inven');
 
+        
+        /*echo "<pre>";
+        print_r($data);
+        exit;*/
         if ($user_role == '1') {
             if (isset($_COOKIE['outlet'])) {
                 $data['outlet'] = $_COOKIE['outlet'];

@@ -2,7 +2,7 @@
 require_once 'includes/pos_header.php';
 ?>
 <style>
-    #paymentLoadCust{
+    .payment-load-customer{
         width: 268px !important;
     }
 </style>
@@ -60,9 +60,7 @@ require_once 'includes/pos_header.php';
 
                                 <script type="text/javascript">
                                     $(document).on('ready', function () {
-
                                         //$('body').on('click','button',function(){});
-
                                         $("#searchProd").keyup(function () {
                                             // Retrieve the input field text
                                             var filter = $(this).val();
@@ -74,7 +72,6 @@ require_once 'includes/pos_header.php';
                                                     $(this).parent().show();
                                                 }
                                             });
-
                                         });
 
                                         $("#pop_add_cust_submit").click(function () {
@@ -202,15 +199,9 @@ require_once 'includes/pos_header.php';
                                                                             $('#outofstockwrp').modal('show');
                                                                             //alert("Out of Stock! Please make Purchase Order!");
                                                                         }
-
-
                                                                     }
                                                                 }
-
-
-
                                                             }
-
                                                         }
 
                                                         /*
@@ -295,7 +286,6 @@ require_once 'includes/pos_header.php';
                                 <div style="overflow: scroll; height: 330px; width: 100%;">
                                     <?php
                                     $suspend_id = 0;
-
                                     $subTotal = 0;
                                     $dis_amt = 0;
                                     $tax_amt = 0;
@@ -596,11 +586,11 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
-                                                                                <li <?php if ($ct == 0) {
+                                                                                                    <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
-                                                                                </li>	
+                                                                                                    </li>	
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);
@@ -618,47 +608,61 @@ require_once 'includes/pos_header.php';
                                             ?>	
                                             <div class="tab-pane fade in active" id="pilltabAll">
                                                 <?php
-                                                $allProdData = $this->Constant_model->getDataOneColumn('products', 'status', '1');
+                                                $allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
+
+
+
+                                               /* echo "<pre>";
+                                                  print_r($allProdData);
+                                                  echo "query : ".$allProdData['qty'];
+                                                  echo "</pre>"; */
+                                                  
                                                 for ($ap = 0; $ap < count($allProdData); ++$ap) {
-                                                    $pcode = $allProdData[$ap]->code;
-                                                    $name = $allProdData[$ap]->name;
-                                                    $color = $allProdData[$ap]->color;
-                                                    $image = $allProdData[$ap]->thumbnail;
-                                                    ?>
-                                                    <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
-                                                            style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 
-                                                            <?php
-                                                            if (!empty($color)) {
-                                                                echo 'background-color: #' . $color . ';';
-                                                            } else {
-                                                                echo 'background-color: #005b8a;';
-                                                            }
-                                                            ?>					
-                                                            border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
-                                                            <?php
-                                                            if (($display_prod == '3') || ($display_prod == '2')) {
-                                                                ?>	
+
+
+                                                    if ($allProdData[$ap]->qty > 0) {
+
+
+                                                        $pcode = $allProdData[$ap]->code;
+                                                        $name = $allProdData[$ap]->name;
+                                                        $color = $allProdData[$ap]->color;
+                                                        $image = $allProdData[$ap]->thumbnail;
+                                                        ?>
+                                                        <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
+                                                                style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 
                                                                 <?php
-                                                                if ($image == 'no_image.jpg') {
+                                                                if (!empty($color)) {
+                                                                    echo 'background-color: #' . $color . ';';
+                                                                } else {
+                                                                    echo 'background-color: #005b8a;';
+                                                                }
+                                                                ?>					
+                                                                border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+                                                                <?php
+                                                                if (($display_prod == '3') || ($display_prod == '2')) {
+                                                                    ?>	
+                                                                    <?php
+                                                                    if ($image == 'no_image.jpg') {
+                                                                        ?>
+                                                                    <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                    <?php
+                                                                } else {
                                                                     ?>
-                                                                <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                <?php
-                                                            } else {
-                                                                ?>
-                                                                <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                <?php
+                                                                    <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                    <?php
+                                                                }
                                                             }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (($display_prod == '1') || ($display_prod == '3')) {
                                                             ?>
-                                                            <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
-                                                        <?php }
-                                                        ?>
-                                                    </button>
-                                                    <?php
-                                                    ++$pp;
+                                                            <?php
+                                                            if (($display_prod == '1') || ($display_prod == '3')) {
+                                                                ?>
+                                                                <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+                                                            <?php }
+                                                            ?>
+                                                        </button>
+                                                        <?php
+                                                        ++$pp;
+                                                    }
                                                 }
                                                 ?>
                                             </div>
@@ -1330,7 +1334,7 @@ require_once 'includes/pos_header.php';
                                     });
                                 </script>
 
-                                <select name="customer" id="paymentLoadCust" onchange="changeCustomerType(this.value)" class="form-control" style="border: 1px solid #3a3a3a; color: #010101; ">
+                                <select name="customer" id="paymentLoadCust" onchange="changeCustomerType(this.value)" class="form-control payment-load-customer" style="border: 1px solid #3a3a3a; color: #010101; ">
 
                                 </select>
                                 <!-- <div id="loadPaymentCustomer"></div> -->
@@ -2618,9 +2622,7 @@ require_once 'includes/pos_header.php';
 
 </script>
 
-<?php
-if ($keyboard == '1') {
-    ?>
+<?php if ($keyboard == '1') { ?>
     <!-- jQuery.NumPad -->
     <script src="<?= base_url() ?>assets/numberpad/jquery.numpad.js"></script>
     <link rel="stylesheet" href="<?= base_url() ?>assets/numberpad/jquery.numpad.css">

@@ -1307,6 +1307,7 @@ class Setting extends CI_Controller {
         $email = strip_tags($this->input->post('email'));
         $role = strip_tags($this->input->post('role'));
         $outlet = strip_tags($this->input->post('outlet'));
+        $pin = strip_tags($this->input->post('pin'));
         $status = strip_tags($this->input->post('status'));
 
         $us_id = $this->session->userdata('user_id');
@@ -1339,6 +1340,7 @@ class Setting extends CI_Controller {
                     'outlet_id' => $outlet,
                     'updated_user_id' => $us_id,
                     'updated_datetime' => $tm,
+                    'pin' => $pin,
                     'status' => $status,
                 );
                 if ($this->Constant_model->updateData('users', $upd_data, $id)) {
@@ -1359,6 +1361,7 @@ class Setting extends CI_Controller {
         $pass = strip_tags($this->input->post('password'));
         $conpass = strip_tags($this->input->post('conpassword'));
         $role = strip_tags($this->input->post('role'));
+        $pin = strip_tags($this->input->post('pin'));
         $outlet = strip_tags($this->input->post('outlet'));
 
         $us_id = $this->session->userdata('user_id');
@@ -1399,6 +1402,7 @@ class Setting extends CI_Controller {
                     'outlet_id' => $outlet,
                     'created_user_id' => $us_id,
                     'created_datetime' => $tm,
+                    'pin' => $pin,
                     'status' => '1',
                 );
 

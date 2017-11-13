@@ -44,6 +44,28 @@ class Auth_model extends CI_Model {
         }
     }
 
+    public function verifyLogInwithPin($data) {
+        $pin = $data['pin'];
+        $query = $this->db->get_where('users', array('pin' => $pin));
+        $user_data = $query->row();
+
+        if (count($user_data) > 0) {
+            $result = array();
+            $result['valid'] = true;
+            $result['user_id'] = $user_data->id;
+            $result['user_email'] = $user_data->email;
+            $result['role_id'] = $user_data->role_id;
+            $result['outlet_id'] = $user_data->outlet_id;
+            $result['pin'] = $user_data->pin;
+            return $result;
+        } else {
+            $result['valid'] = false;
+            $result['error'] = 'PIN do not exist at the system!';
+
+            return $result;
+        }
+    }
+
     public function encryptPassword($password) {
         return md5("$password");
     }

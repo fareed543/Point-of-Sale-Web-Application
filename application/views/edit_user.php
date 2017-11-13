@@ -11,6 +11,7 @@ $fullname = $userDtaData[0]->fullname;
 $email = $userDtaData[0]->email;
 $db_role_id = $userDtaData[0]->role_id;
 $db_outlet_id = $userDtaData[0]->outlet_id;
+$pin = $userDtaData[0]->pin;
 $status = $userDtaData[0]->status;
 ?>
 <script type="text/javascript">
@@ -206,7 +207,14 @@ $status = $userDtaData[0]->status;
 
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>PIN <span style="color: #F00">*</span></label>
+                                    <input type="number" name="pin" class="form-control" maxlength="4" required  value="<?php echo $pin; ?>" />
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-4">

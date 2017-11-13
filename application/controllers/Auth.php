@@ -38,7 +38,49 @@ class Auth extends CI_Controller {
         }
     }
 
+    public function checkPin() {        
+        $data = array(
+            'pin' => $this->input->post('pin'),
+        );
+        $result = $this->Auth_model->verifyLogInwithPin($data);
+        if ($result['valid']) {
+            $response =  '1';
+        } else {
+            $response = '0';
+        }
+        /*header('Content-Type: application/json');
+        echo json_encode( $arr );*/
+        
+        echo  $response;
+    }
+
     public function login() {
+        //$pin = $this->input->post('pin');
+        if (!isset($_POST['sp_login'])) {
+            $data = array(
+                'pin' => $this->input->post('pin'),
+            );
+            $result = $this->Auth_model->verifyLogInwithPin($data);
+
+            if ($result['valid']) {
+                $user_id = $result['user_id'];
+                $user_email = $result['user_email'];
+                $role_id = $result['role_id'];
+                $out_id = $result['outlet_id'];
+
+                $userdata = array(
+                    'sessionid' => 'pos',
+                    'user_id' => $user_id,
+                    'user_email' => $user_email,
+                    'user_role' => $role_id,
+                    'user_outlet' => $out_id,
+                );
+
+                $this->session->set_userdata($userdata);
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
+        }
+
         if (isset($_POST['sp_login'])) {
             $data = array(
                 'email' => $this->input->post('email'),

@@ -1331,8 +1331,9 @@ class Setting extends CI_Controller {
             redirect(base_url() . 'setting/edituser?id=' . $id);
         } else {
             $ckEmailData = $this->Constant_model->twoColumnNotEqual('users', 'email', "$email", 'id', "$id");
+            $ckPinData = $this->Constant_model->twoColumnNotEqual('users', 'pin', "$pin", 'id', "$id");
 
-            if (count($ckEmailData) == 0) {
+            if ((count($ckEmailData) == 0) && (count($ckPinData) == 0)) {
                 $upd_data = array(
                     'fullname' => $fn,
                     'email' => $email,
@@ -1348,8 +1349,14 @@ class Setting extends CI_Controller {
                     redirect(base_url() . 'setting/edituser?id=' . $id);
                 }
             } else {
-                $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Email Address, you updated already existing in the system!'));
-                redirect(base_url() . 'setting/edituser?id=' . $id);
+                if(count($ckEmailData) > 1){
+                    $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Email Address, you updated already existing in the system!'));
+                    redirect(base_url() . 'setting/edituser?id=' . $id);
+                }elseif (count($ckPinData) > 1) {
+                    $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Other user hold PIN '.$pin.', please choose some other pin!'));
+                    redirect(base_url() . 'setting/edituser?id=' . $id);
+                }
+                
             }
         }
     }
@@ -1390,8 +1397,9 @@ class Setting extends CI_Controller {
             redirect(base_url() . 'setting/adduser');
         } else {
             $ckEmailData = $this->Constant_model->getDataOneColumn('users', 'email', "$email");
-
-            if (count($ckEmailData) == 0) {
+            $ckPinData = $this->Constant_model->getDataOneColumn('users', 'pin', "$pin");
+            
+            if ((count($ckEmailData) == 0) && (count($ckPinData) == 0)) {
                 $password = $this->encryptPassword($pass);
 
                 $ins_user_data = array(
@@ -1411,8 +1419,15 @@ class Setting extends CI_Controller {
                     redirect(base_url() . 'setting/adduser');
                 }
             } else {
-                $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "Email Address : $email is already registered at the system! Please try another Email Address!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
-                redirect(base_url() . 'setting/adduser');
+                
+                if (count($ckPinData) > 0) {
+                    $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "PIN : $pin is already registered at the system! Please try another PIN!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
+                    redirect(base_url() . 'setting/adduser'); 
+                }elseif (count($ckEmailData) > 0) {
+                     $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "Email Address : $email is already registered at the system! Please try another Email Address!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
+                    redirect(base_url() . 'setting/adduser');
+                    
+                }
             }
         }
     }

@@ -586,11 +586,11 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
-                                                                                                    <li <?php if ($ct == 0) {
+                                                                                                            <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
-                                                                                                    </li>	
+                                                                                                            </li>	
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);
@@ -612,11 +612,11 @@ require_once 'includes/pos_header.php';
 
 
 
-                                               /* echo "<pre>";
+                                                /* echo "<pre>";
                                                   print_r($allProdData);
                                                   echo "query : ".$allProdData['qty'];
                                                   echo "</pre>"; */
-                                                  
+
                                                 for ($ap = 0; $ap < count($allProdData); ++$ap) {
 
 
@@ -680,44 +680,46 @@ require_once 'includes/pos_header.php';
                                                      <?php
                                                      $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
                                                      for ($d = 0; $d < count($prodData); ++$d) {
-                                                         $pcode = $prodData[$d]->code;
-                                                         $name = $prodData[$d]->name;
-                                                         $color = $prodData[$d]->color;
-                                                         $image = $prodData[$d]->thumbnail;
-                                                         ?>
-                                                        <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
-                                                                style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 					
-                                                                <?php
-                                                                if (!empty($color)) {
-                                                                    echo 'background-color: #' . $color . ';';
-                                                                } else {
-                                                                    echo 'background-color: #005b8a;';
-                                                                }
-                                                                ?> border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
-                                                                <?php
-                                                                if (($display_prod == '3') || ($display_prod == '2')) {
-                                                                    ?>	
+                                                         if ($prodData[$d]->qty > 0) {
+                                                             $pcode = $prodData[$d]->code;
+                                                             $name = $prodData[$d]->name;
+                                                             $color = $prodData[$d]->color;
+                                                             $image = $prodData[$d]->thumbnail;
+                                                             ?>
+                                                            <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
+                                                                    style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 					
                                                                     <?php
-                                                                    if ($image == 'no_image.jpg') {
+                                                                    if (!empty($color)) {
+                                                                        echo 'background-color: #' . $color . ';';
+                                                                    } else {
+                                                                        echo 'background-color: #005b8a;';
+                                                                    }
+                                                                    ?> border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+                                                                    <?php
+                                                                    if (($display_prod == '3') || ($display_prod == '2')) {
+                                                                        ?>	
+                                                                        <?php
+                                                                        if ($image == 'no_image.jpg') {
+                                                                            ?>
+                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                        <?php
+                                                                    } else {
                                                                         ?>
-                                                                    <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                    <?php
-                                                                } else {
-                                                                    ?>
-                                                                    <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                    <?php
+                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                        <?php
+                                                                    }
                                                                 }
-                                                            }
-                                                            ?>
-                                                            <?php
-                                                            if (($display_prod == '1') || ($display_prod == '3')) {
                                                                 ?>
-                                                                <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
-                                                            <?php }
-                                                            ?>
-                                                        </button>
-                                                        <?php
-                                                        ++$pp;
+                                                                <?php
+                                                                if (($display_prod == '1') || ($display_prod == '3')) {
+                                                                    ?>
+                                                                    <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+                                                                <?php }
+                                                                ?>
+                                                            </button>
+                                                            <?php
+                                                            ++$pp;
+                                                        }
                                                     }
                                                     ?>
                                                 </div>

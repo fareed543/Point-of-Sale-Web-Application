@@ -21,6 +21,7 @@ class Debit_model extends CI_Model {
 
     public function fetch_debit_data($limit, $start) {
         $this->db->where('vt_status', '0');
+        $this->db->where('customer_id', '1');
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $start);
         $query = $this->db->get('orders');

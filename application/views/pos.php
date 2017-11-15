@@ -596,11 +596,11 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
-                                                                                <li <?php if ($ct == 0) {
+                                                                                    <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
-                                                                                </li>	
+                                                                                    </li>	
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);
@@ -1357,6 +1357,7 @@ require_once 'includes/pos_header.php';
                                 document.getElementById("paid_by_wrp").style.display = "block";
                                 document.getElementById("submit_btn").style.display = "none";
                                 document.getElementById("final_payable_amt_wrp").style.display = "block";
+                                document.getElementById("advance_wrp").style.display = "block";
                                 if (ele == "3" || ele == "4") {			// Complimentory, Expire/Damaged
                                     document.getElementById("final_payable_amt_wrp").style.display = "none";
                                     document.getElementById("paid").readOnly = false;
@@ -1380,6 +1381,7 @@ require_once 'includes/pos_header.php';
 
                                     document.getElementById("paid_wrp").style.display = "none";
                                     document.getElementById("return_wrp").style.display = "none";
+                                    document.getElementById("advance_wrp").style.display = "none";
                                 } else {
                                     var e = document.getElementById("paid_by");
                                     var paidbyValue = e.options[e.selectedIndex].value;
@@ -1522,7 +1524,7 @@ require_once 'includes/pos_header.php';
 
 
                         </script>	
-                        <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                        <div class="row" id="advance_wrp" style="padding-top: 10px; padding-bottom: 10px;">
                             <div class="col-md-6"><b>Advance Order :</b></div>
                             <div class="col-md-6">
                                 <input type="checkbox" name="advance" id="advance" style="height: 35px; width: 35px;">
@@ -2627,19 +2629,19 @@ if ($keyboard == '1') {
     <script type="text/javascript">
     // Set NumPad defaults for jQuery mobile. 
     // These defaults will be applied to all NumPads within this document!
-    $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
-    $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
-    $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
-    $.fn.numpad.defaults.buttonNumberTpl = '<button type="button" class="btn btn-default"></button>';
-    $.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
-    $.fn.numpad.defaults.onKeypadCreate = function () {
-        $(this).find('.done').addClass('btn-primary');
-    };
+        $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
+        $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
+        $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
+        $.fn.numpad.defaults.buttonNumberTpl = '<button type="button" class="btn btn-default"></button>';
+        $.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
+        $.fn.numpad.defaults.onKeypadCreate = function () {
+            $(this).find('.done').addClass('btn-primary');
+        };
 
     // Instantiate NumPad once the page is ready to be shown
-    $(document).ready(function () {
-        $('#paid').numpad();
-    });
+        $(document).ready(function () {
+            $('#paid').numpad();
+        });
     </script>
     <?php
 }

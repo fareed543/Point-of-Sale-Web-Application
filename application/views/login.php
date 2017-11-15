@@ -17,10 +17,8 @@ date_default_timezone_set("$setting_timezone");
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1" />
         <title><?php echo $setting_site_name; ?></title>
-
         <link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/datepicker3.css" rel="stylesheet">
         <link href="<?= base_url() ?>assets/css/styles.css" rel="stylesheet">
@@ -34,7 +32,7 @@ date_default_timezone_set("$setting_timezone");
 
     <body style="background-color: #e1e0de;">
 
-        <div class="row" id="login_with_username_form">
+        <div class="row" id="login_with_username_form" style="display:none;">
             <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading" style="height: 175px;">

@@ -1513,7 +1513,7 @@ require_once 'includes/pos_header.php';
 
                                 if (document.getElementById('advance').checked) {
                                     document.getElementById("submit_btn").style.display = "block";
-
+                                    document.getElementById("return_wrp").style.display = "none";
                                     document.getElementById("addi_card_numb_wrp").style.display = "block";
                                     //document.getElementById("addi_card_numb").required 				= true;
 

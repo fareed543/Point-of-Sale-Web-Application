@@ -1,12 +1,16 @@
 # POS
 
-Point of Sale Web Application developer on CodeIgniter
+Point of Sale Web Application developer on CodeIgniter.
 
-  Software Requirements :
+Successfully Deployed Application in Bakery Stores. Working Successfully Offline
+
+
+
+  <b>Software Requirements :</b>
 
     Any Apache Server Like XAMPP, WAMP
 
-  Features : 
+   <b>Features: </b>
 
     COD, Check Cash and Advance Payment Amount Options
 
@@ -16,7 +20,7 @@ Point of Sale Web Application developer on CodeIgniter
 
     Generate Database Backup Option
 
-  Installation Steps:
+  <b>Installation Steps:</b>
   
     Download XAMPP, WAMPP, USB server and any web server [Local]
 

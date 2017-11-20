@@ -5,6 +5,9 @@ require_once 'includes/pos_header.php';
     .payment-load-customer{
         width: 268px !important;
     }
+    .close-button{
+        float:right;
+    }
 </style>
 <script src="<?= base_url() ?>assets/js/jquery-1.10.2.js"></script>
 
@@ -586,11 +589,11 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
-                                                                                                            <li <?php if ($ct == 0) {
+                                                                                                                        <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
-                                                                                                            </li>	
+                                                                                                                        </li>	
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);
@@ -1162,7 +1165,10 @@ require_once 'includes/pos_header.php';
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #373942;">
-                        <h3 class="modal-title" style="color: #FFF;"><?php echo $lang_today_sales; ?> : <span id="todayDateWrp">0000-00-00</span></h3>
+                        <h3 class="modal-title" style="color: #FFF;">
+                            <?php echo $lang_today_sales; ?> : <span id="todayDateWrp">0000-00-00</span> 
+                            <span onclick="closetotalSalesModel()" class="close-button">X</span>
+                        </h3>
                     </div>
                     <div class="modal-body" style="overflow: visible; background-color: #FFF;">
 
@@ -1223,7 +1229,10 @@ require_once 'includes/pos_header.php';
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #373942;">
-                        <h3 class="modal-title" style="color: #FFF;"><?php echo $lang_opened_bill; ?></h3>
+                        <h3 class="modal-title" style="color: #FFF;">
+                            <?php echo $lang_opened_bill; ?>
+                            <span onclick="closeopenedBillModel()" class="close-button">X</span>
+                        </h3>
                     </div>
                     <div class="modal-body" style="overflow: visible; background-color: #FFF;">
 
@@ -1359,6 +1368,13 @@ require_once 'includes/pos_header.php';
                         </div>
 
                         <script type="text/javascript">
+                            function closetotalSalesModel() {
+                                $('#totalSales').modal('hide');
+                            }
+                            function closeopenedBillModel() {
+                                $('#openedBill').modal('hide');
+                            }
+
                             function changeCustomerType(ele) {
                                 document.getElementById("paid_by_wrp").style.display = "block";
                                 document.getElementById("submit_btn").style.display = "none";
@@ -2631,19 +2647,19 @@ require_once 'includes/pos_header.php';
     <script type="text/javascript">
     // Set NumPad defaults for jQuery mobile. 
     // These defaults will be applied to all NumPads within this document!
-    $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
-    $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
-    $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
-    $.fn.numpad.defaults.buttonNumberTpl = '<button type="button" class="btn btn-default"></button>';
-    $.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
-    $.fn.numpad.defaults.onKeypadCreate = function () {
-        $(this).find('.done').addClass('btn-primary');
-    };
+        $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
+        $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
+        $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
+        $.fn.numpad.defaults.buttonNumberTpl = '<button type="button" class="btn btn-default"></button>';
+        $.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
+        $.fn.numpad.defaults.onKeypadCreate = function () {
+            $(this).find('.done').addClass('btn-primary');
+        };
 
     // Instantiate NumPad once the page is ready to be shown
-    $(document).ready(function () {
-        $('#paid').numpad();
-    });
+        $(document).ready(function () {
+            $('#paid').numpad();
+        });
     </script>
     <?php
 }

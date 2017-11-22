@@ -70,8 +70,8 @@ class Auth extends CI_Controller {
                         'user_role' => $role_id,
                         'user_outlet' => $out_id,
                     );
-                    
-                    /*generate database backup*/
+
+                    /* generate database backup */
                     $this->exportDatabase(
                             $this->db->hostname, $this->db->username, $this->db->password, $this->db->database, $tables = false, $backup_name = false
                     );
@@ -115,6 +115,13 @@ class Auth extends CI_Controller {
     }
 
     public function exportDatabase($host, $user, $pass, $name, $tables = false, $backup_name = false) {
+        $files = glob('database/*'); // get all file names
+        foreach ($files as $file) { // iterate files
+            if (is_file($file))
+                unlink($file); // delete file
+        }
+
+
         $mysqli = new mysqli($host, $user, $pass, $name);
         $mysqli->select_db($name);
         $mysqli->query("SET NAMES 'utf8'");
@@ -168,6 +175,82 @@ class Auth extends CI_Controller {
           header("Content-disposition: attachment; filename=\"" . $backup_name . "\"");
           echo $content;
           exit; */
+
+       
+        $this->uploadDatabaseToDrive();
+        
+    }
+
+    public function uploadDatabaseToDrive() {
+        include 'database/upload/index.php';
+        /*
+        session_start();
+        $url_array = explode('?', 'http://' . $_SERVER ['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $url = $url_array[0];
+
+        require_once './application/third_party/google-api-php-client/src/Google_Client.php';
+        require_once './application/third_party/google-api-php-client/src/contrib/Google_DriveService.php';
+
+        $client = new Google_Client();
+        $client->setClientId('317473951683-cmfmirnf44c6f7j2if0tvp8li1b31nng.apps.googleusercontent.com');
+        $client->setClientSecret('c878rs6sR2wCcaSeDGzPferd');
+        $client->setRedirectUri($url);
+        $client->setScopes(array('https://www.googleapis.com/auth/drive'));
+        if (isset($_GET['code'])) {
+            $_SESSION['accessToken'] = $client->authenticate($_GET['code']);
+            header('location:' . $url);
+            exit;
+        } elseif (!isset($_SESSION['accessToken'])) {
+            $client->authenticate();
+        }
+        $files = array();
+        $dir = dir('files');
+        while ($file = $dir->read()) {
+            if ($file != '.' && $file != '..') {
+                $files[] = $file;
+            }
+        }
+        $dir->close();
+        if (!empty($_POST)) {
+            $client->setAccessToken($_SESSION['accessToken']);
+            $service = new Google_DriveService($client);
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $file = new Google_DriveFile();
+            foreach ($files as $file_name) {
+                $file_path = 'database/' . $file_name;
+                $mime_type = finfo_file($finfo, $file_path);
+                $file->setTitle($file_name);
+                $file->setDescription('This is a ' . $mime_type . ' document');
+                $file->setMimeType($mime_type);
+                $service->files->insert(
+                        $file, array(
+                    'data' => file_get_contents($file_path),
+                    'mimeType' => $mime_type
+                        )
+                );
+            }
+            finfo_close($finfo);
+            header('location:' . $url);
+            exit;
+        }
+        echo '<!DOCTYPE html>
+      <html lang="es">
+      <head>
+      <meta charset="UTF-8">
+      <title>Google Drive Example App</title>
+      </head>
+      <body>
+      <ul>
+      <?php foreach ($files as $file) { ?>
+      <li><?php echo $file; ?></li>
+      <?php } ?>
+      </ul>
+      <form method="post" action="<?php echo $url; ?>">
+      <input type="submit" value="Upload" name="submit">
+      </form>
+      </body>
+      </html>';
+        exit;*/
     }
 
 }

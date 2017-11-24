@@ -21,6 +21,21 @@ class Constant_model extends CI_Model {
     }
 
     // Query Data from Table by One Columns;
+    public function getPOSProducts($table, $col1_name, $col1_value) {
+
+
+        $this->db->select('*');
+        $this->db->from('products p');
+        $this->db->join('inventory n', 'n.product_code = p.code', 'left');
+        $this->db->where('p.status', 1);
+        $query = $this->db->get();
+        $result = $query->result();
+        $this->db->save_queries = false;
+
+        return $result;
+    }
+
+    // Query Data from Table by One Columns;
     public function getDataOneColumn($table, $col1_name, $col1_value) {
         $this->db->where("$col1_name", $col1_value);
 
@@ -33,13 +48,24 @@ class Constant_model extends CI_Model {
 
     // Query Data from Table By two columns;
     public function getDataTwoColumn($table, $col1_name, $col1_value, $col2_name, $col2_value) {
-        $this->db->where("$col1_name", $col1_value);
-        $this->db->where("$col2_name", $col2_value);
 
-        $query = $this->db->get("$table");
-        $result = $query->result();
-        $this->db->save_queries = false;
+        if ($table == 'products') {
+            $this->db->select('*');
+            $this->db->from('products p');
+            $this->db->join('inventory n', 'n.product_code = p.code', 'left');
+            $this->db->where("p.".$col1_name, $col1_value);
+            $this->db->where("p.".$col2_name, $col2_value);
+            $query = $this->db->get();
+            $result = $query->result();
+            $this->db->save_queries = false;
+        } else {
+            $this->db->where("$col1_name", $col1_value);
+            $this->db->where("$col2_name", $col2_value);
 
+            $query = $this->db->get("$table");
+            $result = $query->result();
+            $this->db->save_queries = false;
+        }
         return $result;
     }
 

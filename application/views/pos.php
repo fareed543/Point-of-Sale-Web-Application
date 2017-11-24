@@ -2,8 +2,11 @@
 require_once 'includes/pos_header.php';
 ?>
 <style>
-    #paymentLoadCust{
+    .payment-load-customer{
         width: 268px !important;
+    }
+    .close-button{
+        float:right;
     }
 </style>
 <script src="<?= base_url() ?>assets/js/jquery-1.10.2.js"></script>
@@ -60,9 +63,7 @@ require_once 'includes/pos_header.php';
 
                                 <script type="text/javascript">
                                     $(document).on('ready', function () {
-
                                         //$('body').on('click','button',function(){});
-
                                         $("#searchProd").keyup(function () {
                                             // Retrieve the input field text
                                             var filter = $(this).val();
@@ -74,7 +75,6 @@ require_once 'includes/pos_header.php';
                                                     $(this).parent().show();
                                                 }
                                             });
-
                                         });
 
                                         $("#pop_add_cust_submit").click(function () {
@@ -202,15 +202,9 @@ require_once 'includes/pos_header.php';
                                                                             $('#outofstockwrp').modal('show');
                                                                             //alert("Out of Stock! Please make Purchase Order!");
                                                                         }
-
-
                                                                     }
                                                                 }
-
-
-
                                                             }
-
                                                         }
 
                                                         /*
@@ -295,7 +289,6 @@ require_once 'includes/pos_header.php';
                                 <div style="overflow: scroll; height: 330px; width: 100%;">
                                     <?php
                                     $suspend_id = 0;
-
                                     $subTotal = 0;
                                     $dis_amt = 0;
                                     $tax_amt = 0;
@@ -596,11 +589,19 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
+<<<<<<< HEAD
                                                                                     <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
                                                                                     </li>	
+=======
+                                                                                                                        <li <?php if ($ct == 0) {
+                                                        ?> class="active" <?php }
+                                                    ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
+                                                    <?php echo $cat_name; ?></a>
+                                                                                                                        </li>	
+>>>>>>> pin-login
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);
@@ -618,78 +619,36 @@ require_once 'includes/pos_header.php';
                                             ?>	
                                             <div class="tab-pane fade in active" id="pilltabAll">
                                                 <?php
-                                                $allProdData = $this->Constant_model->getDataOneColumn('products', 'status', '1');
+                                                $allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
+
+
+
+                                                /* echo "<pre>";
+                                                  print_r($allProdData);
+                                                  echo "query : ".$allProdData['qty'];
+                                                  echo "</pre>"; */
+
                                                 for ($ap = 0; $ap < count($allProdData); ++$ap) {
-                                                    $pcode = $allProdData[$ap]->code;
-                                                    $name = $allProdData[$ap]->name;
-                                                    $color = $allProdData[$ap]->color;
-                                                    $image = $allProdData[$ap]->thumbnail;
-                                                    ?>
-                                                    <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
-                                                            style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 
-                                                            <?php
-                                                            if (!empty($color)) {
-                                                                echo 'background-color: #' . $color . ';';
-                                                            } else {
-                                                                echo 'background-color: #005b8a;';
-                                                            }
-                                                            ?>					
-                                                            border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
-                                                            <?php
-                                                            if (($display_prod == '3') || ($display_prod == '2')) {
-                                                                ?>	
-                                                                <?php
-                                                                if ($image == 'no_image.jpg') {
-                                                                    ?>
-                                                                <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                <?php
-                                                            } else {
-                                                                ?>
-                                                                <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (($display_prod == '1') || ($display_prod == '3')) {
-                                                            ?>
-                                                            <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
-                                                        <?php }
-                                                        ?>
-                                                    </button>
-                                                    <?php
-                                                    ++$pp;
-                                                }
-                                                ?>
-                                            </div>
 
-                                            <?php
-                                            // $pp = 0;
 
-                                            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
-                                            for ($ca = 0; $ca < count($catData); ++$ca) {
-                                                $category_id = $catData[$ca]->id;
-                                                ?>
-                                                <div class="tab-pane fade in <?php if ($ca == 0) {
-                                                    ?><?php }
-                                                ?>" id="pilltab<?php echo $category_id; ?>">
-                                                     <?php
-                                                     $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
-                                                     for ($d = 0; $d < count($prodData); ++$d) {
-                                                         $pcode = $prodData[$d]->code;
-                                                         $name = $prodData[$d]->name;
-                                                         $color = $prodData[$d]->color;
-                                                         $image = $prodData[$d]->thumbnail;
-                                                         ?>
+                                                    if ($allProdData[$ap]->qty > 0) {
+
+
+                                                        $pcode = $allProdData[$ap]->code;
+                                                        $name = $allProdData[$ap]->name;
+                                                        $color = $allProdData[$ap]->color;
+                                                        $image = $allProdData[$ap]->thumbnail;
+                                                        ?>
                                                         <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
-                                                                style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 					
+                                                                style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 
                                                                 <?php
                                                                 if (!empty($color)) {
                                                                     echo 'background-color: #' . $color . ';';
                                                                 } else {
                                                                     echo 'background-color: #005b8a;';
                                                                 }
-                                                                ?> border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+                                                                ?>					
+                                                                border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
                                                                 <?php
                                                                 if (($display_prod == '3') || ($display_prod == '2')) {
                                                                     ?>	
@@ -714,6 +673,64 @@ require_once 'includes/pos_header.php';
                                                         </button>
                                                         <?php
                                                         ++$pp;
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+
+                                            <?php
+                                            // $pp = 0;
+
+                                            $catData = $this->Constant_model->getDataOneColumn('category', 'status', '1');
+                                            for ($ca = 0; $ca < count($catData); ++$ca) {
+                                                $category_id = $catData[$ca]->id;
+                                                ?>
+                                                <div class="tab-pane fade in <?php if ($ca == 0) {
+                                                    ?><?php }
+                                                ?>" id="pilltab<?php echo $category_id; ?>">
+                                                     <?php
+                                                     $prodData = $this->Constant_model->getDataTwoColumn('products', 'status', '1', 'category', $category_id);
+                                                     for ($d = 0; $d < count($prodData); ++$d) {
+                                                         if ($prodData[$d]->qty > 0) {
+                                                             $pcode = $prodData[$d]->code;
+                                                             $name = $prodData[$d]->name;
+                                                             $color = $prodData[$d]->color;
+                                                             $image = $prodData[$d]->thumbnail;
+                                                             ?>
+                                                            <button type="button" id="txtMessage_<?php echo $pp; ?>" value="<?php echo $pcode; ?>" 
+                                                                    style="margin-top: 10px; margin-left: 19px; border-radius: 5px; padding: 20px 10px 20px 10px; 					
+                                                                    <?php
+                                                                    if (!empty($color)) {
+                                                                        echo 'background-color: #' . $color . ';';
+                                                                    } else {
+                                                                        echo 'background-color: #005b8a;';
+                                                                    }
+                                                                    ?> border: 0px; color: #FFF; font-family: Arial, Helvetica, sans-serif; font-size: 13px; width: 120px;">
+                                                                    <?php
+                                                                    if (($display_prod == '3') || ($display_prod == '2')) {
+                                                                        ?>	
+                                                                        <?php
+                                                                        if ($image == 'no_image.jpg') {
+                                                                            ?>
+                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                        <?php
+                                                                    } else {
+                                                                        ?>
+                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $pcode; ?>/<?php echo $image; ?>" height="50px" style="padding-bottom: 5px;" /><br />
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <?php
+                                                                if (($display_prod == '1') || ($display_prod == '3')) {
+                                                                    ?>
+                                                                    <span id="proname"><?php echo $name; ?> <br/>[<?php echo $pcode; ?>]</span>
+                                                                <?php }
+                                                                ?>
+                                                            </button>
+                                                            <?php
+                                                            ++$pp;
+                                                        }
                                                     }
                                                     ?>
                                                 </div>
@@ -1156,7 +1173,10 @@ require_once 'includes/pos_header.php';
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #373942;">
-                        <h3 class="modal-title" style="color: #FFF;"><?php echo $lang_today_sales; ?> : <span id="todayDateWrp">0000-00-00</span></h3>
+                        <h3 class="modal-title" style="color: #FFF;">
+                            <?php echo $lang_today_sales; ?> : <span id="todayDateWrp">0000-00-00</span> 
+                            <span onclick="closetotalSalesModel()" class="close-button">X</span>
+                        </h3>
                     </div>
                     <div class="modal-body" style="overflow: visible; background-color: #FFF;">
 
@@ -1217,7 +1237,10 @@ require_once 'includes/pos_header.php';
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #373942;">
-                        <h3 class="modal-title" style="color: #FFF;"><?php echo $lang_opened_bill; ?></h3>
+                        <h3 class="modal-title" style="color: #FFF;">
+                            <?php echo $lang_opened_bill; ?>
+                            <span onclick="closeopenedBillModel()" class="close-button">X</span>
+                        </h3>
                     </div>
                     <div class="modal-body" style="overflow: visible; background-color: #FFF;">
 
@@ -1330,7 +1353,7 @@ require_once 'includes/pos_header.php';
                                     });
                                 </script>
 
-                                <select name="customer" id="paymentLoadCust" onchange="changeCustomerType(this.value)" class="form-control" style="border: 1px solid #3a3a3a; color: #010101; ">
+                                <select name="customer" id="paymentLoadCust" onchange="changeCustomerType(this.value)" class="form-control payment-load-customer" style="border: 1px solid #3a3a3a; color: #010101; ">
 
                                 </select>
                                 <!-- <div id="loadPaymentCustomer"></div> -->
@@ -1353,6 +1376,13 @@ require_once 'includes/pos_header.php';
                         </div>
 
                         <script type="text/javascript">
+                            function closetotalSalesModel() {
+                                $('#totalSales').modal('hide');
+                            }
+                            function closeopenedBillModel() {
+                                $('#openedBill').modal('hide');
+                            }
+
                             function changeCustomerType(ele) {
                                 document.getElementById("paid_by_wrp").style.display = "block";
                                 document.getElementById("submit_btn").style.display = "none";
@@ -2620,9 +2650,7 @@ require_once 'includes/pos_header.php';
 
 </script>
 
-<?php
-if ($keyboard == '1') {
-    ?>
+<?php if ($keyboard == '1') { ?>
     <!-- jQuery.NumPad -->
     <script src="<?= base_url() ?>assets/numberpad/jquery.numpad.js"></script>
     <link rel="stylesheet" href="<?= base_url() ?>assets/numberpad/jquery.numpad.css">

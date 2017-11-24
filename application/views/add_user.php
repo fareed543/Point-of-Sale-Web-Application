@@ -107,6 +107,21 @@ require_once 'includes/header.php';
                         </div>
 
                         <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>PIN <span style="color: #F00">*</span></label>
+                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" required  value="" />
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $lang_role; ?> <span style="color: #F00">*</span></label>

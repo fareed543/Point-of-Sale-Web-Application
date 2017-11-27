@@ -50,7 +50,7 @@ require_once 'includes/header.php';
                     <div class="row">
                         <div class="col-md-12">
                             <?php
-                            if ($user_role < 3) {
+                            /*if ($user_role < 3) {
                                 ?>
                                 <a href="<?= base_url() ?>setting/addpaymentmethod" style="text-decoration: none">
                                     <button class="btn btn-primary" style="padding: 0px 12px;"><i class="icono-plus"></i>
@@ -58,7 +58,7 @@ require_once 'includes/header.php';
                                     </button>
                                 </a>
                                 <?php
-                            }
+                            }*/
                             ?>
                         </div>
                     </div>

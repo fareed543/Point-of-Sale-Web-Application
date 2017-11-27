@@ -10,8 +10,9 @@ and open the template in the editor.
 
 
 body { 
-    background-image: url("../img/login-background.png");
-    background-color: #cccccc;
+    /*background-image: url("../img/login-background.png");
+    background-color: #cccccc;*/
+    background-color: #467cef;
 }
 strong
 {
@@ -91,7 +92,7 @@ strong
     height: 667px;
     width: 375px;
     z-index: 9999;
-    background-color: #f5f5f5;
+    background-color: #457bef;
     /*background-color: #272a2f;
     background-image: url("../img/pin-login-background.jpg");*/
     background-size: cover;
@@ -99,9 +100,9 @@ strong
     color: #fff;
     border-radius: 10px;
     text-align: center;
-    -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.6);
+    /*-webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.6);*/
     top: 50%;
     left: 50%;
     margin-top: -335px;
@@ -130,7 +131,7 @@ strong
     width: 70px;
     height: 70px;
     margin-bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.35);
+    background-color: rgb(69, 123, 239);
     border: 0;
     color: #fff;
     font-size: 25px;
@@ -138,7 +139,7 @@ strong
     border-radius: 100%;
     opacity: 1;
     outline: 0;
-    border: 2px solid #272a2f;
+    border: 2px solid #fdfdfd;
 }
 
 .pincode button:active {
@@ -170,7 +171,7 @@ strong
 }
 
 .pincode #fields .numberfield.active span {
-    background-color: #3c0000;
+    background-color: #fffbfb;
 }
 
 .pincode #fields .numberfield.right span {

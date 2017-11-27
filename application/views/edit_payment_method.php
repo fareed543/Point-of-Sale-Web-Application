@@ -59,7 +59,7 @@ $payment_status = $payDtaData[0]->status;
 
                     <?php
                     if ($user_role == 1) {
-                        ?>
+                        /*?>
                         <div class="row">
                             <div class="col-md-12" style="text-align: right;">
                                 <form action="<?= base_url() ?>setting/deletePaymentMethod" method="post" onsubmit="return confirm('Do you want to delete this Payment Method?')">
@@ -71,7 +71,7 @@ $payment_status = $payDtaData[0]->status;
                                 </form>
                             </div>
                         </div>
-                        <?php
+                        <?php */
                     }
                     ?>
 

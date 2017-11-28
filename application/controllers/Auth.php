@@ -164,7 +164,9 @@ class Auth extends CI_Controller {
             if (is_file($file))
                 unlink($file); // delete file
         }
-
+        if (!ini_get('date.timezone')) {
+            date_default_timezone_set('GMT');
+        }
         $mysqli = new mysqli($host, $user, $pass, $name);
         $mysqli->select_db($name);
         $mysqli->query("SET NAMES 'utf8'");

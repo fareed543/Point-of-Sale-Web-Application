@@ -211,7 +211,7 @@ $status = $userDtaData[0]->status;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>PIN <span style="color: #F00">*</span></label>
-                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" required  value="<?php echo $pin; ?>" />
+                                    <input type="password" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" required  value="<?php echo $pin; ?>" />
                                 </div>
                             </div>
                         </div>

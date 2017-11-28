@@ -111,7 +111,7 @@ require_once 'includes/header.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>PIN <span style="color: #F00">*</span></label>
-                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" required  value="" />
+                                    <input type="password" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" required  value="" />
                                 </div>
                             </div>
                             

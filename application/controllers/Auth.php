@@ -165,7 +165,6 @@ class Auth extends CI_Controller {
                 unlink($file); // delete file
         }
 
-
         $mysqli = new mysqli($host, $user, $pass, $name);
         $mysqli->select_db($name);
         $mysqli->query("SET NAMES 'utf8'");
@@ -221,7 +220,7 @@ class Auth extends CI_Controller {
           exit; */
 
 
-        $this->uploadDatabaseToDrive();
+        //$this->uploadDatabaseToDrive();
     }
 
     public function uploadDatabaseToDrive() {

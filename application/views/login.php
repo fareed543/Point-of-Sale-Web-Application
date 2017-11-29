@@ -31,24 +31,24 @@ date_default_timezone_set("$setting_timezone");
     </head>
 
     <body>
-        <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg))?'block':'none'; ?>">
+        <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg)) ? 'block' : 'none'; ?>">
             <div id="anleitung">
-                            <?php
-                            if (!empty($alert_msg)) {
-                                $flash_status = $alert_msg[0];
-                                $flash_header = $alert_msg[1];
-                                $flash_desc = $alert_msg[2];
+                <?php
+                if (!empty($alert_msg)) {
+                    $flash_status = $alert_msg[0];
+                    $flash_header = $alert_msg[1];
+                    $flash_desc = $alert_msg[2];
 
-                                if ($flash_status == 'failure') {
-                                    ?>
-                                    <div class="form-group warning-message" style="text-align: center; color: #c72a25; margin-top: 107px;    margin-bottom: -103px;">
-                                        <?php echo $flash_desc; ?>
-                                    </div>
-                                    <?php
-                                }
-                            }
-                            ?>
+                    if ($flash_status == 'failure') {
+                        ?>
+                        <div class="form-group warning-message" style="text-align: center; color: #c72a25; margin-top: 107px;    margin-bottom: -103px;">
+                            <?php echo $flash_desc; ?>
                         </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
             <div class="panel-heading">
                 Login Page
                 <br />
@@ -74,7 +74,7 @@ date_default_timezone_set("$setting_timezone");
             </div>
         </div>
         <div class="pin-section">
-            <div class="pincode login_with_pin_form" style="display:<?php echo (!empty($alert_msg))?'none':'block'; ?>">
+            <div class="pincode login_with_pin_form" style="display:<?php echo (!empty($alert_msg)) ? 'none' : 'block'; ?>">
                 <div class="table">
                     <div class="cell">
                         <div id="anleitung">
@@ -119,7 +119,7 @@ date_default_timezone_set("$setting_timezone");
 
                                 <div class="grid__col grid__col--1-of-3"></div>
                                 <div class="grid__col grid__col--1-of-3"><button>0</button></div>
-                                <div class="grid__col grid__col--1-of-3"></div>
+                                <div class="grid__col grid__col--1-of-3"><button>DEL</button></div>
                             </div>
                         </div>
                         <div id="button">
@@ -154,19 +154,21 @@ date_default_timezone_set("$setting_timezone");
                     return false;
                 });
 
-               var enterCode = "";
+                var enterCode = "";
                 enterCode.toString();
-
+                var lengthCode = -1;
                 $("#numbers button").click(function () {
                     var clickedNumber = $(this).text().toString();
-                    enterCode = enterCode + clickedNumber;
-                    var lengthCode = parseInt(enterCode.length);
-                    lengthCode--;
-                    $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
-
-                    console.log(lengthCode);
-                    console.log(enterCode);
-
+                    if (clickedNumber == 'DEL') {
+                        enterCode = enterCode.substring(0, lengthCode);
+                        $("#fields .numberfield:eq(" + lengthCode + ")").removeClass("active");
+                        lengthCode--;
+                    } else {
+                        enterCode = enterCode + clickedNumber;
+                        lengthCode = parseInt(enterCode.length);
+                        lengthCode--;
+                        $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
+                    }
                     if (lengthCode == 3) {
                         $.ajax({
                             url: '<?= base_url() ?>auth/checkpin',
@@ -206,7 +208,6 @@ date_default_timezone_set("$setting_timezone");
                                 }
                             }
                         });
-                    } else {
                     }
 
                 });

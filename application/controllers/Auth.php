@@ -39,48 +39,52 @@ class Auth extends CI_Controller {
     }
 
     public function checkPin() {
-        $data = array(
-            'pin' => $this->input->post('pin'),
-        );
-        $result = $this->Auth_model->verifyLogInwithPin($data);
-        if ($result['valid']) {
-            $response = '1';
+        $pin = $this->input->post('pin');
+        if (strlen($pin) == 4) {
+            $data = array(
+                'pin' => $this->input->post('pin'),
+            );
+            $result = $this->Auth_model->verifyLogInwithPin($data);
+            if ($result['valid']) {
+                $response = '1';
+            } else {
+                $response = '0';
+            }
         } else {
             $response = '0';
         }
-        /* header('Content-Type: application/json');
-          echo json_encode( $arr ); */
-
         echo $response;
     }
 
     public function login() {
         //$pin = $this->input->post('pin');
         if (!isset($_POST['sp_login'])) {
-            $data = array(
-                'pin' => $this->input->post('pin'),
-            );
-            $result = $this->Auth_model->verifyLogInwithPin($data);
-
-            if ($result['valid']) {
-                $user_id = $result['user_id'];
-                $user_email = $result['user_email'];
-                $role_id = $result['role_id'];
-                $out_id = $result['outlet_id'];
-
-                $userdata = array(
-                    'sessionid' => 'pos',
-                    'user_id' => $user_id,
-                    'user_email' => $user_email,
-                    'user_role' => $role_id,
-                    'user_outlet' => $out_id,
+            $pin = $this->input->post('pin');
+            if (strlen($pin) > 0) {
+                $data = array(
+                    'pin' => $this->input->post('pin'),
                 );
-                /* generate database backup */
-                $this->exportDatabase(
-                        $this->db->hostname, $this->db->username, $this->db->password, $this->db->database, $tables = false, $backup_name = false
-                );
-                $this->session->set_userdata($userdata);
-                redirect(base_url() . 'dashboard', 'refresh');
+                $result = $this->Auth_model->verifyLogInwithPin($data);
+                if ($result['valid']) {
+                    $user_id = $result['user_id'];
+                    $user_email = $result['user_email'];
+                    $role_id = $result['role_id'];
+                    $out_id = $result['outlet_id'];
+
+                    $userdata = array(
+                        'sessionid' => 'pos',
+                        'user_id' => $user_id,
+                        'user_email' => $user_email,
+                        'user_role' => $role_id,
+                        'user_outlet' => $out_id,
+                    );
+                    /* generate database backup */
+                    $this->exportDatabase(
+                            $this->db->hostname, $this->db->username, $this->db->password, $this->db->database, $tables = false, $backup_name = false
+                    );
+                    $this->session->set_userdata($userdata);
+                    redirect(base_url() . 'dashboard', 'refresh');
+                }
             }
         }
 

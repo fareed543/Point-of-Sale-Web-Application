@@ -1349,14 +1349,13 @@ class Setting extends CI_Controller {
                     redirect(base_url() . 'setting/edituser?id=' . $id);
                 }
             } else {
-                if(count($ckEmailData) > 1){
+                if (count($ckEmailData) > 1) {
                     $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Email Address, you updated already existing in the system!'));
                     redirect(base_url() . 'setting/edituser?id=' . $id);
-                }elseif (count($ckPinData) > 1) {
-                    $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Other user hold PIN '.$pin.', please choose some other pin!'));
+                } elseif (count($ckPinData) > 1) {
+                    $this->session->set_flashdata('alert_msg', array('failure', 'Update User', 'Other user hold PIN ' . $pin . ', please choose some other pin!'));
                     redirect(base_url() . 'setting/edituser?id=' . $id);
                 }
-                
             }
         }
     }
@@ -1398,7 +1397,7 @@ class Setting extends CI_Controller {
         } else {
             $ckEmailData = $this->Constant_model->getDataOneColumn('users', 'email', "$email");
             $ckPinData = $this->Constant_model->getDataOneColumn('users', 'pin', "$pin");
-            
+
             if ((count($ckEmailData) == 0) && (count($ckPinData) == 0)) {
                 $password = $this->encryptPassword($pass);
 
@@ -1419,14 +1418,13 @@ class Setting extends CI_Controller {
                     redirect(base_url() . 'setting/adduser');
                 }
             } else {
-                
+
                 if (count($ckPinData) > 0) {
                     $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "PIN : $pin is already registered at the system! Please try another PIN!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
-                    redirect(base_url() . 'setting/adduser'); 
-                }elseif (count($ckEmailData) > 0) {
-                     $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "Email Address : $email is already registered at the system! Please try another Email Address!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
                     redirect(base_url() . 'setting/adduser');
-                    
+                } elseif (count($ckEmailData) > 0) {
+                    $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', "Email Address : $email is already registered at the system! Please try another Email Address!", "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
+                    redirect(base_url() . 'setting/adduser');
                 }
             }
         }
@@ -1637,6 +1635,29 @@ class Setting extends CI_Controller {
         $this->ckeditor->config['width'] = $width;
         //configure ckfinder with ckeditor config
         $this->ckfinder->SetupCKEditor($this->ckeditor, $path);
+    }
+
+    public function restore() {
+        $this->db->from('ci_sessions')->truncate();
+
+        $this->db->from('expenses')->truncate();
+
+        $this->db->from('orders')->truncate();
+        $this->db->from('suspend')->truncate();
+        $this->db->from('order_items')->truncate();
+        $this->db->from('purchase_order')->truncate();
+        $this->db->from('purchase_order_items')->truncate();
+        $this->db->from('return_items')->truncate();
+        $this->db->from('return_items')->truncate();
+
+        $this->db->from('inventory')->truncate();
+        $this->db->from('products')->truncate();
+        $this->db->from('category')->truncate();
+
+
+        $this->session->set_flashdata('alert_msg', array('success', 'Update Site Setting', 'Store restored with default settings.'));
+        redirect(base_url() . 'setting/system_setting');
+        exit;
     }
 
 }

@@ -305,3 +305,4 @@ $lang['date_time'] = 'Date & Time';
 $lang['print'] = 'Print';
 $lang['card_number'] = 'Ref. No.';
 $lang['cheque_number'] = 'Cheque Number';
+$lang['restore'] = "Restore";

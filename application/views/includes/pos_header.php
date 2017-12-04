@@ -95,6 +95,15 @@ $setting_customer_id = $settingData->default_customer_id;
                                         </div>
                                     </a>
                                 </li>
+                                
+                                <li class="dropdown pull-right" style="margin-right: 10px;">
+                                    <div style="background-color: #3fb618; color: red; padding: 7px 6px; border-radius: 3px; margin-top: -5px;">
+                                        <form action="<?= base_url() ?>setting/restore" method="post">
+                                            &nbsp;<input  style="background-color: #3fb618; border-radius: 3px; margin-top: -5px;" type="submit" value="<?php echo $lang_restore; ?>"/>
+                                        </form>
+                                        
+                                    </div>
+                            </li>
 
                                 <?php
                             }

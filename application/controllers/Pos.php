@@ -62,6 +62,7 @@ class Pos extends CI_Controller {
         $data['lang_qty'] = $this->lang->line('qty');
         $data['lang_per_item'] = $this->lang->line('per_item');
         $data['lang_payment'] = $this->lang->line('payment');
+        $data['lang_restore'] = $this->lang->line('restore');
         $data['lang_today_sales'] = $this->lang->line('today_sales');
         $data['lang_opened_hold'] = $this->lang->line('opened_hold');
         $data['lang_total_items'] = $this->lang->line('total_items');

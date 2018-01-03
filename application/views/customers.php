@@ -1,13 +1,10 @@
-<?php
-require_once 'includes/header.php';
-?>
-
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_customers; ?></h1>
-        </div>
-    </div><!--/.row-->
+<?php require_once 'includes/header.php'; ?>
+<?php echo $lang_customers; ?>
+<section class="content">
+	<div class="container-fluid">
+		<div class="block-header">
+			<h2><?php echo $lang_dashboard; ?></h2>
+		</div>
 
 
     <div class="row">
@@ -189,14 +186,9 @@ require_once 'includes/header.php';
                 </div><!-- Panel Body // END -->
             </div><!-- Panel Default // END -->
         </div><!-- Col md 12 // END -->
-    </div><!-- Row // END -->
+    </div>
+	
+    </div>
+<section>
 
-    <br /><br /><br />
-
-</div><!-- Right Colmn // END -->
-
-
-
-<?php
-require_once 'includes/footer.php';
-?>
+<?php require_once 'includes/footer.php'; ?>

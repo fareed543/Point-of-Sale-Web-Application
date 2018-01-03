@@ -1,224 +1,127 @@
-<?php
-require_once 'includes/header.php';
-?>
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_dashboard; ?></h1>
-        </div>
-    </div><!--/.row-->
-
-    <div class="row">
-        <div class="col-xs-6 col-md-2">
-            <div class="panel panel-default">
-                <a href="<?= base_url() ?>pos" style="text-decoration: none">
-                    <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                        <h4><?php echo $lang_point_of_sales; ?></h4>
-                        <i class="icono-tiles" style="color: #30a5ff;"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-6 col-md-2">
-            <div class="panel panel-default">
-                <a href="<?= base_url() ?>sales/list_sales" style="text-decoration: none">
-                    <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                        <h4><?php echo $lang_sales; ?></h4>
-                        <i class="icono-cart" style="color: #30a5ff;"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <?php
-        if ($user_role < 3) {
-            ?>
-            <div class="col-xs-6 col-md-2">
-                <div class="panel panel-default">
-                    <a href="<?= base_url() ?>reports/sales_report" style="text-decoration: none">
-                        <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                            <h4><?php echo $lang_reports; ?></h4>
-                            <i class="icono-barChart" style="color: #30a5ff;"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
-        <div class="col-xs-6 col-md-2">
-            <div class="panel panel-default">
-                <a href="<?= base_url() ?>setting/outlets" style="text-decoration: none">
-                    <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                        <h4><?php echo $lang_outlets; ?></h4>
-                        <i class="icono-market" style="color: #30a5ff;"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-6 col-md-2">
-            <div class="panel panel-default">
-                <a href="<?= base_url() ?>setting/users" style="text-decoration: none;">
-                    <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                        <h4><?php echo $lang_users; ?></h4>
-                        <i class="icono-user" style="color: #30a5ff;"></i>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <?php
-        if ($user_role == '1') {
-            ?>
-            <div class="col-xs-6 col-md-2">
-                <div class="panel panel-default">
-                    <a href="<?= base_url() ?>setting/system_setting" style="text-decoration: none;">
-                        <div class="panel-body easypiechart-panel" style="padding-bottom: 30px;">
-                            <h4><?php echo $lang_system_setting; ?></h4>
-                            <i class="icono-gear" style="color: #30a5ff;"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
-    </div><!--/.row-->
-
-    <?php
-    for ($i = 0; $i < 12; ++$i) {
-        $months[] = date('Y-m', strtotime(date('Y-m-01') . " -$i months"));
-    }
-
-    $month_name_array = array();
-    $year_name_array = array();
-    for ($m = 0; $m < count($months); ++$m) {
-        $year = date('Y', strtotime($months[$m]));
-        $mon = date('m', strtotime($months[$m]));
-        $month_name = date('M', strtotime($months[$m]));
-
-        array_push($month_name_array, $month_name);
-        array_push($year_name_array, $year);
-    }
-    ?>
+<?php require_once 'includes/header.php';	?>
 
 
-    <script src="<?= base_url() ?>assets/js/highcharts.js"></script>
-    <script src="<?= base_url() ?>assets/js/exporting.js"></script>	
-    <script type="text/javascript">
-        $(document).on('ready', function () {
-            $(function () {
-                $('#sales_chart').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: '<?php echo $lang_monthly_sales_outlet; ?>'
-                    },
-                    subtitle: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: [
-<?php
-for ($mn = 0; $mn < count($month_name_array); ++$mn) {
-    echo "'" . $month_name_array[$mn] . ' ' . $year_name_array[$mn] . "',";
-}
-?>
-                        ],
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: '<?php echo $lang_amount; ?> (<?php echo $currency; ?>)'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                '<td style="padding:0"><b> {point.y:.2f}</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [
-<?php
-if ($user_role == '1') {
-    $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'id', 'DESC');
-} else {
-    $outletData = $this->Constant_model->getDataTwoColumnSortColumn('outlets', 'id', "$user_outlet", 'status', '1', 'id', 'DESC');
-}
-
-for ($o = 0; $o < count($outletData); ++$o) {
-    $outlet_id = $outletData[$o]->id;
-    $outlet_name = $outletData[$o]->name;
-    ?>
-                            {
-                                name: '<?php echo $outlet_name; ?>',
-                                data: [
-    <?php
-    for ($m = 0; $m < count($months); ++$m) {
-        $year = date('Y', strtotime($months[$m]));
-        $mon = date('m', strtotime($months[$m]));
-
-        $total_monthly_amt = 0;
-        $number_of_day = cal_days_in_month(CAL_GREGORIAN, $mon, $year);
-
-        for ($d = 1; $d <= $number_of_day; ++$d) {
-            if (strlen($d) == 1) {
-                $d = '0' . $d;
-            }
-
-            $full_date_start = $year . '-' . $mon . '-' . $d . ' 00:00:00';
-            $full_date_end = $year . '-' . $mon . '-' . $d . ' 23:59:59';
-
-            $orderResult = $this->db->query("SELECT grandtotal FROM orders WHERE ordered_datetime >= '$full_date_start' AND ordered_datetime <= '$full_date_end' AND outlet_id = '$outlet_id' ");
-            $orderData = $orderResult->result();
-            for ($od = 0; $od < count($orderData); ++$od) {
-                $total_monthly_amt += number_format($orderData[$od]->grandtotal, 2, '.', '');
-            }
-            unset($orderResult);
-            unset($orderData);
-        }    // End of Number of Day Loop;
-        echo $total_monthly_amt . ',';
-    }
-    ?>
-                                ]
-
-                            },
-    <?php
-}
-?>
-                    ]
-                });
-            });
-        });
-    </script>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <!-- <div class="panel-heading">Sales Chart</div> -->
-                <div class="panel-body">
-
-                    <div id="sales_chart" style="min-width: 310px; height: 400px;"></div>
-
-                </div>
-            </div>
-        </div>
-    </div><!--/.row-->
-
-    <br /><br /><br />
-
-</div><!-- Right Colmn // END -->
-
-
-
-<?php
-require_once 'includes/footer.php';
-?>
+<section class="content">
+	<div class="container-fluid">
+		<div class="block-header">
+			<h2><?php echo $lang_dashboard; ?></h2>
+		</div>
+		
+		
+		<div class="row clearfix">
+			<a href="<?= base_url() ?>pos">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-pink hover-expand-effect">
+						<div class="icon">
+							<i class="material-icons">playlist_add_check</i>
+						</div>
+						<div class="content">
+							<div class="text"><?php echo $lang_point_of_sales; ?></div>
+							<div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">125</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+			
+			<a href="<?= base_url() ?>sales/list_sales">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">help</i>
+						</div>
+                        <div class="content">
+                            <div class="text"><?php echo $lang_sales; ?></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+			<a href="<?= base_url() ?>reports/sales_report">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">forum</i>
+						</div>
+                        <div class="content">
+                            <div class="text"><?php echo $lang_reports; ?></div>
+                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">243</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+			<a href="<?= base_url() ?>setting/outlets">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person_add</i>
+						</div>
+                        <div class="content">
+                            <div class="text"><?php echo $lang_outlets; ?></div>
+                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20">1225</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+			
+			
+			<a href="<?= base_url() ?>setting/users">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person_add</i>
+						</div>
+                        <div class="content">
+                            <div class="text"><?php echo $lang_users; ?></div>
+                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20">1225</div>
+						</div>
+					</div>
+				</div>
+			</a>
+			
+			
+			
+			<a href="<?= base_url() ?>setting/system_setting">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person_add</i>
+						</div>
+                        <div class="content">
+                            <div class="text"><?php echo $lang_system_setting; ?></div>
+                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20">1225</div>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>BAR CHART</h2>
+					<ul class="header-dropdown m-r--5">
+						<li class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="material-icons">more_vert</i>
+							</a>
+							<ul class="dropdown-menu pull-right">
+								<li><a href="javascript:void(0);">Action</a></li>
+								<li><a href="javascript:void(0);">Another action</a></li>
+								<li><a href="javascript:void(0);">Something else here</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+					<div id="bar_chart" class="graph"></div>
+				</div>
+			</div>
+		</div>
+		<link href="<?= base_url() ?>assets/plugins/morrisjs/morris.css" rel="stylesheet" />
+		<script src="<?= base_url() ?>assets/js/pages/charts/morris.js"></script>
+	</div>
+</section>
+<?php require_once 'includes/footer.php'; ?>

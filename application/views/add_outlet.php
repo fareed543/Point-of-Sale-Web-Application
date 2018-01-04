@@ -30,8 +30,6 @@
 							<?php } ?>
 							<?php } ?>
 							
-							
-							
 							<h3 class="card-inside-title">Infomation</h3>
                             <div class="row clearfix">
 								

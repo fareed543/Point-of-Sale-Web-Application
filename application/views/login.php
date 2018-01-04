@@ -23,19 +23,9 @@ date_default_timezone_set("$setting_timezone");
 		<link href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 		<script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
 		<link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
-        <?php /*?>
-		<link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
-		<script src="<?= base_url() ?>assets/js/jquery.min.js"></script>
-		<?php */ ?>
-        
-        
-        <!--[if lt IE 9]>
-        <script src="<?= base_url() ?>assets/js/html5shiv.js"></script>
-        <script src="<?= base_url() ?>assets/js/respond.min.js"></script>
-        <![endif]-->
     </head>
 
-    <body background="<?= base_url() ?>assets/images/login-backgrounds.jpg">
+    <body>
         <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg)) ? 'block' : 'none'; ?>">
             <div id="anleitung">
                 <?php
@@ -135,9 +125,9 @@ date_default_timezone_set("$setting_timezone");
             </div>
         </div>
 
-        <div class="login_footer">
+        <!--<div class="login_footer">
             <div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>
-        </div>
+        </div>-->
     </body>
 
 

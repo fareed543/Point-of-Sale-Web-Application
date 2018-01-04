@@ -7,18 +7,15 @@ and open the template in the editor.
     Created on : Nov 13, 2017, 10:58:53 AM
     Author     : Mohammad.Fareed
 */
-
-
 body { 
     background-image: url("../images/login-skin.jpg");
-    
-	
-    /*background-color: #467cef;
-	 background="<?= base_url() ?>assets/images/user-img-background.jpg"*/
 }
+
 strong
 {
+	font-family: "Times New Roman", Georgia, Serif;
     color: #333;
+	cursor: pointer;
 }
 
 .panel-heading {
@@ -350,4 +347,8 @@ strong
     color: #fff;
     text-decoration: none;
     text-align: center;
+}
+
+.pincode button.delete {
+    font-size: 14px;
 }

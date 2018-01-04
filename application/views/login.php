@@ -13,7 +13,6 @@ $setting_keyboard = $settingData->display_keyboard;
 $setting_customer_id = $settingData->default_customer_id;
 date_default_timezone_set("$setting_timezone");
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,7 +23,6 @@ date_default_timezone_set("$setting_timezone");
 		<script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
 		<link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
     </head>
-
     <body>
         <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg)) ? 'block' : 'none'; ?>">
             <div id="anleitung">
@@ -33,7 +31,6 @@ date_default_timezone_set("$setting_timezone");
                     $flash_status = $alert_msg[0];
                     $flash_header = $alert_msg[1];
                     $flash_desc = $alert_msg[2];
-
                     if ($flash_status == 'failure') {
                         ?>
                         <div class="form-group warning-message" style="text-align: center; color: #c72a25; margin-top: 107px;    margin-bottom: -103px;">
@@ -88,7 +85,7 @@ date_default_timezone_set("$setting_timezone");
                                 }
                             }
                             ?>
-                            <p><strong>Please enter the correct PIN-Code.</strong></p>
+                            <p><strong>Please Enter Passcode</strong></p>
                         </div>
                         <div id="fields">
                             <div class="grid">
@@ -114,108 +111,22 @@ date_default_timezone_set("$setting_timezone");
 
                                 <div class="grid__col grid__col--1-of-3"></div>
                                 <div class="grid__col grid__col--1-of-3"><button>0</button></div>
-                                <div class="grid__col grid__col--1-of-3"><button>DEL</button></div>
+                                <div class="grid__col grid__col--1-of-3"><button class="delete">DELETE</button></div>
                             </div>
                         </div>
-                        <div id="button">
-                            <input type="button" class="btn btn-primary" id="login_with_username" value="Login with Username">
-                        </div>
+						<p><strong>- OR -</strong></p>
+						<p><strong id="login_with_username">LOGIN WITH USERNAME</strong></p>
+                        <?php /*?>
+						<div class="login_footer">
+							<div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>
+						</div>
+						<?*/?>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!--<div class="login_footer">
-            <div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>
-        </div>-->
+       
     </body>
 
-
-    <script>
-        jQuery(document).ready(function ($) {
-            $(document).ready(function () {
-                $("#login_with_username").on("click", function () {
-                    $("#pin").val();
-                    $(".warning-message").hide();
-                    $(".login_with_username_form").show();
-                    $(".login_with_pin_form").hide();
-                    return false;
-                });
-                $("#login_with_pin").on("click", function () {
-                    $("#pin").val();
-                    $(".warning-message").hide();
-                    $(".login_with_pin_form").show();
-                    $(".login_with_username_form").hide();
-                    return false;
-                });
-
-                var enterCode = "";
-                enterCode.toString();
-                var lengthCode = -1;
-                $("#numbers button").click(function () {
-                    var clickedNumber = $(this).text().toString();
-                    if (clickedNumber == 'DEL') {
-                        enterCode = enterCode.substring(0, lengthCode);
-                        $("#fields .numberfield:eq(" + lengthCode + ")").removeClass("active");
-                        lengthCode--;
-                    } else {
-                        enterCode = enterCode + clickedNumber;
-                        lengthCode = parseInt(enterCode.length);
-                        lengthCode--;
-                        $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
-                    }
-                    if (lengthCode == 3) {
-                        $.ajax({
-                            url: '<?= base_url() ?>auth/checkpin',
-                            type: 'POST',
-                            cache: false,
-                            data: {
-                                pin: enterCode
-                            },
-                            error: function () {
-                                $("#fields").addClass("miss");
-                                enterCode = "";
-                                setTimeout(function () {
-                                    $("#fields .numberfield").removeClass("active");
-                                }, 200);
-                                setTimeout(function () {
-                                    $("#fields").removeClass("miss");
-                                }, 500);
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                                console.log(data);
-                                if (data == 1) {
-                                    $("#fields .numberfield").addClass("right");
-                                    $("#numbers").addClass("hide");
-                                    $("#anleitung p").html("Loading...");
-                                    $("#pin").val(enterCode);
-                                    $("#loginform").submit();
-                                } else {
-                                    $("#fields").addClass("miss");
-                                    enterCode = "";
-                                    setTimeout(function () {
-                                        $("#fields .numberfield").removeClass("active");
-                                    }, 200);
-                                    setTimeout(function () {
-                                        $("#fields").removeClass("miss");
-                                    }, 500);
-                                }
-                            }
-                        });
-                    }
-
-                });
-
-                $("#restartbtn").click(function () {
-                    enterCode = "";
-                    $("#fields .numberfield").removeClass("active");
-                    $("#fields .numberfield").removeClass("right");
-                    $("#numbers").removeClass("hide");
-                    $("#anleitung p").html("<strong>Please enter the correct PIN-Code.</strong><br> It is: 1234 / Also try a wrong code");
-                });
-
-            });
-        });
-    </script>
+	<script src="<?= base_url() ?>assets/js/login.js"></script>
 </html>

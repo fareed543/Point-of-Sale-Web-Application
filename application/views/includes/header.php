@@ -329,7 +329,7 @@ $login_name = $result[0]->fullname;
                             <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
                             <li role="seperator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="<?= base_url() ?>auth/logout"><i class="material-icons">input</i><?php echo $lang_logout; ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -866,10 +866,10 @@ $login_name = $result[0]->fullname;
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                    &copy; 2018 <a href="javascript:void(0);"><?php echo $setting_site_name; ?></a>.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.5
+                    <b>Version: </b> 1.0.0
                 </div>
             </div>
             <!-- #Footer -->

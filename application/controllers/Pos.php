@@ -1,257 +1,274 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
-
-class Pos extends CI_Controller {
-
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     *
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
-    public function __construct() {
-        // Call the Model constructor
-        parent::__construct();
-        $this->load->library('session');
-        $this->load->model('Pos_model');
-        $this->load->model('Constant_model');
-        $this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('url');
-        $this->load->library('pagination');
-        $this->load->helper('email');
-
-        $settingResult = $this->db->get_where('site_setting');
-        $settingData = $settingResult->row();
-
-        $setting_timezone = $settingData->timezone;
-
-        date_default_timezone_set("$setting_timezone");
-    }
-
-    public function index() {
-        $settingResult = $this->db->get_where('site_setting');
-        $settingData = $settingResult->row();
-
-        $setting_tax = $settingData->tax;
-        $setting_image = $settingData->display_product;
-
-        $data['tax'] = $setting_tax;
-        $data['display_prod'] = $setting_image;
-        $data['keyboard'] = $settingData->display_keyboard;
-        $data['pos_dateformat'] = $settingData->datetime_format;
-
-        // Check Outlet & Role;
-        $user_role = $this->session->userdata('user_role');
-        $user_outlet = $this->session->userdata('user_outlet');
-
-        $data['lang_add_customer'] = $this->lang->line('add_customer');
-        $data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
-        $data['lang_hold'] = $this->lang->line('hold');
-        $data['lang_cancel'] = $this->lang->line('cancel');
-        $data['lang_qty'] = $this->lang->line('qty');
-        $data['lang_per_item'] = $this->lang->line('per_item');
-        $data['lang_payment'] = $this->lang->line('payment');
-        $data['lang_restore'] = $this->lang->line('restore');
-        $data['lang_today_sales'] = $this->lang->line('today_sales');
-        $data['lang_opened_hold'] = $this->lang->line('opened_hold');
-        $data['lang_total_items'] = $this->lang->line('total_items');
-        $data['lang_total'] = $this->lang->line('total');
-        $data['lang_discount'] = $this->lang->line('discount');
-        $data['lang_tax'] = $this->lang->line('tax');
-        $data['lang_total_payable'] = $this->lang->line('total_payable');
-        $data['lang_products'] = $this->lang->line('products');
-        $data['lang_logout'] = $this->lang->line('logout');
-        $data['lang_dis_amt'] = $this->lang->line('dis_amt');
-        $data['lang_search_product_by_namecode'] = $this->lang->line('search_product_by_namecode');
-        $data['lang_add_new_customer'] = $this->lang->line('add_new_customer');
-        $data['lang_customer_name'] = $this->lang->line('customer_name');
-        $data['lang_customer_email'] = $this->lang->line('customer_email');
-        $data['lang_customer_mobile'] = $this->lang->line('customer_mobile');
-        $data['lang_add_customer'] = $this->lang->line('add_customer');
-        $data['lang_success_add_cust'] = $this->lang->line('successfully_add_new_cust');
-        $data['lang_opened_bill'] = $this->lang->line('opened_bill');
-        $data['lang_search_opened_bills'] = $this->lang->line('search_opened_bills');
-        $data['lang_ref_number'] = $this->lang->line('ref_number');
-        $data['lang_date'] = $this->lang->line('date');
-        $data['lang_save_to_opened_bill'] = $this->lang->line('save_to_opened_bill');
-        $data['lang_hold_ref_number'] = $this->lang->line('hold_ref_number');
-        $data['lang_submit'] = $this->lang->line('submit');
-        $data['lang_customers'] = $this->lang->line('customers');
-        $data['lang_please_add_product'] = $this->lang->line('please_add_product');
-        $data['lang_total_payable_amt'] = $this->lang->line('total_payable_amt');
-        $data['lang_total_purchase_items'] = $this->lang->line('total_purchase_items');
-        $data['lang_paid_by'] = $this->lang->line('paid_by');
-        $data['lang_cheque_number'] = $this->lang->line('cheque_number');
-        $data['lang_card_number'] = $this->lang->line('card_number');
-        $data['lang_paid_amt'] = $this->lang->line('paid_amt');
-        $data['lang_gift_card_number'] = $this->lang->line('gift_card_number');
-        $data['lang_return_change'] = $this->lang->line('return_change');
-        $data['lang_submit'] = $this->lang->line('submit');
-        $data['lang_out_of_stock'] = $this->lang->line('out_of_stock');
-        $data['lang_please_update_inven'] = $this->lang->line('please_update_inven');
-
-        
-        /*echo "<pre>";
-        print_r($data);
-        exit;*/
-        if ($user_role == '1') {
-            if (isset($_COOKIE['outlet'])) {
-                $data['outlet'] = $_COOKIE['outlet'];
-                $this->load->view('pos', $data);
-            } else {
-                $data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
-                $data['lang_address'] = $this->lang->line('address');
-                $data['lang_telephone'] = $this->lang->line('telephone');
-                $this->load->view('choose_outlet_pos', $data);
-            }
-        } else {
-            $data['outlet'] = $user_outlet;
-            $this->load->view('pos', $data);
-        }
-    }
-
-    // View Invoice;
-    public function view_invoice() {
-        $id = $this->input->get('id');
-
-        $data['order_id'] = $id;
-
-        $data['lang_address'] = $this->lang->line('address');
-        $data['lang_telephone'] = $this->lang->line('telephone');
-        $data['lang_sale_id'] = $this->lang->line('sale_id');
-        $data['lang_date'] = $this->lang->line('date');
-        $data['lang_customer_name'] = $this->lang->line('customer_name');
-        $data['lang_mobile'] = $this->lang->line('mobile');
-        $data['lang_products'] = $this->lang->line('products');
-        $data['lang_qty'] = $this->lang->line('qty');
-        $data['lang_per_item'] = $this->lang->line('per_item');
-        $data['lang_total'] = $this->lang->line('total');
-        $data['lang_total_items'] = $this->lang->line('total_items');
-        $data['lang_sub_total'] = $this->lang->line('sub_total');
-        $data['lang_tax'] = $this->lang->line('tax');
-        $data['lang_grand_total'] = $this->lang->line('grand_total');
-        $data['lang_paid_amt'] = $this->lang->line('paid_amt');
-        $data['lang_paid_by'] = $this->lang->line('paid_by');
-        $data['lang_card_number'] = $this->lang->line('card_number');
-        $data['lang_cheque_number'] = $this->lang->line('cheque_number');
-        $data['lang_discount'] = $this->lang->line('discount');
-        $data['lang_return_change'] = $this->lang->line('return_change');
-        $data['lang_unpaid_amount'] = $this->lang->line('unpaid_amount');
-        $data['lang_paid_by'] = $this->lang->line('paid_by');
-        $data['lang_back_to_pos'] = $this->lang->line('back_to_pos');
-        $data['lang_print_small_receipt'] = $this->lang->line('print_small_receipt');
-        $data['lang_email'] = $this->lang->line('email');
-        $data['lang_print_a4'] = $this->lang->line('print_a4');
-
-        $this->load->view('print_invoice', $data);
-    }
-
-    // View Invoice A4;
-    public function view_invoice_a4() {
-        $id = $this->input->get('id');
-
-        $data['order_id'] = $id;
-
-        $data['lang_address'] = $this->lang->line('address');
-        $data['lang_telephone'] = $this->lang->line('telephone');
-        $data['lang_sale_id'] = $this->lang->line('sale_id');
-        $data['lang_date'] = $this->lang->line('date');
-        $data['lang_customer_name'] = $this->lang->line('customer_name');
-        $data['lang_mobile'] = $this->lang->line('mobile');
-        $data['lang_products'] = $this->lang->line('products');
-        $data['lang_qty'] = $this->lang->line('qty');
-        $data['lang_per_item'] = $this->lang->line('per_item');
-        $data['lang_total'] = $this->lang->line('total');
-        $data['lang_total_items'] = $this->lang->line('total_items');
-        $data['lang_sub_total'] = $this->lang->line('sub_total');
-        $data['lang_tax'] = $this->lang->line('tax');
-        $data['lang_grand_total'] = $this->lang->line('grand_total');
-        $data['lang_paid_amt'] = $this->lang->line('paid_amt');
-        $data['lang_paid_by'] = $this->lang->line('paid_by');
-        $data['lang_card_number'] = $this->lang->line('card_number');
-        $data['lang_cheque_number'] = $this->lang->line('cheque_number');
-        $data['lang_discount'] = $this->lang->line('discount');
-        $data['lang_return_change'] = $this->lang->line('return_change');
-        $data['lang_unpaid_amount'] = $this->lang->line('unpaid_amount');
-        $data['lang_paid_by'] = $this->lang->line('paid_by');
-        $data['lang_back_to_pos'] = $this->lang->line('back_to_pos');
-        $data['lang_print_small_receipt'] = $this->lang->line('print_small_receipt');
-        $data['lang_email'] = $this->lang->line('email');
-        $data['lang_print_a4'] = $this->lang->line('print_a4');
-
-        $this->load->view('print_invoice_a4', $data);
-    }
-
-    // ****************************** View Page -- START ****************************** //
-    // ****************************** View Page -- END ****************************** //
-    // ****************************** Action To Database -- START ****************************** //
-    // Update Outlet;
-    public function updateOwnerOutlet() {
-        $outlet_id = $this->input->get('outlet_id');
-
-        $this->input->set_cookie('outlet', $outlet_id, 10800);
-        redirect(base_url() . 'pos', 'refresh');
-    }
-
-    // Create Sales;
-    public function insertSale() {
-
-
-        if (isset($_POST['hold_bill_submit'])) {
-
-            $customer = $this->input->post('customer');
-            $hold_ref = $this->input->post('hold_ref');
-
-            $row_count = $this->input->post('row_count');
-            $subTotal = $this->input->post('subTotal');
-            $dis_amt = $this->input->post('dis_amt');
-            $grandTotal = $this->input->post('final_total_payable');
-            $total_item_qty = $this->input->post('final_total_qty');
-            $taxTotal = $this->input->post('tax_amt');
-
-            $user_id = $this->session->userdata('user_id');
-            $user_outlet = $this->input->post('outlet');
-            $tm = date('Y-m-d H:i:s', time());
-
-            if (empty($dis_amt)) {
-                $dis_amt = 0;
-            } elseif (strpos($dis_amt, '%') > 0) {
-                $temp_dis_Array = explode('%', $dis_amt);
-                $temp_dis = $temp_dis_Array[0];
-
-                $temp_item_price = 0;
-
-                for ($i = 1; $i <= $row_count; ++$i) {
-                    $pcode = $this->input->post("pcode_$i");
-                    $price = $this->input->post("price_$i");
-                    $qty = $this->input->post("qty_$i");
-
-                    if (!empty($pcode)) {
-                        $temp_item_price += ($price * $qty);
-                    }
-                }
-
-                $dis_amt = number_format(($temp_item_price * ($temp_dis / 100)), 2, '.', '');
-            }
-
-            // Get Customer Detail;
-            $custDtaData = $this->Constant_model->getDataOneColumn('customers', 'id', $customer);
-            $custDta_fn = $custDtaData[0]->fullname;
-            $custDta_email = $custDtaData[0]->email;
-            $custDta_mb = $custDtaData[0]->mobile;
-
-            $ins_sus_data = array(
+	defined('BASEPATH') or exit('No direct script access allowed');
+	
+	class Pos extends CI_Controller {
+		
+		/**
+			* Index Page for this controller.
+			*
+			* Maps to the following URL
+			* 		http://example.com/index.php/welcome
+			* 	- or -
+			* 		http://example.com/index.php/welcome/index
+			* 	- or -
+			* Since this controller is set as the default controller in
+			* config/routes.php, it's displayed at http://example.com/
+			*
+			* So any other public methods not prefixed with an underscore will
+			* map to /index.php/welcome/<method_name>
+			*
+			* @see http://codeigniter.com/user_guide/general/urls.html
+		*/
+		public function __construct() {
+			// Call the Model constructor
+			parent::__construct();
+			$this->load->library('session');
+			$this->load->model('Pos_model');
+			$this->load->model('Constant_model');
+			$this->load->library('form_validation');
+			$this->load->helper('form');
+			$this->load->helper('url');
+			$this->load->library('pagination');
+			$this->load->helper('email');
+			
+			$settingResult = $this->db->get_where('site_setting');
+			$settingData = $settingResult->row();
+			
+			$setting_timezone = $settingData->timezone;
+			
+			date_default_timezone_set("$setting_timezone");
+		}
+		
+		public function index() {
+			$settingResult = $this->db->get_where('site_setting');
+			$settingData = $settingResult->row();
+			
+			$setting_tax = $settingData->tax;
+			$setting_image = $settingData->display_product;
+			
+			$data['tax'] = $setting_tax;
+			$data['display_prod'] = $setting_image;
+			$data['keyboard'] = $settingData->display_keyboard;
+			$data['pos_dateformat'] = $settingData->datetime_format;
+			
+			// Check Outlet & Role;
+			$user_role = $this->session->userdata('user_role');
+			$user_outlet = $this->session->userdata('user_outlet');
+			
+			$data['lang_add_customer'] = $this->lang->line('add_customer');
+			$data['lang_scan_barcode'] = $this->lang->line('scan_barcode');
+			$data['lang_hold'] = $this->lang->line('hold');
+			$data['lang_cancel'] = $this->lang->line('cancel');
+			$data['lang_qty'] = $this->lang->line('qty');
+			$data['lang_per_item'] = $this->lang->line('per_item');
+			$data['lang_payment'] = $this->lang->line('payment');
+			$data['lang_restore'] = $this->lang->line('restore');
+			$data['lang_today_sales'] = $this->lang->line('today_sales');
+			$data['lang_opened_hold'] = $this->lang->line('opened_hold');
+			$data['lang_total_items'] = $this->lang->line('total_items');
+			$data['lang_total'] = $this->lang->line('total');
+			$data['lang_discount'] = $this->lang->line('discount');
+			$data['lang_tax'] = $this->lang->line('tax');
+			$data['lang_total_payable'] = $this->lang->line('total_payable');
+			$data['lang_products'] = $this->lang->line('products');
+			$data['lang_logout'] = $this->lang->line('logout');
+			$data['lang_dis_amt'] = $this->lang->line('dis_amt');
+			$data['lang_search_product_by_namecode'] = $this->lang->line('search_product_by_namecode');
+			$data['lang_add_new_customer'] = $this->lang->line('add_new_customer');
+			$data['lang_customer_name'] = $this->lang->line('customer_name');
+			$data['lang_customer_email'] = $this->lang->line('customer_email');
+			$data['lang_customer_mobile'] = $this->lang->line('customer_mobile');
+			$data['lang_add_customer'] = $this->lang->line('add_customer');
+			$data['lang_success_add_cust'] = $this->lang->line('successfully_add_new_cust');
+			$data['lang_opened_bill'] = $this->lang->line('opened_bill');
+			$data['lang_search_opened_bills'] = $this->lang->line('search_opened_bills');
+			$data['lang_ref_number'] = $this->lang->line('ref_number');
+			$data['lang_date'] = $this->lang->line('date');
+			$data['lang_save_to_opened_bill'] = $this->lang->line('save_to_opened_bill');
+			$data['lang_hold_ref_number'] = $this->lang->line('hold_ref_number');
+			$data['lang_submit'] = $this->lang->line('submit');
+			$data['lang_customers'] = $this->lang->line('customers');
+			$data['lang_please_add_product'] = $this->lang->line('please_add_product');
+			$data['lang_total_payable_amt'] = $this->lang->line('total_payable_amt');
+			$data['lang_total_purchase_items'] = $this->lang->line('total_purchase_items');
+			$data['lang_paid_by'] = $this->lang->line('paid_by');
+			$data['lang_cheque_number'] = $this->lang->line('cheque_number');
+			$data['lang_card_number'] = $this->lang->line('card_number');
+			$data['lang_paid_amt'] = $this->lang->line('paid_amt');
+			$data['lang_gift_card_number'] = $this->lang->line('gift_card_number');
+			$data['lang_return_change'] = $this->lang->line('return_change');
+			$data['lang_submit'] = $this->lang->line('submit');
+			$data['lang_out_of_stock'] = $this->lang->line('out_of_stock');
+			$data['lang_please_update_inven'] = $this->lang->line('please_update_inven');
+			$data['lang_pos'] = $this->lang->line('pos');
+			$data['lang_create_return_order'] = $this->lang->line('create_return_order');
+			$data['lang_return_order_report'] = $this->lang->line('return_order_report');
+			$data['lang_inventory'] = $this->lang->line('inventory');
+			$data['lang_users'] = $this->lang->line('users');
+			$data['lang_suppliers'] = $this->lang->line('suppliers');
+			$data['lang_system_setting'] = $this->lang->line('system_setting');
+			$data['lang_payment_methods'] = $this->lang->line('payment_methods');
+			$data['lang_purchase_order'] = $this->lang->line('purchase_order');
+			$data['lang_outlets'] = $this->lang->line('outlets');
+			$data['lang_pnl'] = $this->lang->line('pnl');
+			$data['lang_pnl_report'] = $this->lang->line('pnl_report');
+			$data['lang_gift_card'] = $this->lang->line('gift_card');
+			$data['lang_debit'] = $this->lang->line('debit');
+			$data['lang_sales'] = $this->lang->line('sales');
+			$data['lang_sales_report'] = $this->lang->line('sales_report');
+			$data['lang_expenses'] = $this->lang->line('expenses');
+			$data['lang_expenses_category'] = $this->lang->line('expenses_category');
+			
+			/*echo "<pre>";
+				print_r($data);
+			exit;*/
+			if ($user_role == '1') {
+				if (isset($_COOKIE['outlet'])) {
+					$data['outlet'] = $_COOKIE['outlet'];
+					$this->load->view('pos', $data);
+					} else {
+					$data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
+					$data['lang_address'] = $this->lang->line('address');
+					$data['lang_telephone'] = $this->lang->line('telephone');
+					$this->load->view('choose_outlet_pos', $data);
+				}
+				} else {
+				$data['outlet'] = $user_outlet;
+				$this->load->view('pos', $data);
+			}
+		}
+		
+		// View Invoice;
+		public function view_invoice() {
+			$id = $this->input->get('id');
+			
+			$data['order_id'] = $id;
+			
+			$data['lang_address'] = $this->lang->line('address');
+			$data['lang_telephone'] = $this->lang->line('telephone');
+			$data['lang_sale_id'] = $this->lang->line('sale_id');
+			$data['lang_date'] = $this->lang->line('date');
+			$data['lang_customer_name'] = $this->lang->line('customer_name');
+			$data['lang_mobile'] = $this->lang->line('mobile');
+			$data['lang_products'] = $this->lang->line('products');
+			$data['lang_qty'] = $this->lang->line('qty');
+			$data['lang_per_item'] = $this->lang->line('per_item');
+			$data['lang_total'] = $this->lang->line('total');
+			$data['lang_total_items'] = $this->lang->line('total_items');
+			$data['lang_sub_total'] = $this->lang->line('sub_total');
+			$data['lang_tax'] = $this->lang->line('tax');
+			$data['lang_grand_total'] = $this->lang->line('grand_total');
+			$data['lang_paid_amt'] = $this->lang->line('paid_amt');
+			$data['lang_paid_by'] = $this->lang->line('paid_by');
+			$data['lang_card_number'] = $this->lang->line('card_number');
+			$data['lang_cheque_number'] = $this->lang->line('cheque_number');
+			$data['lang_discount'] = $this->lang->line('discount');
+			$data['lang_return_change'] = $this->lang->line('return_change');
+			$data['lang_unpaid_amount'] = $this->lang->line('unpaid_amount');
+			$data['lang_paid_by'] = $this->lang->line('paid_by');
+			$data['lang_back_to_pos'] = $this->lang->line('back_to_pos');
+			$data['lang_print_small_receipt'] = $this->lang->line('print_small_receipt');
+			$data['lang_email'] = $this->lang->line('email');
+			$data['lang_print_a4'] = $this->lang->line('print_a4');
+			
+			$this->load->view('print_invoice', $data);
+		}
+		
+		// View Invoice A4;
+		public function view_invoice_a4() {
+			$id = $this->input->get('id');
+			
+			$data['order_id'] = $id;
+			
+			$data['lang_address'] = $this->lang->line('address');
+			$data['lang_telephone'] = $this->lang->line('telephone');
+			$data['lang_sale_id'] = $this->lang->line('sale_id');
+			$data['lang_date'] = $this->lang->line('date');
+			$data['lang_customer_name'] = $this->lang->line('customer_name');
+			$data['lang_mobile'] = $this->lang->line('mobile');
+			$data['lang_products'] = $this->lang->line('products');
+			$data['lang_qty'] = $this->lang->line('qty');
+			$data['lang_per_item'] = $this->lang->line('per_item');
+			$data['lang_total'] = $this->lang->line('total');
+			$data['lang_total_items'] = $this->lang->line('total_items');
+			$data['lang_sub_total'] = $this->lang->line('sub_total');
+			$data['lang_tax'] = $this->lang->line('tax');
+			$data['lang_grand_total'] = $this->lang->line('grand_total');
+			$data['lang_paid_amt'] = $this->lang->line('paid_amt');
+			$data['lang_paid_by'] = $this->lang->line('paid_by');
+			$data['lang_card_number'] = $this->lang->line('card_number');
+			$data['lang_cheque_number'] = $this->lang->line('cheque_number');
+			$data['lang_discount'] = $this->lang->line('discount');
+			$data['lang_return_change'] = $this->lang->line('return_change');
+			$data['lang_unpaid_amount'] = $this->lang->line('unpaid_amount');
+			$data['lang_paid_by'] = $this->lang->line('paid_by');
+			$data['lang_back_to_pos'] = $this->lang->line('back_to_pos');
+			$data['lang_print_small_receipt'] = $this->lang->line('print_small_receipt');
+			$data['lang_email'] = $this->lang->line('email');
+			$data['lang_print_a4'] = $this->lang->line('print_a4');
+			
+			$this->load->view('print_invoice_a4', $data);
+		}
+		
+		// ****************************** View Page -- START ****************************** //
+		// ****************************** View Page -- END ****************************** //
+		// ****************************** Action To Database -- START ****************************** //
+		// Update Outlet;
+		public function updateOwnerOutlet() {
+			$outlet_id = $this->input->get('outlet_id');
+			
+			$this->input->set_cookie('outlet', $outlet_id, 10800);
+			redirect(base_url() . 'pos', 'refresh');
+		}
+		
+		// Create Sales;
+		public function insertSale() {
+			
+			
+			if (isset($_POST['hold_bill_submit'])) {
+				
+				$customer = $this->input->post('customer');
+				$hold_ref = $this->input->post('hold_ref');
+				
+				$row_count = $this->input->post('row_count');
+				$subTotal = $this->input->post('subTotal');
+				$dis_amt = $this->input->post('dis_amt');
+				$grandTotal = $this->input->post('final_total_payable');
+				$total_item_qty = $this->input->post('final_total_qty');
+				$taxTotal = $this->input->post('tax_amt');
+				
+				$user_id = $this->session->userdata('user_id');
+				$user_outlet = $this->input->post('outlet');
+				$tm = date('Y-m-d H:i:s', time());
+				
+				if (empty($dis_amt)) {
+					$dis_amt = 0;
+					} elseif (strpos($dis_amt, '%') > 0) {
+					$temp_dis_Array = explode('%', $dis_amt);
+					$temp_dis = $temp_dis_Array[0];
+					
+					$temp_item_price = 0;
+					
+					for ($i = 1; $i <= $row_count; ++$i) {
+						$pcode = $this->input->post("pcode_$i");
+						$price = $this->input->post("price_$i");
+						$qty = $this->input->post("qty_$i");
+						
+						if (!empty($pcode)) {
+							$temp_item_price += ($price * $qty);
+						}
+					}
+					
+					$dis_amt = number_format(($temp_item_price * ($temp_dis / 100)), 2, '.', '');
+				}
+				
+				// Get Customer Detail;
+				$custDtaData = $this->Constant_model->getDataOneColumn('customers', 'id', $customer);
+				$custDta_fn = $custDtaData[0]->fullname;
+				$custDta_email = $custDtaData[0]->email;
+				$custDta_mb = $custDtaData[0]->mobile;
+				
+				$ins_sus_data = array(
                 'customer_id' => $customer,
                 'fullname' => $custDta_fn,
                 'email' => $custDta_email,

@@ -12,9 +12,6 @@
 					<div class="header">
 						<h2>USERS</h2>
 						<ul class="header-dropdown m-r--5">
-						
-							<button class="btn btn-primary waves-effect" data-type="success">CLICK ME</button>
-								
 							<a href="<?= base_url() ?>setting/adduser">
 								<button class="btn btn-primary">CREATE</button>
 							</a>
@@ -75,6 +72,9 @@
 													</a>
 													<a href="<?= base_url() ?>setting/edituser?id=<?php echo $id; ?>">
 														<button class="btn btn-primary"><?php echo $lang_edit; ?></button>
+													</a>
+													<a href="<?= base_url() ?>setting/deleteUser?id=<?php echo $id; ?>">
+														<button class="btn btn-primary"><?php echo $lang_change_password; ?></button>
 													</a>
 												</td>
 											</tr>

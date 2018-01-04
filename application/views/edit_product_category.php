@@ -12,7 +12,12 @@ if (count($categoryData) == 0) {
 $category_name = $categoryData[0]->name;
 $status = $categoryData[0]->status;
 ?>
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+<section class="content">
+	<div class="container-fluid">
+<!--<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">-->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header"><?php echo $lang_edit_product_category; ?> : <?php echo $category_name; ?></h1>
@@ -94,7 +99,7 @@ $status = $categoryData[0]->status;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label><?php echo $lang_status; ?> <span style="color: #F00">*</span></label>
-                                    <select name="status" class="form-control">
+                                    <select name="status" class="form-control show-tick" data-live-search="true">
                                         <option value="0" <?php
                                         if ($status == '0') {
                                             echo 'selected="selected"';
@@ -141,8 +146,9 @@ $status = $categoryData[0]->status;
 
     <br /><br /><br /><br /><br />
 
-</div><!-- Right Colmn // END -->
-
+<!--</div> Right Colmn // END -->
+        </div>
+</section>
 
 
 <?php

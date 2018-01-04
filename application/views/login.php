@@ -20,17 +20,22 @@ date_default_timezone_set("$setting_timezone");
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1" />
         <title><?php echo $setting_site_name; ?></title>
-        <link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="<?= base_url() ?>assets/css/datepicker3.css" rel="stylesheet">
-        <link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
-        <script src="<?= base_url() ?>assets/js/jquery.min.js"></script>
+		<link href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
+		<link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
+        <?php /*?>
+		<link href="<?= base_url() ?>assets/css/bootstrap.min.css" rel="stylesheet">
+		<script src="<?= base_url() ?>assets/js/jquery.min.js"></script>
+		<?php */ ?>
+        
+        
         <!--[if lt IE 9]>
         <script src="<?= base_url() ?>assets/js/html5shiv.js"></script>
         <script src="<?= base_url() ?>assets/js/respond.min.js"></script>
         <![endif]-->
     </head>
 
-    <body>
+    <body background="<?= base_url() ?>assets/images/login-backgrounds.jpg">
         <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg)) ? 'block' : 'none'; ?>">
             <div id="anleitung">
                 <?php

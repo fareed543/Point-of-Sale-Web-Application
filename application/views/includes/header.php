@@ -340,30 +340,195 @@ $login_name = $result[0]->fullname;
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
 					
-					<li class="active">
+					<li <?php if ($tk_c == 'dashboard') {?> class="active" <?php }?>>
                         <a href="<?= base_url() ?>dashboard">
                             <i class="material-icons">home</i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 					
-					<li class="active">
+					<li <?php if ($tk_c == 'customers') {?> class="active" <?php }?>>
                         <a href="<?= base_url() ?>customers/view">
-                            <i class="material-icons">home</i>
+                            <i class="material-icons">people</i>
                             <span><?php echo $lang_customers; ?></span>
                         </a>
                     </li>
 					
-					<li class="active">
+					<li <?php if ($tk_c == 'gift_card') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>gift_card/list_gift_card">
+                            <i class="material-icons">card_giftcard</i>
+                            <span><?php echo $lang_gift_card; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if ($tk_c == 'debit') {?> class="active" <?php }?>>
                         <a href="<?= base_url() ?>debit/view">
-                            <i class="material-icons">home</i>
+                            <i class="material-icons">attach_money</i>
                             <span><?php echo $lang_debit; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if ($tk_c == 'sales') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>sales/list_sales">
+                            <i class="material-icons">home</i>
+                            <span><?php echo $lang_sales; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if ($tk_c == 'opened_bill') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>sales/opened_bill">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_opened_bill; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'reports') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>reports/sales_report">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_sales_report; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'expenses') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>expenses/view">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_expenses; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'expense_category') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>expenses/expense_category">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_expenses_category; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'pnl') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>pnl/pnl_report">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_pnl_report; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'pnl_graph_view') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>pnl/pnl_graph_view">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_pnl; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'pos') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>pos">
+                            <i class="material-icons">add_shopping_cart</i>
+                            <span><?php echo $lang_pos; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if (($tk_c == 'create_return') || ($tk_m == 'confirmation')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>returnorder/create_return">
+                            <i class="material-icons">home</i>
+                            <span><?php echo $lang_create_return_order; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'return_report') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>returnorder/return_report">
+                            <i class="material-icons">insert_chart</i>
+                            <span><?php echo $lang_return_order_report; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_c == 'inventory') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>inventory/view">
+                            <i class="material-icons">home</i>
+                            <span><?php echo $lang_inventory; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if (($tk_m == 'products') || ($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {?> class="active" <?php }?>>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">map</i>
+                            <span>Catalog</span>
+                        </a>
+                        <ul class="ml-menu">
+                            
+							<li <?php if ($tk_c == 'products') {?> class="active" <?php }?>>
+								<a href="<?= base_url() ?>products/list_products">
+									<span><?php echo $lang_products; ?></span>
+								</a>
+							</li>
+							
+							<li <?php if (($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {?> class="active" <?php }?>>
+								<a href="<?= base_url() ?>products/product_category">
+									<span><?php echo $lang_product_category; ?></span>
+								</a>
+							</li>
+                        </ul>
+                    </li>
+					
+					
+					
+					
+					
+					
+					<li <?php if ($tk_m == 'purchase_order') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>purchase_order/po_view">
+                            <i class="material-icons">home</i>
+                            <span><?php echo $lang_purchase_order; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if (($tk_m == 'outlets') || ($tk_m == 'addoutlet') || ($tk_m == 'editoutlet')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/outlets">
+                            <i class="material-icons">store</i>
+                            <span><?php echo $lang_outlets; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/users">
+                            <i class="material-icons">person</i>
+                            <span><?php echo $lang_users; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if (($tk_m == 'suppliers') || ($tk_m == 'addsupplier') || ($tk_m == 'editsupplier')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/suppliers">
+                            <i class="material-icons">home</i>
+                            <span><?php echo $lang_suppliers; ?></span>
+                        </a>
+                    </li>
+					
+					
+					<li <?php if ($tk_m == 'system_setting') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/system_setting">
+                            <i class="material-icons">settings</i>
+                            <span><?php echo $lang_system_setting; ?></span>
                         </a>
                     </li>
 					
 					
 					
-                    <li class="active">
+					<li <?php if (($tk_m == 'payment_methods') || ($tk_m == 'addpaymentmethod') || ($tk_m == 'editpaymentmethod')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/payment_methods">
+                            <i class="material-icons">monetization_on</i>
+                            <span><?php echo $lang_payment_methods; ?></span>
+                        </a>
+                    </li>
+					
+					
+                    <?/*?><li class="active">
                         <a href="index.html">
                             <i class="material-icons">home</i>
                             <span>Home</span>
@@ -694,7 +859,7 @@ $login_name = $result[0]->fullname;
                             <i class="material-icons col-light-blue">donut_large</i>
                             <span>Information</span>
                         </a>
-                    </li>
+                    </li><?*/?>
                 </ul>
             </div>
             <!-- #Menu -->

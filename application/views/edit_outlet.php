@@ -101,12 +101,12 @@ $outlet_footer = $outletData[0]->receipt_footer;
 					</div><!-- Panel Body // END -->
 				</div><!-- Panel Default // END -->
 			</div><!-- Col md 12 // END -->
+                        </form>
 		</div><!-- Row // END -->
-	</form>
 	
+</section>
 	
-</div>
-</div>
+
 
 <?php
 	require_once 'includes/footer.php';

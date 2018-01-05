@@ -1,42 +1,27 @@
 <?php	require_once 'includes/header.php';	?>
 <section class="content">
 	<div class="container-fluid">
-		
 		<div class="row clearfix">
 			<!-- Task Info -->
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<?php
-					if (!empty($alert_msg)) {
-						$flash_status = $alert_msg[0];
-						$flash_header = $alert_msg[1];
-						$flash_desc = $alert_msg[2];
-						
-						if ($flash_status == 'failure') {
-						?>
-						<div class="row" id="notificationWrp">
-							<div class="col-md-12">
-								<div class="alert bg-warning" role="alert">
-									<i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-									<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-								</div>
-							</div>
-						</div>
-						<?php
-						}
-						if ($flash_status == 'success') {
-						?>
-						<div class="row" id="notificationWrp">
-							<div class="col-md-12">
-								<div class="alert bg-success" role="alert">
-									<i class="icono-check" style="color: #FFF;"></i> 
-									<?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-								</div>
-							</div>
-						</div>
-						<?php
-						}
-					}
+				<?php if (!empty($alert_msg)) { 
+					$flash_status = $alert_msg[0];
+					$flash_header = $alert_msg[1];
+					$flash_desc = $alert_msg[2];
 				?>
+				<?php if ($flash_status == 'failure') {	?>
+					<div class="alert alert-info">
+						<strong>Heads up!</strong> <?php echo $flash_desc; ?>
+					</div>
+				<?php } ?>
+
+
+				<?php if ($flash_status == 'success') {?>
+					<div class="alert alert-success">
+						<strong>Well done!</strong> <?php echo $flash_desc; ?>
+					</div>
+				<?php } ?>
+				<?php } ?>
 				
 				<div class="card">
 					<div class="header">
@@ -47,10 +32,7 @@
 							<a href="<?= base_url() ?>products/addproductcategory">
 								<button class="btn btn-primary"><?php echo $lang_add_product_category; ?></button>
 							</a>
-							<a href="setting/createuser">
-								<button class="btn btn-primary">UPDATE</button>
-							</a>
-							<a href="setting/createuser">
+							<a href="#">
 								<button class="btn btn-danger">DELETE</button>
 							</a>
 						</ul>
@@ -96,7 +78,7 @@
 														<i class="material-icons">mode_edit</i>
 													</a>
 													
-													<a href="<?= base_url() ?>products/deleteproduct?id=<?php echo $id; ?>">
+													<a href="#">
 														<i class="material-icons">delete_forever</i>
 													</a>
 												</td>

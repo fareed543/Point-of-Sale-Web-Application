@@ -21,6 +21,7 @@ $status = $categoryData[0]->status;
 		<?php echo $lang_edit_product_category; ?> : <?php echo $category_name; ?>
 		
 		<form action="<?= base_url() ?>products/updateProductCategory" method="post">
+			<input type="hidden" name="id" value="<?php echo $_GET['id'];?>"
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default">

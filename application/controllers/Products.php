@@ -984,6 +984,10 @@ class Products extends CI_Controller {
 
     // Update Product Category;
     public function updateProductCategory() {
+	
+		/*echo "<pre>";
+		print_r($_POST);
+		exit;*/
         $id = $this->input->post('id');
         $category = strip_tags($this->input->post('category'));
         $status = strip_tags($this->input->post('status'));
@@ -1003,7 +1007,8 @@ class Products extends CI_Controller {
             );
             if ($this->Constant_model->updateData('category', $update_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Product Category', "Successfully Updated Product Category : $category."));
-                redirect(base_url() . 'products/editproductcategory?id=' . $id);
+                redirect(base_url() . 'products/product_category');
+                //redirect(base_url() . 'products/editproductcategory?id=' . $id);
             }
         }
     }
@@ -1027,7 +1032,8 @@ class Products extends CI_Controller {
             );
             if ($this->Constant_model->insertData('category', $ins_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'New Product Category', "Successfully Added New Product Category : $category."));
-                redirect(base_url() . 'products/addproductcategory');
+                redirect(base_url() . 'products/product_category');
+                /*redirect(base_url() . 'products/addproductcategory');*/
             }
         }
     }

@@ -131,9 +131,7 @@ require_once 'includes/header.php';
                                                    <i class="material-icons">remove_red_eye</i>
                                                 </a>
 
-                                                <a href="#">
-                                                    <i class="material-icons">delete_forever</i>
-                                                </a>
+                                               
                                             </td>
                                         </tr>
         <?php

@@ -1,3 +1,7 @@
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+	<script src="<?= base_url() ?>assets/js/app.module.js"></script>
 	<!-- Jquery Core Js -->
 	<script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
 

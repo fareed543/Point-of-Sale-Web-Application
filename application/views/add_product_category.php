@@ -5,7 +5,14 @@
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <section class="content">
 	<div class="container-fluid">
-		<?php echo $lang_add_product_category; ?>
+	
+		<ol class="breadcrumb breadcrumb-bg-cyan">
+					<li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+					<li><a href="<?php echo base_url() ?>products/product_category"><i class="material-icons">view_module</i> <?php echo $lang_product_category; ?></a></li>
+					<li class="active"><i class="material-icons">archive</i> <?php echo $lang_add_product_category; ?></li>
+				</ol>
+				
+		
 		<form action="<?= base_url() ?>products/insertProductCategory" method="post">
 			<div class="row">
 				<div class="col-md-12">

@@ -41,10 +41,13 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
-        $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
-        $dash_currency = $dashSiteSettingData[0]->currency;
-        $data['currency'] = $dash_currency;
 
+       
+        $dashSiteSettingData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
+      
+        $dash_currency = $dashSiteSettingData[0]->currency;
+        
+        $data['currency'] = $dash_currency;
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -80,8 +83,9 @@ class Dashboard extends CI_Controller {
         $data['lang_amount'] = $this->lang->line('amount');
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
+       
         $this->load->view('dashboard', $data);
+      
     }
 
 }

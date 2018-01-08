@@ -1,6 +1,4 @@
 <?php require_once 'includes/header.php';	?>
-
-
 <section class="content">
 	<div class="container-fluid">
 		

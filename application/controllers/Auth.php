@@ -65,23 +65,22 @@ class Auth extends CI_Controller {
                     'pin' => $this->input->post('pin'),
                 );
                 $result = $this->Auth_model->verifyLogInwithPin($data);
+                /*echo "<pre>";
+                print_r($result);
+                exit;*/
                 if ($result['valid']) {
-                    $user_id = $result['user_id'];
-                    $user_email = $result['user_email'];
-                    $role_id = $result['role_id'];
-                    $out_id = $result['outlet_id'];
-
                     $userdata = array(
                         'sessionid' => 'pos',
-                        'user_id' => $user_id,
-                        'user_email' => $user_email,
-                        'user_role' => $role_id,
-                        'user_outlet' => $out_id,
+                        'user_id' => $result['user_id'],
+                        'fullname' => $result['fullname'],
+                        'user_email' => $result['user_email'],
+                        'user_role' => $result['role_id'],
+                        'user_outlet' => $result['outlet_id'],
                     );
                     /* generate database backup */
-                    $this->exportDatabase(
+                    /*$this->exportDatabase(
                             $this->db->hostname, $this->db->username, $this->db->password, $this->db->database, $tables = false, $backup_name = false
-                    );
+                    );*/
                     $this->session->set_userdata($userdata);
                     redirect(base_url() . 'dashboard', 'refresh');
                 }
@@ -107,23 +106,18 @@ class Auth extends CI_Controller {
                 $result = $this->Auth_model->verifyLogIn($data);
 
                 if ($result['valid']) {
-                    $user_id = $result['user_id'];
-                    $user_email = $result['user_email'];
-                    $role_id = $result['role_id'];
-                    $out_id = $result['outlet_id'];
-
                     $userdata = array(
                         'sessionid' => 'pos',
-                        'user_id' => $user_id,
-                        'user_email' => $user_email,
-                        'user_role' => $role_id,
-                        'user_outlet' => $out_id,
+                        'user_id' => $result['user_id'],
+                        'fullname' => $result['fullname'],
+                        'user_email' => $result['user_email'],
+                        'user_role' => $result['role_id'],
+                        'user_outlet' => $result['outlet_id'],
                     );
-
                     /* generate database backup */
-                    $this->exportDatabase(
+                    /*$this->exportDatabase(
                             $this->db->hostname, $this->db->username, $this->db->password, $this->db->database, $tables = false, $backup_name = false
-                    );
+                    );*/
                     $this->session->set_userdata($userdata);
 
                     redirect(base_url() . 'dashboard', 'refresh');

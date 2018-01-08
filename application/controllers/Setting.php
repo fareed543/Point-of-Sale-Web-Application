@@ -344,19 +344,16 @@ class Setting extends CI_Controller {
 
     // View User;
     public function users() {
+		
         $paginationData = $this->Constant_model->getDataOneColumn('site_setting', 'id', '1');
         $pagination_limit = $paginationData[0]->pagination;
-
         $config = array();
         $config['base_url'] = base_url() . 'setting/users/';
-
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
-
-        $config['total_rows'] = $this->Setting_model->record_user_count();
+        $config['total_rows'] = $this->Setting_model->record_user_count();		
         $config['per_page'] = $pagination_limit;
         $config['uri_segment'] = 3;
-
         $config['full_tag_open'] = "<ul class='pagination pagination-right margin-none'>";
         $config['full_tag_close'] = '</ul>';
         $config['num_tag_open'] = '<li>';
@@ -371,15 +368,11 @@ class Setting extends CI_Controller {
         $config['first_tagl_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
         $config['last_tagl_close'] = '</li>';
-
         $this->pagination->initialize($config);
-
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
         $data['results'] = $this->Setting_model->fetch_user_data($config['per_page'], $page);
-
         $data['links'] = $this->pagination->create_links();
-
+		
         if ($page == 0) {
             $have_count = $this->Setting_model->record_user_count();
             $sh_text = 'Showing 1 to ' . count($data['results']) . ' of ' . $this->Setting_model->record_user_count() . ' entries';
@@ -388,9 +381,8 @@ class Setting extends CI_Controller {
             $end_sh = $page + count($data['results']);
             $sh_text = "Showing $start_sh to $end_sh of " . $this->Setting_model->record_user_count() . ' entries';
         }
-
+		
         $data['displayshowingentries'] = $sh_text;
-
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -427,11 +419,9 @@ class Setting extends CI_Controller {
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
         $data['lang_action'] = $this->lang->line('action');
         $data['lang_edit'] = $this->lang->line('edit');
         $data['lang_status'] = $this->lang->line('status');
-
         $data['lang_full_name'] = $this->lang->line('full_name');
         $data['lang_email'] = $this->lang->line('email');
         $data['lang_role'] = $this->lang->line('role');
@@ -440,7 +430,6 @@ class Setting extends CI_Controller {
         $data['lang_demo_edit'] = $this->lang->line('demo_edit');
         $data['lang_active'] = $this->lang->line('active');
         $data['lang_inactive'] = $this->lang->line('inactive');
-
         $this->load->view('users', $data);
     }
 
@@ -482,13 +471,11 @@ class Setting extends CI_Controller {
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
         $data['lang_action'] = $this->lang->line('action');
         $data['lang_edit'] = $this->lang->line('edit');
         $data['lang_status'] = $this->lang->line('status');
         $data['lang_add'] = $this->lang->line('add');
         $data['lang_back'] = $this->lang->line('back');
-
         $data['lang_full_name'] = $this->lang->line('full_name');
         $data['lang_email'] = $this->lang->line('email');
         $data['lang_role'] = $this->lang->line('role');
@@ -501,16 +488,13 @@ class Setting extends CI_Controller {
         $data['lang_choose_outlet'] = $this->lang->line('choose_outlet');
         $data['lang_active'] = $this->lang->line('active');
         $data['lang_inactive'] = $this->lang->line('inactive');
-
         $this->load->view('add_user', $data);
     }
 
     // Edit User;
     public function edituser() {
         $id = $this->input->get('id');
-
-        $data['id'] = $id;
-
+        $data['user_id'] = $id;
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -547,14 +531,12 @@ class Setting extends CI_Controller {
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
         $data['lang_action'] = $this->lang->line('action');
         $data['lang_edit'] = $this->lang->line('edit');
         $data['lang_status'] = $this->lang->line('status');
         $data['lang_add'] = $this->lang->line('add');
         $data['lang_back'] = $this->lang->line('back');
         $data['lang_update'] = $this->lang->line('update');
-
         $data['lang_full_name'] = $this->lang->line('full_name');
         $data['lang_email'] = $this->lang->line('email');
         $data['lang_role'] = $this->lang->line('role');
@@ -569,16 +551,25 @@ class Setting extends CI_Controller {
         $data['lang_delete_user'] = $this->lang->line('delete_user');
         $data['lang_active'] = $this->lang->line('active');
         $data['lang_inactive'] = $this->lang->line('inactive');
-
+		
+		$userDtaData = $this->Constant_model->getDataOneColumn('pos_user', 'user_id', $id);
+		if (count($userDtaData) == 0) {
+			$this->load->view('users', $data);
+		}
+		
+		$data['fullname'] = $userDtaData[0]->fullname;
+		$data['email'] = $userDtaData[0]->email;
+		$data['role_id'] = $userDtaData[0]->role_id;
+		$data['outlet_id'] = $userDtaData[0]->outlet_id;
+		$data['pin'] = $userDtaData[0]->pin;
+		$data['status'] = $userDtaData[0]->status;
         $this->load->view('edit_user', $data);
     }
 
     // Change Password;
     public function changePassword() {
         $id = $this->input->get('id');
-
-        $data['id'] = $id;
-
+        $data['user_id'] = $id;
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -615,18 +606,15 @@ class Setting extends CI_Controller {
         $data['lang_monthly_sales_outlet'] = $this->lang->line('monthly_sales_outlet');
         $data['lang_no_match_found'] = $this->lang->line('no_match_found');
         $data['lang_create_return_order'] = $this->lang->line('create_return_order');
-
         $data['lang_action'] = $this->lang->line('action');
         $data['lang_edit'] = $this->lang->line('edit');
         $data['lang_status'] = $this->lang->line('status');
         $data['lang_add'] = $this->lang->line('add');
         $data['lang_back'] = $this->lang->line('back');
         $data['lang_update'] = $this->lang->line('update');
-
         $data['lang_change_password'] = $this->lang->line('change_password');
         $data['lang_new_password'] = $this->lang->line('new_password');
         $data['lang_confirm_password'] = $this->lang->line('confirm_password');
-
         $this->load->view('change_password', $data);
     }
 

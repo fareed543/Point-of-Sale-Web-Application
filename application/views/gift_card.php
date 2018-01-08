@@ -1,10 +1,6 @@
 <?php	require_once 'includes/header.php';	?>
 <section class="content">
 	<div class="container-fluid">
-		<div class="block-header">
-			<h2><?php echo $lang_gift_card; ?></h2>
-		</div>
-		
 		<div class="row clearfix">
 			<!-- Task Info -->
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

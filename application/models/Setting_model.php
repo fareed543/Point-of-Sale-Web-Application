@@ -48,18 +48,15 @@ class Setting_model extends CI_Model {
         $temp_user_id = $user_id = $this->session->userdata('user_id');
         $temp_outlet = $this->session->userdata('user_outlet');
         $temp_role = $this->session->userdata('user_role');
-
         if ($temp_role == 2) {
             $this->db->where('outlet_id', $temp_outlet);
         }
         if ($temp_role == 3) {
-            $this->db->where('id', $temp_user_id);
+            $this->db->where('user_id', $temp_user_id);
         }
-
-        $this->db->order_by('id', 'DESC');
-        $query = $this->db->get('users');
+        $this->db->order_by('user_id', 'DESC');
+        $query = $this->db->get('pos_user');
         $this->db->save_queries = false;
-
         return $query->num_rows();
     }
 
@@ -67,17 +64,16 @@ class Setting_model extends CI_Model {
         $temp_user_id = $user_id = $this->session->userdata('user_id');
         $temp_outlet = $this->session->userdata('user_outlet');
         $temp_role = $this->session->userdata('user_role');
-
         if ($temp_role > 1) {
             $this->db->where('outlet_id', $temp_outlet);
         }
         if ($temp_role == 3) {
-            $this->db->where('id', $temp_user_id);
+            $this->db->where('user_id', $temp_user_id);
         }
 
-        $this->db->order_by('id', 'DESC');
+        $this->db->order_by('user_id', 'DESC');
         $this->db->limit($limit, $start);
-        $query = $this->db->get('users');
+        $query = $this->db->get('pos_user');
 
         $result = $query->result();
 

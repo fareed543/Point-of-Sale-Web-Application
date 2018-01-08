@@ -6,7 +6,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 				<div class="card">
 					<div class="header">
-						<h2>TASK INFOS</h2>
+						<h2>Products</h2>
 						<ul class="header-dropdown m-r--5">
 							<li class="dropdown">
 								<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -21,8 +21,30 @@
 						</ul>
 					</div>
 					<div class="body">
+					
+					
+
+									
+									
 						<div class="table-responsive">
-							<table class="table table-hover dashboard-task-infos">
+						<?php
+							$allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
+							for ($ap = 0; $ap < count($allProdData); ++$ap) {
+								if ($allProdData[$ap]->qty > 0) {
+								?>
+								<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+									<div class="demo-color-box bg-red">
+										<div class="color-name"><?php echo $allProdData[$ap]->name; ?></div>
+										<div class="color-code"><?php echo $allProdData[$ap]->code; ?></div>
+										<div class="color-code"><?php echo $allProdData[$ap]->color; ?></div>
+										<div class="color-class-name">bg-red</div>
+									</div>
+								</div>
+								<?php
+								}
+							}
+						?>	
+							<!--<table class="table table-hover dashboard-task-infos">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -34,31 +56,24 @@
 								</thead>
 								<tbody>
 									
-									<?php	$pp = 0;	?>	
-									
 									<?php
 										$allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
 										for ($ap = 0; $ap < count($allProdData); ++$ap) {
 											if ($allProdData[$ap]->qty > 0) {
-												$pcode = $allProdData[$ap]->code;
-												$name = $allProdData[$ap]->name;
-												$color = $allProdData[$ap]->color;
-												$image = $allProdData[$ap]->thumbnail;
 											?>
 											<tr>
 												<td><?php echo $ap; ?></td>
-												<td><?php echo $name; ?></td>
-												<td><?php echo $pcode; ?></td>
-												<td><span class="label bg-green"><?php echo $color; ?></span></td>
-												<td><?= base_url() ?>assets/upload/products/xsmall/<?php echo $image; ?></td>
+												<td><?php echo $allProdData[$ap]->name; ?></td>
+												<td><?php echo $allProdData[$ap]->code; ?></td>
+												<td><span class="label bg-green"><?php echo $allProdData[$ap]->color; ?></span></td>
+												<td><?= base_url() ?>assets/upload/products/xsmall/<?php echo $allProdData[$ap]->thumbnail; ?></td>
 											</tr>
 											<?php
-												++$pp;
 											}
 										}
 									?>	
 								</tbody>
-							</table>
+							</table>-->
 						</div>
 					</div>
 				</div>
@@ -68,11 +83,12 @@
 			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
 				<div class="card">
 					<div class="header">
-						<h2>BROWSER USAGE</h2>
+						<h2> <i class="material-icons">shopping_basket</i> Cart</h2>
 						<ul class="header-dropdown m-r--5">
 							<li class="dropdown">
 								<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 									<i class="material-icons">more_vert</i>
+									
 								</a>
 								<ul class="dropdown-menu pull-right">
 									<li><a href="javascript:void(0);">Action</a></li>
@@ -118,7 +134,6 @@
 												</td>
 											</tr>
 											<?php
-												++$pp;
 											}
 										}
 									?>	

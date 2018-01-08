@@ -1,20 +1,4 @@
-<?php
-	require_once 'includes/header.php';
-	
-	$userDtaData = $this->Constant_model->getDataOneColumn('users', 'id', $id);
-
-if (count($userDtaData) == 0) {
-    redirect(base_url());
-}
-
-$fullname = $userDtaData[0]->fullname;
-$email = $userDtaData[0]->email;
-$db_role_id = $userDtaData[0]->role_id;
-$db_outlet_id = $userDtaData[0]->outlet_id;
-$pin = $userDtaData[0]->pin;
-$status = $userDtaData[0]->status;
-
-?>
+<?php	require_once 'includes/header.php';	?>
 
 
 <link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />

@@ -11,7 +11,7 @@
 							<li class="dropdown">
 								<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 									<i class="material-icons">more_vert</i>
-								</a>
+									</a>
 								<ul class="dropdown-menu pull-right">
 									<li><a href="javascript:void(0);">Action</a></li>
 									<li><a href="javascript:void(0);">Another action</a></li>
@@ -26,70 +26,37 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Task</th>
-										<th>Status</th>
-										<th>Manager</th>
-										<th>Progress</th>
+										<th>Code</th>
+										<th>Name</th>
+										<th>Color</th>
+										<th>image</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Task A</td>
-										<td><span class="label bg-green">Doing</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Task B</td>
-										<td><span class="label bg-blue">To Do</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Task C</td>
-										<td><span class="label bg-light-blue">On Hold</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>Task D</td>
-										<td><span class="label bg-orange">Wait Approvel</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>Task E</td>
-										<td>
-											<span class="label bg-red">Suspended</span>
-										</td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%"></div>
-											</div>
-										</td>
-									</tr>
+									
+									<?php	$pp = 0;	?>	
+									
+									<?php
+										$allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
+										for ($ap = 0; $ap < count($allProdData); ++$ap) {
+											if ($allProdData[$ap]->qty > 0) {
+												$pcode = $allProdData[$ap]->code;
+												$name = $allProdData[$ap]->name;
+												$color = $allProdData[$ap]->color;
+												$image = $allProdData[$ap]->thumbnail;
+											?>
+											<tr>
+												<td><?php echo $ap; ?></td>
+												<td><?php echo $name; ?></td>
+												<td><?php echo $pcode; ?></td>
+												<td><span class="label bg-green"><?php echo $color; ?></span></td>
+												<td><?= base_url() ?>assets/upload/products/xsmall/<?php echo $image; ?></td>
+											</tr>
+											<?php
+												++$pp;
+											}
+										}
+									?>	
 								</tbody>
 							</table>
 						</div>
@@ -128,63 +95,33 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Task A</td>
-										<td><span class="label bg-green">Doing</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>Task B</td>
-										<td><span class="label bg-blue">To Do</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-blue" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>3</td>
-										<td>Task C</td>
-										<td><span class="label bg-light-blue">On Hold</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-light-blue" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>4</td>
-										<td>Task D</td>
-										<td><span class="label bg-orange">Wait Approvel</span></td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-orange" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>5</td>
-										<td>Task E</td>
-										<td>
-											<span class="label bg-red">Suspended</span>
-										</td>
-										<td>John Doe</td>
-										<td>
-											<div class="progress">
-												<div class="progress-bar bg-red" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%"></div>
-											</div>
-										</td>
-									</tr>
+								
+								<?php
+										$allProdData = $this->Constant_model->getPOSProducts('products', 'status', '1');
+										for ($ap = 0; $ap < count($allProdData); ++$ap) {
+											if ($allProdData[$ap]->qty > 0) {
+												$pcode = $allProdData[$ap]->code;
+												$name = $allProdData[$ap]->name;
+												$color = $allProdData[$ap]->color;
+												$image = $allProdData[$ap]->thumbnail;
+											?>
+											<tr>
+												<td><?php echo $ap; ?></td>
+												<td><?php echo $name; ?></td>
+												<td><?php echo $pcode; ?></td>
+												<td><span class="label bg-green"><?php echo $color; ?></span></td>
+												<td>
+													<i class="material-icons">mode_edit</i>
+													<i class="material-icons">control_point</i>
+													<i class="material-icons">remove_circle_outline</i>
+													<i class="material-icons">delete_forever</i>
+												</td>
+											</tr>
+											<?php
+												++$pp;
+											}
+										}
+									?>	
 								</tbody>
 							</table>
 						</div>

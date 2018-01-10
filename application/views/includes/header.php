@@ -46,15 +46,6 @@ delete_cookie('outlet');
 <!-- Bootstrap Core Css -->
 <link href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-<!-- Waves Effect Css -->
-<link href="<?= base_url() ?>assets/plugins/node-waves/waves.css" rel="stylesheet" />
-
-<!-- Animation Css -->
-<link href="<?= base_url() ?>assets/plugins/animate-css/animate.css" rel="stylesheet" />
-
-<!-- Morris Chart Css-->
-<link href="<?= base_url() ?>assets/plugins/morrisjs/morris.css" rel="stylesheet" />
-
 <!-- Custom Css -->
 <link href="<?= base_url() ?>assets/css/style.css" rel="stylesheet">
 

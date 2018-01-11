@@ -4,22 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Setting extends CI_Controller {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     *
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
     public function __construct() {
         // Call the Model constructor
         parent::__construct();
@@ -121,14 +105,11 @@ class Setting extends CI_Controller {
 
         $config = array();
         $config['base_url'] = base_url() . 'setting/outlets/';
-
         $config['display_pages'] = true;
         $config['first_link'] = 'First';
-
         $config['total_rows'] = $this->Setting_model->record_outlet_count();
         $config['per_page'] = $pagination_limit;
         $config['uri_segment'] = 3;
-
         $config['full_tag_open'] = "<ul class='pagination pagination-right margin-none'>";
         $config['full_tag_close'] = '</ul>';
         $config['num_tag_open'] = '<li>';
@@ -143,15 +124,10 @@ class Setting extends CI_Controller {
         $config['first_tagl_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
         $config['last_tagl_close'] = '</li>';
-
         $this->pagination->initialize($config);
-
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
         $data['results'] = $this->Setting_model->fetch_outlet_data($config['per_page'], $page);
-
         $data['links'] = $this->pagination->create_links();
-
         if ($page == 0) {
             $have_count = $this->Setting_model->record_outlet_count();
             $sh_text = 'Showing 1 to ' . count($data['results']) . ' of ' . $this->Setting_model->record_outlet_count() . ' entries';
@@ -162,7 +138,6 @@ class Setting extends CI_Controller {
         }
 
         $data['displayshowingentries'] = $sh_text;
-
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -1092,13 +1067,21 @@ class Setting extends CI_Controller {
 
     // Delete Outlet;
     public function deleteOutlet() {
-        $outlet_id = $this->input->post('outlet_id');
+        $outlet_id = $this->input->get('outlet_id');
+        //$outlet_name = $this->input->post('outlet_name');
+
+        if ($this->Constant_model->deleteData('outlets', $outlet_id)) {
+            $this->session->set_flashdata('alert_msg', array('success', 'Delete Outlet', "Successfully Deleted Outlet."));
+            redirect(base_url() . 'setting/outlets');
+        }
+
+        /*$outlet_id = $this->input->post('outlet_id');
         $outlet_name = $this->input->post('outlet_name');
 
         if ($this->Constant_model->deleteData('outlets', $outlet_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Outlet', "Successfully Deleted Outlet : $outlet_name."));
             redirect(base_url() . 'setting/outlets');
-        }
+        }*/
     }
 
     // Delete User;

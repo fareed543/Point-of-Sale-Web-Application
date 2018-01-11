@@ -10,11 +10,9 @@ redirect(base_url(), 'refresh');
 
 $tk_c = $this->router->class;
 $tk_m = $this->router->method;
-
 $alert_msg = $this->session->flashdata('alert_msg');
 $settingResult = $this->db->get_where('site_setting');
 $settingData = $settingResult->row();
-
 $setting_site_name = $settingData->site_name;
 $setting_pagination = $settingData->pagination;
 $setting_tax = $settingData->tax;
@@ -479,7 +477,6 @@ delete_cookie('outlet');
                 </a>
             </li>
             
-            
             <li <?php if (($tk_m == 'suppliers') || ($tk_m == 'addsupplier') || ($tk_m == 'editsupplier')) {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>setting/suppliers">
                     <i class="material-icons">home</i>
@@ -845,9 +842,9 @@ delete_cookie('outlet');
         <div class="copyright">
             &copy; 2018 <a href="javascript:void(0);"><?php echo $setting_site_name; ?></a>.
         </div>
-        <div class="version">
+        <!--<div class="version">
             <b>Version: </b> 1.0.0
-        </div>
+        </div>-->
     </div>
     <!-- #Footer -->
 </aside>
@@ -855,11 +852,11 @@ delete_cookie('outlet');
 <!-- Right Sidebar -->
 <aside id="rightsidebar" class="right-sidebar">
     <ul class="nav nav-tabs tab-nav-right" role="tablist">
-        <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
-        <li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
+        <li role="presentation"><a href="#skins" data-toggle="tab">SKINS</a></li>
+        <li role="presentation" class="active"><a href="#settings" data-toggle="tab">SETTINGS</a></li>
     </ul>
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+        <div role="tabpanel" class="tab-pane fade" id="skins">
             <ul class="demo-choose-skin">
                 <li data-theme="red" class="active">
                     <div class="red"></div>
@@ -943,7 +940,7 @@ delete_cookie('outlet');
                 </li>
             </ul>
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="settings">
+        <div role="tabpanel" class="tab-pane fade in active in active" id="settings">
             <div class="demo-settings">
                 <p>GENERAL SETTINGS</p>
                 <ul class="setting-list">

@@ -24,13 +24,15 @@ jQuery(document).ready(function ($) {
                 enterCode = enterCode.substring(0, lengthCode);
                 $("#fields .numberfield:eq(" + lengthCode + ")").removeClass("active");
                 lengthCode--;
-            } else {
+            } else if (lengthCode < 3) {
                 enterCode = enterCode + clickedNumber;
                 lengthCode = parseInt(enterCode.length);
                 lengthCode--;
                 $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
             }
             if (lengthCode == 3) {
+                console.log(lengthCode);
+                console.log(enterCode);
                 $.ajax({
                     url: 'auth/checkpin',
                     type: 'POST',
@@ -75,6 +77,7 @@ jQuery(document).ready(function ($) {
 
         $("#restartbtn").click(function () {
             enterCode = "";
+	    lengthCode = -1;
             $("#fields .numberfield").removeClass("active");
             $("#fields .numberfield").removeClass("right");
             $("#numbers").removeClass("hide");

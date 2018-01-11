@@ -124,9 +124,7 @@ date_default_timezone_set("$setting_timezone");
                     </div>
                 </div>
             </div>
-        </div>
-       
+        </div>       
     </body>
-
 	<script src="<?= base_url() ?>assets/js/login.js"></script>
 </html>

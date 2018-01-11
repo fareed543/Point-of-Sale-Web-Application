@@ -13,112 +13,126 @@ $status = $expData[0]->status;
 <script type="text/javascript" src="<?= base_url() ?>assets/ckeditor/ckeditor.js"></script>
 <!-- <script type="text/javascript" src="<?= base_url() ?>assets/ckfinder/ckfinder.js"></script> -->
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_edit_expenses_category; ?> : <?php echo $exp_name; ?></h1>
-        </div>
-    </div><!--/.row-->
+<link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 
-    <form action="<?= base_url() ?>expenses/updateExpenseCategory" method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-
-                        <?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
+<section class="content">
+    <div class="container-fluid">
+        <ol class="breadcrumb breadcrumb-bg-cyan">
+            <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+            <li><a href="<?php echo base_url() ?>expenses/expense_category"><i class="material-icons">view_module</i> <?php echo $lang_expenses_category; ?></a></li>
+            <li class="active"><i class="material-icons">view_module</i> <?php echo $lang_edit_expenses_category; ?> : <?php echo $exp_name; ?></li>
+        </ol>
+        <form action="<?= base_url() ?>expenses/updateExpenseCategory" method="post">
+            <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>"
+                   <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <?php
+                            if (!empty($alert_msg)) {
+                                $flash_status = $alert_msg[0];
+                                $flash_header = $alert_msg[1];
+                                $flash_desc = $alert_msg[2];
                                 ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-warning" role="alert">
-                                            <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                                <?php if ($flash_status == 'failure') { ?>
+                                    <div class="alert alert-info">
+                                        <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($flash_status == 'success') { ?>
+                                    <div class="alert alert-success">
+                                        <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+
+
+
+                            <div class="row clearfix">
+
+                                <div class="col-sm-6">
+                                    <div class="form-group form-float">
+                                        <div class="form-line">
+                                            <input type="text" name="name"  class="form-control"  maxlength="499" autofocus required autocomplete="off" value="<?php echo $exp_name; ?>" />
+                                            <label class="form-label"><?php echo $lang_expenses_category_name; ?></label>
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-success" role="alert">
-                                            <i class="icono-check" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $lang_expenses_category_name; ?> <span style="color: #F00">*</span></label>
-                                    <input type="text" name="name" class="form-control" maxlength="499" autofocus required autocomplete="off" value="<?php echo $exp_name; ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-6"></div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label><?php echo $lang_status; ?> <span style="color: #F00">*</span></label>
-                                    <select name="status" class="form-control" required>
-                                        <option value="1" <?php
-                                        if ($status == '1') {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>><?php echo $lang_active; ?></option>
+                                <div class="col-sm-6">
+                                        <!--<p><?php echo $lang_status; ?></p>-->
+                                    <select name="status" class="form-control show-tick" data-live-search="true">
                                         <option value="0" <?php
                                         if ($status == '0') {
                                             echo 'selected="selected"';
                                         }
-                                        ?>><?php echo $lang_inactive; ?></option>
+                                        ?>>
+                                                    <?php echo $lang_inactive; ?>
+                                        </option>
+                                        <option value="1" <?php
+                                        if ($status == '1') {
+                                            echo 'selected="selected"';
+                                        }
+                                        ?>>
+                                                    <?php echo $lang_active; ?>
+                                        </option>
+
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6"></div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                                    <button class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_update; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+                            <?php /* ?><h3 class="card-inside-title">Login Details</h3>
+                              <div class="row clearfix">
+                              <div class="col-sm-6">
+                              <div class="form-group form-float">
+                              <div class="form-line">
+                              <input type="password" name="password" class="form-control" maxlength="499" autocomplete="off" value="<?php
+                              if (!empty($alert_msg)) {
+                              echo $alert_msg[5];
+                              }
+                              ?>" />
+                              <label class="form-label"><?php echo $lang_password; ?></label>
+                              </div>
+                              </div>
+                              </div>
+
+                              <div class="col-sm-6">
+                              <div class="form-group form-float">
+                              <div class="form-line">
+                              <input type="password" name="conpassword" class="form-control" maxlength="499" autocomplete="off" value="<?php
+                              if (!empty($alert_msg)) {
+                              echo $alert_msg[6];
+                              }
+                              ?>" />
+                              <label class="form-label"><?php echo $lang_confirm_password; ?></label>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+                              </div><?php */ ?>
+
+
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary"><?php echo $lang_update; ?></button>
+                                        <a class="btn btn-primary" href="<?= base_url() ?>expenses/expense_category"><?php echo $lang_back; ?></a>
+                                    </div>
+
+
                                 </div>
                             </div>
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4"></div>
                         </div>
-
-
 
                     </div><!-- Panel Body // END -->
                 </div><!-- Panel Default // END -->
+        </form>
+    </div>
 
-                <a href="<?= base_url() ?>expenses/expense_category" style="text-decoration: none;">
-                    <div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
-                        <i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
-                    </div>
-                </a>
-
-            </div><!-- Col md 12 // END -->
-        </div><!-- Row // END -->
-    </form>
-
-    <br /><br /><br /><br /><br />
-
-</div><!-- Right Colmn // END -->
+</section><!-- Right Colmn // END -->
 
 
 

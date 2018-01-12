@@ -7,8 +7,7 @@
 				<ol class="breadcrumb breadcrumb-bg-cyan">
 					<li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
 					<li class="active"><i class="material-icons">store</i> <?php echo $lang_customers; ?></li>
-				</ol>
-				
+				</ol>				
 				<?php if (!empty($alert_msg)) { 
 					$flash_status = $alert_msg[0];
 					$flash_header = $alert_msg[1];
@@ -19,8 +18,7 @@
 						<strong>Heads up!</strong> <?php echo $flash_desc; ?>
 					</div>
 				<?php } ?>
-				
-				
+							
 				<?php if ($flash_status == 'success') {?>
 					<div class="alert alert-success">
 						<strong>Well done!</strong> <?php echo $flash_desc; ?>
@@ -42,10 +40,8 @@
 					</div>
 					<div class="body">
 						<div class="table-responsive">
-							
 							<form action="<?= base_url() ?>customers/searchcustomer" method="get">
 								<table class="table table-hover dashboard-task-infos">
-									
 									<tr>
 										<th width="15%"><input type="text" name="name" class="form-control" /></th>
 										<th width="15%"><input type="text" name="email" class="form-control" /></th>
@@ -74,23 +70,8 @@
 											?>
 											<tr>
 												<td><?php echo $cust_fn; ?></td>
-												<td> <?php
-													if (empty($cust_em)) {
-														echo '-';
-														} else {
-														echo $cust_em;
-													}
-												?>
-												</td>
-												<td><?php
-													if (empty($cust_mb)) {
-														echo '-';
-														} else {
-														echo $cust_mb;
-													}
-												?>
-												</td>
-												
+												<td><?php echo (!empty($cust_em))? $cust_em : '-'; ?></td>
+												<td><?php echo (!empty($cust_mb))? $cust_mb :  '-'; ?></td>
 												<td>
 													<a href="<?= base_url() ?>customers/edit_customer?cust_id=<?php echo $cust_id; ?>">
 														<i class="material-icons">mode_edit</i>
@@ -101,7 +82,6 @@
 													<a href="#">
 														<i class="material-icons">delete_forever</i>
 													</a>
-													
 												</td>
 											</tr>
 											<?php

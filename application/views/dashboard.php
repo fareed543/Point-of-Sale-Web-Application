@@ -51,7 +51,7 @@
 			</a>
 			
 			
-			<a href="<?= base_url() ?>setting/users">
+			<a href="<?= base_url() ?>setting/system_setting">
 				<div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
 					<div class="demo-color-box bg-teal">
 						<i class="material-icons">person_add</i>

@@ -10,6 +10,12 @@ redirect(base_url(), 'refresh');
 
 $tk_c = $this->router->class;
 $tk_m = $this->router->method;
+
+
+/*echo $tk_c; // controller 
+echo $tk_m; // action
+exit;*/
+
 $alert_msg = $this->session->flashdata('alert_msg');
 $settingResult = $this->db->get_where('site_setting');
 $settingData = $settingResult->row();
@@ -348,7 +354,7 @@ delete_cookie('outlet');
                 </a>
             </li>
             
-            <li <?php if ($tk_c == 'sales') {?> class="active" <?php }?>>
+            <li <?php if (($tk_c == 'sales') || ($tk_m == 'list_sales')) { ?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>sales/list_sales">
                     <i class="material-icons">home</i>
                     <span><?php echo $lang_sales; ?></span>
@@ -363,14 +369,7 @@ delete_cookie('outlet');
             </li>
             
             
-            <li <?php if ($tk_c == 'reports') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>reports/sales_report">
-                    <i class="material-icons">insert_chart</i>
-                    <span><?php echo $lang_sales_report; ?></span>
-                </a>
-            </li>
-            
-            
+           
             <li <?php if ($tk_c == 'expenses') {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>expenses/view">
                     <i class="material-icons">insert_chart</i>
@@ -387,22 +386,6 @@ delete_cookie('outlet');
             </li>
             
             
-            <li <?php if ($tk_c == 'pnl') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>pnl/pnl_report">
-                    <i class="material-icons">insert_chart</i>
-                    <span><?php echo $lang_pnl_report; ?></span>
-                </a>
-            </li>
-            
-            
-            <li <?php if ($tk_c == 'pnl_graph_view') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>pnl/pnl_graph_view">
-                    <i class="material-icons">insert_chart</i>
-                    <span><?php echo $lang_pnl; ?></span>
-                </a>
-            </li>
-            
-            
             <li <?php if ($tk_c == 'pos') {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>pos">
                     <i class="material-icons">add_shopping_cart</i>
@@ -410,51 +393,105 @@ delete_cookie('outlet');
                 </a>
             </li>
             
-            
-            <li <?php if (($tk_c == 'create_return') || ($tk_m == 'confirmation')) {?> class="active" <?php }?>>
+           
+            <li <?php if (($tk_c == 'returnorder') || ($tk_m == 'return_report')) {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>returnorder/create_return">
                     <i class="material-icons">home</i>
                     <span><?php echo $lang_create_return_order; ?></span>
                 </a>
             </li>
-            
-            
-            <li <?php if ($tk_c == 'return_report') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>returnorder/return_report">
-                    <i class="material-icons">insert_chart</i>
-                    <span><?php echo $lang_return_order_report; ?></span>
+          
+           <li <?php if (($tk_c == 'return_report') ||($tk_c == 'pnl') || ($tk_c == 'reports') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">map</i>
+                    <span>Reports</span>
                 </a>
+                <ul class="ml-menu">
+					<li <?php if ($tk_c == 'pnl') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>pnl/pnl_report">
+                            <span><?php echo $lang_pnl_report; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if ($tk_c == 'pnl_graph_view') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>pnl/pnl_graph_view">
+                            <span><?php echo $lang_pnl; ?></span>
+                        </a>
+                    </li>
+					
+                    <li <?php if ($tk_c == 'return_report') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>returnorder/return_report">
+                            <span><?php echo $lang_return_order_report; ?></span>
+                        </a>
+                    </li>
+					
+                    
+                    <li <?php if ($tk_c == 'reports') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>reports/sales_report">
+                            <span><?php echo $lang_sales_report; ?></span>
+                        </a>
+                    </li>
+					
+                </ul>
             </li>
+			
+			
             
-            
-            <li <?php if ($tk_c == 'inventory') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>inventory/view">
-                    <i class="material-icons">home</i>
-                    <span><?php echo $lang_inventory; ?></span>
-                </a>
-            </li>
-            
-            <li <?php if (($tk_m == 'products') || ($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {?> class="active" <?php }?>>
+            <li <?php if (($tk_c == 'inventory') ||($tk_c == 'products') || ($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {?> class="active" <?php }?>>
                 <a href="javascript:void(0);" class="menu-toggle">
                     <i class="material-icons">map</i>
                     <span>Catalog</span>
                 </a>
                 <ul class="ml-menu">
                     
-                    <li <?php if ($tk_c == 'products') {?> class="active" <?php }?>>
+                    <li <?php if (($tk_c == 'products') && $tk_m == 'list_products') {?> class="active" <?php }?>>
                         <a href="<?= base_url() ?>products/list_products">
                             <span><?php echo $lang_products; ?></span>
                         </a>
                     </li>
                     
-                    <li <?php if (($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory')) {?> class="active" <?php }?>>
+                    <li <?php if (($tk_c == 'products') && (($tk_m == 'product_category') || ($tk_m == 'addproductcategory') || ($tk_m == 'editproductcategory'))) {?> class="active" <?php }?>>
                         <a href="<?= base_url() ?>products/product_category">
                             <span><?php echo $lang_product_category; ?></span>
                         </a>
                     </li>
+					
+					<li <?php if ($tk_c == 'inventory') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>inventory/view">
+                            <span><?php echo $lang_inventory; ?></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
-            
+			
+			
+			<li <?php if (($tk_c == 'return_report') ||($tk_c == 'pnl') || ($tk_c == 'reports') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
+                <a href="javascript:void(0);" class="menu-toggle">
+                    <i class="material-icons">map</i>
+                    <span>Settings</span>
+                </a>
+                <ul class="ml-menu">
+				
+					<li <?php if (($tk_m == 'outlets') || ($tk_m == 'addoutlet') || ($tk_m == 'editoutlet')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/outlets">
+                            <span><?php echo $lang_outlets; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if ($tk_c == 'system_setting') {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/system_setting">
+                            <span><?php echo $lang_system_setting; ?></span>
+                        </a>
+                    </li>
+					
+					<li <?php if (($tk_m == 'payment_methods') || ($tk_m == 'addpaymentmethod') || ($tk_m == 'editpaymentmethod')) {?> class="active" <?php }?>>
+                        <a href="<?= base_url() ?>setting/payment_methods">
+                            <span><?php echo $lang_payment_methods; ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+			
             <li <?php if ($tk_m == 'purchase_order') {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>purchase_order/po_view">
                     <i class="material-icons">home</i>
@@ -462,13 +499,6 @@ delete_cookie('outlet');
                 </a>
             </li>
             
-            
-            <li <?php if (($tk_m == 'outlets') || ($tk_m == 'addoutlet') || ($tk_m == 'editoutlet')) {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>setting/outlets">
-                    <i class="material-icons">store</i>
-                    <span><?php echo $lang_outlets; ?></span>
-                </a>
-            </li>
             
             <li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
                 <a href="<?= base_url() ?>setting/users">
@@ -484,356 +514,6 @@ delete_cookie('outlet');
                 </a>
             </li>
             
-            
-            <li <?php if ($tk_m == 'system_setting') {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>setting/system_setting">
-                    <i class="material-icons">settings</i>
-                    <span><?php echo $lang_system_setting; ?></span>
-                </a>
-            </li>
-            
-            
-            
-            <li <?php if (($tk_m == 'payment_methods') || ($tk_m == 'addpaymentmethod') || ($tk_m == 'editpaymentmethod')) {?> class="active" <?php }?>>
-                <a href="<?= base_url() ?>setting/payment_methods">
-                    <i class="material-icons">monetization_on</i>
-                    <span><?php echo $lang_payment_methods; ?></span>
-                </a>
-            </li>
-            
-            
-            <?php /*?><li class="active">
-                <a href="index.html">
-                    <i class="material-icons">home</i>
-                    <span>Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="pages/typography.html">
-                    <i class="material-icons">text_fields</i>
-                    <span>Typography</span>
-                </a>
-            </li>
-            <li>
-                <a href="pages/helper-classes.html">
-                    <i class="material-icons">layers</i>
-                    <span>Helper Classes</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">widgets</i>
-                    <span>Widgets</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>Cards</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/widgets/cards/basic.html">Basic</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/cards/colored.html">Colored</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/cards/no-header.html">No Header</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>Infobox</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-1.html">Infobox-1</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-2.html">Infobox-2</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-3.html">Infobox-3</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-4.html">Infobox-4</a>
-                            </li>
-                            <li>
-                                <a href="pages/widgets/infobox/infobox-5.html">Infobox-5</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">swap_calls</i>
-                    <span>User Interface (UI)</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/ui/alerts.html">Alerts</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/animations.html">Animations</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/badges.html">Badges</a>
-                    </li>
-
-                    <li>
-                        <a href="pages/ui/breadcrumbs.html">Breadcrumbs</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/buttons.html">Buttons</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/collapse.html">Collapse</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/colors.html">Colors</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/dialogs.html">Dialogs</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/icons.html">Icons</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/labels.html">Labels</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/list-group.html">List Group</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/media-object.html">Media Object</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/modals.html">Modals</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/notifications.html">Notifications</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/pagination.html">Pagination</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/preloaders.html">Preloaders</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/progressbars.html">Progress Bars</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/range-sliders.html">Range Sliders</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/sortable-nestable.html">Sortable & Nestable</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/tabs.html">Tabs</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/thumbnails.html">Thumbnails</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/tooltips-popovers.html">Tooltips & Popovers</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui/waves.html">Waves</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">assignment</i>
-                    <span>Forms</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/forms/basic-form-elements.html">Basic Form Elements</a>
-                    </li>
-                    <li>
-                        <a href="pages/forms/advanced-form-elements.html">Advanced Form Elements</a>
-                    </li>
-                    <li>
-                        <a href="pages/forms/form-examples.html">Form Examples</a>
-                    </li>
-                    <li>
-                        <a href="pages/forms/form-validation.html">Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="pages/forms/form-wizard.html">Form Wizard</a>
-                    </li>
-                    <li>
-                        <a href="pages/forms/editors.html">Editors</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">view_list</i>
-                    <span>Tables</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/tables/normal-tables.html">Normal Tables</a>
-                    </li>
-                    <li>
-                        <a href="pages/tables/jquery-datatable.html">Jquery Datatables</a>
-                    </li>
-                    <li>
-                        <a href="pages/tables/editable-table.html">Editable Tables</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">perm_media</i>
-                    <span>Medias</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/medias/image-gallery.html">Image Gallery</a>
-                    </li>
-                    <li>
-                        <a href="pages/medias/carousel.html">Carousel</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">pie_chart</i>
-                    <span>Charts</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/charts/morris.html">Morris</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/flot.html">Flot</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/chartjs.html">ChartJS</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/sparkline.html">Sparkline</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/jquery-knob.html">Jquery Knob</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">content_copy</i>
-                    <span>Example Pages</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/examples/sign-in.html">Sign In</a>
-                    </li>
-                    <li>
-                        <a href="pages/examples/sign-up.html">Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="pages/examples/forgot-password.html">Forgot Password</a>
-                    </li>
-                    <li>
-                        <a href="pages/examples/blank.html">Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="pages/examples/404.html">404 - Not Found</a>
-                    </li>
-                    <li>
-                        <a href="pages/examples/500.html">500 - Server Error</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">map</i>
-                    <span>Maps</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/maps/google.html">Google Map</a>
-                    </li>
-                    <li>
-                        <a href="pages/maps/yandex.html">YandexMap</a>
-                    </li>
-                    <li>
-                        <a href="pages/maps/jvectormap.html">jVectorMap</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">trending_down</i>
-                    <span>Multi Level Menu</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="javascript:void(0);">
-                            <span>Menu Item</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);">
-                            <span>Menu Item - 2</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>Level - 2</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="javascript:void(0);">
-                                    <span>Menu Item</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    <span>Level - 3</span>
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <span>Level - 4</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="pages/changelogs.html">
-                    <i class="material-icons">update</i>
-                    <span>Changelogs</span>
-                </a>
-            </li>
-            <li class="header">LABELS</li>
-            <li>
-                <a href="javascript:void(0);">
-                    <i class="material-icons col-red">donut_large</i>
-                    <span>Important</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);">
-                    <i class="material-icons col-amber">donut_large</i>
-                    <span>Warning</span>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);">
-                    <i class="material-icons col-light-blue">donut_large</i>
-                    <span>Information</span>
-                </a>
-            </li><?*/?>
         </ul>
     </div>
     <!-- #Menu -->

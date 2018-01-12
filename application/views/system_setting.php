@@ -218,10 +218,9 @@
 
 
                                 <div class="col-sm-6">
-                                    <label><?php echo $lang_logo; ?> <span style="color: #F00">*</span></label>
-                                    <br />
-                                    <input id="uploadFile" readonly style="height: 40px; width: 230px; border: 1px solid #ccc" />
-                                    <div class="fileUpload btn btn-primary" style="padding: 9px 12px;">
+                                    <label><?php echo $lang_logo; ?></label>
+                                    <input id="uploadFile" readonly />
+                                    <div class="fileUpload btn btn-primary">
                                         <span><?php echo $lang_browse; ?></span>
                                         <input id="uploadBtn" name="uploadFile" type="file" class="upload" />
                                     </div>

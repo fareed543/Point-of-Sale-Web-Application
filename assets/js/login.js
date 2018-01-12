@@ -20,19 +20,20 @@ jQuery(document).ready(function ($) {
         var lengthCode = -1;
         $("#numbers button").click(function () {
             var clickedNumber = $(this).text().toString();
-            if (clickedNumber == 'DEL') {
+            if (clickedNumber == 'DELETE') {
+                
                 enterCode = enterCode.substring(0, lengthCode);
                 $("#fields .numberfield:eq(" + lengthCode + ")").removeClass("active");
-                lengthCode--;
-            } else if (lengthCode < 3) {
-                enterCode = enterCode + clickedNumber;
-                lengthCode = parseInt(enterCode.length);
-                lengthCode--;
-                $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
-            }
+                if(lengthCode > -1 ){lengthCode--;}
+            } else {
+		if (lengthCode < 3) {
+			enterCode = enterCode + clickedNumber;
+                	lengthCode = parseInt(enterCode.length);
+        	        lengthCode--;
+	                $("#fields .numberfield:eq(" + lengthCode + ")").addClass("active");
+		}
+	    } 
             if (lengthCode == 3) {
-                console.log(lengthCode);
-                console.log(enterCode);
                 $.ajax({
                     url: 'auth/checkpin',
                     type: 'POST',
@@ -41,8 +42,8 @@ jQuery(document).ready(function ($) {
                         pin: enterCode
                     },
                     error: function () {
+			enterCode = "";lengthCode = -1;
                         $("#fields").addClass("miss");
-                        enterCode = "";
                         setTimeout(function () {
                             $("#fields .numberfield").removeClass("active");
                         }, 200);
@@ -52,7 +53,6 @@ jQuery(document).ready(function ($) {
                     },
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data);
                         if (data == 1) {
                             $("#fields .numberfield").addClass("right");
                             $("#numbers").addClass("hide");
@@ -60,13 +60,13 @@ jQuery(document).ready(function ($) {
                             $("#pin").val(enterCode);
                             $("#loginform").submit();
                         } else {
+			    enterCode =''; lengthCode= -1;
                             $("#fields").addClass("miss");
-                            enterCode = "";
                             setTimeout(function () {
                                 $("#fields .numberfield").removeClass("active");
                             }, 200);
                             setTimeout(function () {
-                                $("#fields").removeClass("miss");
+                                $("#fields").removeClass("miss"); 
                             }, 500);
                         }
                     }
@@ -76,8 +76,7 @@ jQuery(document).ready(function ($) {
         });
 
         $("#restartbtn").click(function () {
-            enterCode = "";
-	    lengthCode = -1;
+            enterCode = "";lengthCode = -1;
             $("#fields .numberfield").removeClass("active");
             $("#fields .numberfield").removeClass("right");
             $("#numbers").removeClass("hide");

@@ -46,7 +46,7 @@
 										<th>#</th>
 										<th width="10%"><?php echo $lang_code; ?></th>
 										<th width="20%"><?php echo $lang_name; ?></th>
-										<th width="10%"><?php echo $lang_image; ?></th>
+										<!--<th width="10%"><?php echo $lang_image; ?></th>-->
 										<th width="15%"><?php echo $lang_category; ?></th>
 										<th width="10%"><?php echo $lang_cost; ?></th>
 										<th width="10%"><?php echo $lang_price; ?></th>
@@ -78,7 +78,7 @@
 												<td><?php echo $key; ?></td>
 												<td><?php echo $data->code; ?></td>
 												<td><?php echo $data->name; ?></td>
-												<td>
+												<!--<td>
 													<?php
 														if ($thumbnail == 'no_image.jpg') {
 															$large_file_path = base_url() . 'assets/upload/products/small/no_image.jpg';
@@ -91,7 +91,7 @@
 														<img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $data->code; ?>/<?php echo $thumbnail; ?>"/>
 														<?php }
 													?>
-												</td>
+												</td>-->
 												<td><?php echo $category_name; ?></td>
 												<td><?php echo number_format($cost, 2); ?></td>
 												<td><?php echo number_format($price, 2); ?></td>
@@ -106,16 +106,12 @@
 													?>
 												</td>
 												<td>
-													<a class="fancybox" rel="group" href="<?php echo $large_file_path; ?>" style="text-decoration: none;" title="<?php echo $data->code; ?>">
-														<i class="icono-image" style="color: #005b8a; height: 30px;"></i>
+													<a href="<?= base_url() ?>products/editproduct?id=<?php echo $id; ?>" title="Edit">
+														<i class="material-icons">mode_edit</i>
 													</a>
 													
-													<a href="<?= base_url() ?>products/editproduct?id=<?php echo $id; ?>" style="text-decoration: none; margin-left: 10px;" title="Edit">
-														<img src="<?= base_url() ?>assets/img/edit_icon.png" height="30px" />
-													</a>
-													
-													<a onclick="openReceipt('<?= base_url() ?>products/printBarcode?pcode=<?php echo $data->code; ?>')" style="text-decoration: none; cursor: pointer;" title="Print Barcode">
-														<img src="<?= base_url() ?>assets/img/barcode_icon.png" height="20px" />
+													<a onclick="openReceipt('<?= base_url() ?>products/printBarcode?pcode=<?php echo $data->code; ?>')" title="Print Barcode">
+														<i class="material-icons">view_column</i>
 													</a>
 												</td>
 											</tr>

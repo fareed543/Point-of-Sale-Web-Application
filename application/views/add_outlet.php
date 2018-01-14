@@ -13,13 +13,7 @@ require_once 'includes/header.php';
                     <li class="active"><i class="material-icons">store</i> <?php echo $lang_add_new_outlet; ?></li>
 				</ol>
 
-       
-        <form action="<?= base_url() ?>setting/insertOutlet" method="post">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <?php
+				<?php
                             if (!empty($alert_msg)) {
                                 $flash_status = $alert_msg[0];
                                 $flash_header = $alert_msg[1];
@@ -38,7 +32,12 @@ require_once 'includes/header.php';
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-
+       
+        <form action="<?= base_url() ?>setting/insertOutlet" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                             <h3 class="card-inside-title">Infomation</h3>
                             <div class="row clearfix">
 

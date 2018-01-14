@@ -449,7 +449,7 @@
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'inventory') {?> class="active" <?php }?>>
+								<li <?php if (($tk_c == 'inventory') && ($tk_m == 'view')) {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>inventory/view">
 										<span><?php echo $lang_inventory; ?></span>
 									</a>
@@ -483,7 +483,7 @@
 									</a>
 								</li>
 								
-								<li <?php if ($tk_m == 'view') {?> class="active" <?php }?>>
+								<li <?php if (($tk_c == 'expenses') && ($tk_m == 'view')) {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>expenses/view">
 										<span><?php echo $lang_expenses; ?></span>
 									</a>
@@ -494,24 +494,16 @@
 										<span><?php echo $lang_expenses_category; ?></span>
 									</a>
 								</li>
-							</ul>
-						</li>
-						
-						
-						<li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
-							<a href="javascript:void(0);" class="menu-toggle">
-								<i class="material-icons">person</i>
-								<span>User Management</span>
-							</a>
-							<ul class="ml-menu">
+								
+								
 								<li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>setting/users">
 										<span><?php echo $lang_users; ?></span>
 									</a>
 								</li>
-								
 							</ul>
 						</li>
+						
 						
 						<li <?php if (($tk_m == 'suppliers') || ($tk_m == 'addsupplier') || ($tk_m == 'editsupplier') || ($tk_c == 'purchase_order')) {?> class="active" <?php }?>>
 							<a href="javascript:void(0);" class="menu-toggle">

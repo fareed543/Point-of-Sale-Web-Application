@@ -1434,7 +1434,8 @@ class Setting extends CI_Controller {
             );
             if ($this->Constant_model->updateData('outlets', $upd_outlet_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Outlet', "Successfully updated Outlet : $outlet_name."));
-                redirect(base_url() . 'setting/editoutlet?id=' . $id);
+				redirect(base_url() . 'setting/outlets');
+                //redirect(base_url() . 'setting/editoutlet?id=' . $id);
             }
         }
     }
@@ -1472,7 +1473,8 @@ class Setting extends CI_Controller {
             );
             if ($this->Constant_model->insertData('outlets', $ins_outlet_data)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Add New Outlet', "Successfully added New Outlet : $outlet_name."));
-                redirect(base_url() . 'setting/addoutlet');
+                //redirect(base_url() . 'setting/addoutlet');
+				redirect(base_url() . 'setting/outlets');
             }
         }
     }

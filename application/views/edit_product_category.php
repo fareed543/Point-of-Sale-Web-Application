@@ -13,7 +13,6 @@ $category_name = $categoryData[0]->name;
 $status = $categoryData[0]->status;
 ?>
 
-
 <link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <section class="content">
@@ -54,7 +53,7 @@ $status = $categoryData[0]->status;
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="text" name="category" ng-model="category" class="form-control" maxlength="490" autofocus required autocomplete="off" value="<?php echo $category_name; ?>" />
+                                            <input type="text" name="category" class="form-control" maxlength="490" autofocus required autocomplete="off" value="<?php echo $category_name; ?>" />
                                             <label class="form-label"><?php echo $lang_name; ?></label>
                                         </div>
                                     </div>
@@ -127,9 +126,6 @@ $status = $categoryData[0]->status;
     </div><!-- Panel Default // END -->
 </section>
 <!-- Row // END -->
-
-
-
 </div>
 </div>
 

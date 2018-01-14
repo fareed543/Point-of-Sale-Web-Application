@@ -358,34 +358,29 @@
 						
 						
 						
-						<li <?php if (($tk_c == 'return_report') ||($tk_c == 'pnl') || ($tk_c == 'reports') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
+						<li <?php if (($tk_c == 'sales') || ($tk_c == 'debit') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
 							<a href="javascript:void(0);" class="menu-toggle">
 								<i class="material-icons">map</i>
 								<span>Orders</span>
 							</a>
 							<ul class="ml-menu">
 								
-								<li <?php if ($tk_c == 'opened_bill') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'opened_bill') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>sales/opened_bill">
 										<span><?php echo $lang_opened_bill; ?></span>
 									</a>
 								</li>
 								
-								<li <?php if (($tk_c == 'returnorder') || ($tk_m == 'return_report')) {?> class="active" <?php }?>>
-									<a href="<?= base_url() ?>returnorder/create_return">
-										<span><?php echo $lang_create_return_order; ?></span>
-									</a>
-								</li>
 								
-								<li <?php if (($tk_c == 'sales') || ($tk_m == 'list_sales')) { ?> class="active" <?php }?>>
+								
+								<li <?php if($tk_m == 'list_sales') { ?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>sales/list_sales">
 										<span><?php echo $lang_sales; ?></span>
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'debit') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'view') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>debit/view">
-										<i class="material-icons">attach_money</i>
 										<span><?php echo $lang_debit; ?></span>
 									</a>
 								</li>
@@ -394,27 +389,34 @@
 						</li>
 						
 						
-						<li <?php if (($tk_c == 'return_report') ||($tk_c == 'pnl') || ($tk_c == 'reports') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
+						<li <?php if (($tk_c == 'returnorder') ||($tk_c == 'pnl') || ($tk_c == 'reports')) {?> class="active" <?php }?>>
 							<a href="javascript:void(0);" class="menu-toggle">
 								<i class="material-icons">map</i>
 								<span>Reports</span>
 							</a>
 							<ul class="ml-menu">
-								<li <?php if ($tk_c == 'pnl') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'pnl_report') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>pnl/pnl_report">
 										<span><?php echo $lang_pnl_report; ?></span>
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'pnl_graph_view') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'pnl_graph_view') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>pnl/pnl_graph_view">
 										<span><?php echo $lang_pnl; ?></span>
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'return_report') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'return_report') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>returnorder/return_report">
 										<span><?php echo $lang_return_order_report; ?></span>
+									</a>
+								</li>
+								
+								
+								<li <?php if ($tk_m == 'create_return') {?> class="active" <?php }?>>
+									<a href="<?= base_url() ?>returnorder/create_return">
+										<span><?php echo $lang_create_return_order; ?></span>
 									</a>
 								</li>
 								
@@ -456,7 +458,7 @@
 						</li>
 						
 						
-						<li <?php if (($tk_c == 'return_report') ||($tk_c == 'pnl') || ($tk_c == 'reports') || ($tk_c == 'pnl_graph_view')) {?> class="active" <?php }?>>
+						<li <?php if (($tk_c == 'setting') || ($tk_c=='expenses')) {?> class="active" <?php }?>>
 							<a href="javascript:void(0);" class="menu-toggle">
 								<i class="material-icons">map</i>
 								<span>Settings</span>
@@ -469,7 +471,7 @@
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'system_setting') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'system_setting') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>setting/system_setting">
 										<span><?php echo $lang_system_setting; ?></span>
 									</a>
@@ -481,13 +483,13 @@
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'expenses') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'view') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>expenses/view">
 										<span><?php echo $lang_expenses; ?></span>
 									</a>
 								</li>
 								
-								<li <?php if ($tk_c == 'expense_category') {?> class="active" <?php }?>>
+								<li <?php if ($tk_m == 'expense_category') {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>expenses/expense_category">
 										<span><?php echo $lang_expenses_category; ?></span>
 									</a>
@@ -502,12 +504,6 @@
 								<span>User Management</span>
 							</a>
 							<ul class="ml-menu">
-								<li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
-									<a href="<?= base_url() ?>setting/users">
-										<span><?php echo $lang_users; ?></span>
-									</a>
-								</li>
-								
 								<li <?php if (($tk_m == 'users') || ($tk_m == 'adduser') || ($tk_m == 'edituser')) {?> class="active" <?php }?>>
 									<a href="<?= base_url() ?>setting/users">
 										<span><?php echo $lang_users; ?></span>

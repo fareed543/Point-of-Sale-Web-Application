@@ -54,7 +54,7 @@ require_once 'includes/header.php';
                             <table class="table table-hover dashboard-task-infos">
                                 <thead>
                                     <tr>
-                                       
+
                                         <th width="15%"><?php echo $lang_expenses_category_name; ?></th>
                                         <th width="10%"><?php echo $lang_status; ?></th>
                                         <th width="10%"><?php echo $lang_action; ?></th>
@@ -84,7 +84,7 @@ require_once 'includes/header.php';
                                                     }
                                                     ?>
                                                 </td>
-                                                
+
                                                 <td>
                                                     <a href="<?= base_url() ?>expenses/expense_category_edit?id=<?php echo $exp_id; ?>">
                                                         <i class="material-icons">mode_edit</i>
@@ -95,13 +95,13 @@ require_once 'includes/header.php';
                                                     </a>
                                                 </td>
                                             </tr>
-                                           <?php
-                                                unset($exp_id);
-                                                unset($exp_name);
-                                                unset($exp_status);
-                                            }
-                                        } else {
-                                            ?>
+                                            <?php
+                                            unset($exp_id);
+                                            unset($exp_name);
+                                            unset($exp_status);
+                                        }
+                                    } else {
+                                        ?>
                                         <tr class="no-records-found">
                                             <td colspan="3"><?php echo $lang_no_match_found; ?></td>
                                         </tr>

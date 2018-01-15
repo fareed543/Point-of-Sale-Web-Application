@@ -68,19 +68,19 @@ require_once 'includes/header.php';
                                     $flash_header = $alert_msg[1];
                                     $flash_desc = $alert_msg[2];
                                     ?>
-        <?php if ($flash_status == 'failure') { ?>
+                                    <?php if ($flash_status == 'failure') { ?>
                                         <div class="alert alert-info">
                                             <strong>Heads up!</strong> <?php echo $flash_desc; ?>
                                         </div>
-        <?php } ?>
+                                    <?php } ?>
 
 
-        <?php if ($flash_status == 'success') { ?>
+                                    <?php if ($flash_status == 'success') { ?>
                                         <div class="alert alert-success">
                                             <strong>Well done!</strong> <?php echo $flash_desc; ?>
                                         </div>
                                     <?php } ?>
-    <?php } ?>
+                                <?php } ?>
 
 
 
@@ -103,7 +103,7 @@ require_once 'includes/header.php';
                                         ?>
                                         <div class="row" style="padding-top: 10px; padding-bottom: 10px; padding-left: 30px;">
                                             <div class="col-md-3" style="font-size: 16px;">
-        <?php echo $outlet_name; ?>
+                                                <?php echo $outlet_name; ?>
                                             </div>
                                             <div class="col-md-1" style="font-size: 16px;">
                                                 <input type="text" class="form-control" name="qty_<?php echo $outlet_id; ?>" value="0" />
@@ -116,16 +116,16 @@ require_once 'includes/header.php';
                                     ?>
                                 </div>
                                 <div class="row clearfix">
-								<div class="col-sm-6">
-									<div class="form-group">
-                                                                            <input type="hidden" name="pcode" value="<?php echo $pcode; ?>" />
-										<button class="btn btn-primary"><?php echo $lang_update; ?></button>
-										<a class="btn btn-primary" href="<?= base_url() ?>inventory/view"><?php echo $lang_back; ?></a>
-									</div>
-									
-									
-								</div>
-							</div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="hidden" name="pcode" value="<?php echo $pcode; ?>" />
+                                            <button class="btn btn-primary"><?php echo $lang_update; ?></button>
+                                            <a class="btn btn-primary" href="<?= base_url() ?>inventory/view"><?php echo $lang_back; ?></a>
+                                        </div>
+
+
+                                    </div>
+                                </div>
 
 
 
@@ -176,11 +176,11 @@ for ($t = 0; $t < count($outletData); ++$t) {
     $outlet_id = $outletData[$t]->id;
     $outlet_name = $outletData[$t]->name;
     ?>
-                                    <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-                                        <div class="col-md-3" style="font-size: 16px;">
+                                            <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                                                <div class="col-md-3" style="font-size: 16px;">
     <?php echo $outlet_name; ?>
-                                        </div>
-                                        <div class="col-md-9" style="font-size: 16px;">
+                                                </div>
+                                                <div class="col-md-9" style="font-size: 16px;">
     <?php
     $invQty = 0;
 
@@ -190,8 +190,8 @@ for ($t = 0; $t < count($outletData); ++$t) {
     }
     echo $invQty;
     ?>
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
     <?php
 }
 ?>
@@ -203,9 +203,9 @@ for ($t = 0; $t < count($outletData); ++$t) {
 <?php
 if ($user_role < 3) {
     ?>
-                            <form action="<?= base_url() ?>inventory/updateInventoryQty" method="post" onsubmit="return confirm('Do you want to update Inventory?')">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
+                                    <form action="<?= base_url() ?>inventory/updateInventoryQty" method="post" onsubmit="return confirm('Do you want to update Inventory?')">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
 
     <?php
     if (!empty($alert_msg)) {
@@ -215,43 +215,43 @@ if ($user_role < 3) {
 
         if ($flash_status == 'failure') {
             ?>
-                                                        <div class="row" id="notificationWrp">
-                                                            <div class="col-md-12">
-                                                                <div class="alert bg-warning" role="alert">
-                                                                    <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
+                                                                                <div class="row" id="notificationWrp">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="alert bg-warning" role="alert">
+                                                                                            <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
             <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
             <?php
         }
         if ($flash_status == 'success') {
             ?>
-                                                        <div class="row" id="notificationWrp">
-                                                            <div class="col-md-12">
-                                                                <div class="alert bg-success" role="alert">
-                                                                    <i class="icono-check" style="color: #FFF;"></i> 
+                                                                                <div class="row" id="notificationWrp">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="alert bg-success" role="alert">
+                                                                                            <i class="icono-check" style="color: #FFF;"></i> 
             <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
             <?php
         }
     }
     ?>
 
-                                        <div class="row">
-                                            <div class="col-md-2"></div>
-                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-2"></div>
+                                                    <div class="col-md-8">
 
-                                                <h1 class="page-header" style="margin-top: 0px; padding-bottom: 4px; font-size: 30px; margin: 0px 0 11px; color: #0079c0; text-align: center;">
+                                                        <h1 class="page-header" style="margin-top: 0px; padding-bottom: 4px; font-size: 30px; margin: 0px 0 11px; color: #0079c0; text-align: center;">
     <?php echo $lang_update_inventory_by_outlet; ?>
-                                                </h1>
+                                                        </h1>
 
-                                                <div class="row" style="padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
-                                                    <div class="col-md-6"><b style="color: #0079c0; letter-spacing: 0.2px; font-size: 17px;"><?php echo $lang_outlets; ?></b></div>
-                                                    <div class="col-md-6"><b style="color: #0079c0; letter-spacing: 0.2px; font-size: 17px;"><?php echo $lang_quantity; ?></b></div>
-                                                </div>
+                                                        <div class="row" style="padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                                                            <div class="col-md-6"><b style="color: #0079c0; letter-spacing: 0.2px; font-size: 17px;"><?php echo $lang_outlets; ?></b></div>
+                                                            <div class="col-md-6"><b style="color: #0079c0; letter-spacing: 0.2px; font-size: 17px;"><?php echo $lang_quantity; ?></b></div>
+                                                        </div>
 
     <?php
     if ($user_role == 1) {
@@ -263,38 +263,38 @@ if ($user_role < 3) {
         $outlet_id = $outletData[$t]->id;
         $outlet_name = $outletData[$t]->name;
         ?>
-                                                        <div class="row" style="padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
-                                                            <div class="col-md-6" style="padding-top: 10px; font-size: 15px;">
+                                                                        <div class="row" style="padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                                                                            <div class="col-md-6" style="padding-top: 10px; font-size: 15px;">
         <?php echo $outlet_name; ?>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input type="text" class="form-control" name="qty_<?php echo $outlet_id; ?>" value="0" />	
-                                                            </div>
-                                                        </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input type="text" class="form-control" name="qty_<?php echo $outlet_id; ?>" value="0" />	
+                                                                            </div>
+                                                                        </div>
         <?php
         unset($outlet_id);
         unset($outlet_name);
     }
     ?>
-                                                <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
-                                                    <div class="col-md-12" style="text-align: center; padding-top: 10px;">
-                                                        <input type="hidden" name="pcode" value="<?php echo $pcode; ?>" />
-                                                        <button class="btn btn-primary" style="padding: 8px 30px; font-size: 18px;">
+                                                        <div class="row" style="padding-top: 10px; padding-bottom: 10px;">
+                                                            <div class="col-md-12" style="text-align: center; padding-top: 10px;">
+                                                                <input type="hidden" name="pcode" value="<?php echo $pcode; ?>" />
+                                                                <button class="btn btn-primary" style="padding: 8px 30px; font-size: 18px;">
     <?php echo $lang_update; ?>
-                                                        </button>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+
+
                                                     </div>
+                                                    <div class="col-md-2"></div>
                                                 </div>
 
 
-
                                             </div>
-                                            <div class="col-md-2"></div>
                                         </div>
-
-
-                                    </div>
-                                </div>
-                            </form>
+                                    </form>
     <?php
 }
 ?>

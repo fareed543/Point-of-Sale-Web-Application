@@ -113,11 +113,11 @@ require_once 'includes/header.php';
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                           <input type="text" name="tax" class="form-control" maxlength="499" autocomplete="off" value="<?php
-                                    if (!empty($alert_msg)) {
-                                        echo $alert_msg[8];
-                                    }
-                                    ?>" />
+                                            <input type="text" name="tax" class="form-control" maxlength="499" autocomplete="off" value="<?php
+                                            if (!empty($alert_msg)) {
+                                                echo $alert_msg[8];
+                                            }
+                                            ?>" />
                                             <label class="form-label"><?php echo $lang_supplier_tax; ?></label>
                                         </div>
                                     </div>

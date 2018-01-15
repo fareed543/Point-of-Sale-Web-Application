@@ -19,9 +19,9 @@ date_default_timezone_set("$setting_timezone");
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1" />
         <title><?php echo $setting_site_name; ?></title>
-		<link href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
-		<script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
-		<link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
+        <link href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
+        <link href="<?= base_url() ?>assets/css/pin-login.css" rel="stylesheet">
     </head>
     <body>
         <div class="pincode login_with_username_form" style="display:<?php echo (!empty($alert_msg)) ? 'block' : 'none'; ?>">
@@ -114,17 +114,17 @@ date_default_timezone_set("$setting_timezone");
                                 <div class="grid__col grid__col--1-of-3"><button class="delete">DELETE</button></div>
                             </div>
                         </div>
-						<p><strong>- OR -</strong></p>
-						<p><strong id="login_with_username">LOGIN WITH USERNAME</strong></p>
-                        <?php /*?>
-						<div class="login_footer">
-							<div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>
-						</div>
-						<?*/?>
+                        <p><strong>- OR -</strong></p>
+                        <p><strong id="login_with_username">LOGIN WITH USERNAME</strong></p>
+                        <?php /* ?>
+                          <div class="login_footer">
+                          <div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>
+                          </div>
+                          <? */ ?>
                     </div>
                 </div>
             </div>
         </div>       
     </body>
-	<script src="<?= base_url() ?>assets/js/login.js"></script>
+    <script src="<?= base_url() ?>assets/js/login.js"></script>
 </html>

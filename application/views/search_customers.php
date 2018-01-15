@@ -151,7 +151,7 @@ require_once 'includes/header.php';
                                     <?php
                                 }
                                 unset($searchResult);
-                                unset($searchRows); 
+                                unset($searchRows);
                                 ?>
                             </tbody>
                         </table>
@@ -160,19 +160,19 @@ require_once 'includes/header.php';
                 <div class="row clearfix" >
                     <div class="col-md-6" style="float: left; padding-top: 10px; padding-left: 30px; padding-bottom: 15px;">
                         <?php
-                            if ($result_count > 0) {
-                                ?>
-                                Showing 1 to <?php echo $result_count; ?> of <?php echo $result_count; ?> 
-                                <?php
-                                if ($result_count == 1) {
-                                    echo 'entry';
-                                } else {
-                                    echo 'entries';
-                                }
-                                ?>
-                                <?php
+                        if ($result_count > 0) {
+                            ?>
+                            Showing 1 to <?php echo $result_count; ?> of <?php echo $result_count; ?> 
+                            <?php
+                            if ($result_count == 1) {
+                                echo 'entry';
+                            } else {
+                                echo 'entries';
                             }
                             ?>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <div class="col-md-6" style="text-align: right; padding-right: 30px; padding-bottom: 15px;">
                         <?php // echo $links; ?>

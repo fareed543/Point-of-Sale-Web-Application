@@ -53,12 +53,12 @@ require_once 'includes/header.php';
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                                <input type="email" name="email" class="form-control" maxlength="254" autocomplete="off" />
+                                            <input type="email" name="email" class="form-control" maxlength="254" autocomplete="off" />
                                             <label class="form-label"><?php echo $lang_email; ?></label>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
@@ -68,7 +68,7 @@ require_once 'includes/header.php';
                                     </div>
                                 </div>
 
-                                
+
                             </div>
 
                             <div class="row clearfix">

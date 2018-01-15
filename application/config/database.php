@@ -40,7 +40,7 @@ if (!defined('BASEPATH')) {
 
 // The following values will probably need to be changed.
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'usbw';
+$db['default']['password'] = '';
 $db['default']['database'] = 'pos';
 
 // The following values can probably stay the same.

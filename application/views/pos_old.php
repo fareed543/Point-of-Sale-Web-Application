@@ -592,11 +592,11 @@ require_once 'includes/pos_header.php';
                                                     $cat_id = $catData[$ct]->id;
                                                     $cat_name = $catData[$ct]->name;
                                                     ?>
-                                                                                <li <?php if ($ct == 0) {
+                                                                                        <li <?php if ($ct == 0) {
                                                         ?> class="active" <?php }
                                                     ?>><a href="#pilltab<?php echo $cat_id; ?>" data-toggle="tab">
                                                     <?php echo $cat_name; ?></a>
-                                                                                </li>	
+                                                                                        </li>	
                                                     <?php
                                                     unset($cat_id);
                                                     unset($cat_name);

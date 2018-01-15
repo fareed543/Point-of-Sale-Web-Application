@@ -99,18 +99,18 @@ $supplier_tax = $supplierData[0]->tax;
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                           <select name="status" class="form-control show-tick" data-live-search="true">
-                                        <option value="1" <?php
-                                        if ($supplier_status == '1') {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>><?php echo $lang_active; ?></option>
-                                        <option value="0" <?php
-                                        if ($supplier_status == '0') {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>><?php echo $lang_inactive; ?></option>
-                                    </select>   
+                                            <select name="status" class="form-control show-tick" data-live-search="true">
+                                                <option value="1" <?php
+                                                if ($supplier_status == '1') {
+                                                    echo 'selected="selected"';
+                                                }
+                                                ?>><?php echo $lang_active; ?></option>
+                                                <option value="0" <?php
+                                                if ($supplier_status == '0') {
+                                                    echo 'selected="selected"';
+                                                }
+                                                ?>><?php echo $lang_inactive; ?></option>
+                                            </select>   
                                             <label class="form-label"><?php echo $lang_status; ?></label>
                                         </div>
                                     </div>

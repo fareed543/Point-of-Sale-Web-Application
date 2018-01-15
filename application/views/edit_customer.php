@@ -15,7 +15,7 @@ $mobile = $custDtaData[0]->mobile;
 <section class="content">
     <div class="container-fluid">
         <?php echo $lang_edit_customer; ?> : <?php echo $fullname; ?>
-       
+
         <form action="<?= base_url() ?>customers/updateCustomer" method="post">
             <div class="row">
                 <div class="col-md-12">
@@ -27,23 +27,23 @@ $mobile = $custDtaData[0]->mobile;
                                 $flash_header = $alert_msg[1];
                                 $flash_desc = $alert_msg[2];
                                 ?>
-    <?php if ($flash_status == 'failure') { ?>
+                                <?php if ($flash_status == 'failure') { ?>
                                     <div class="alert alert-info">
                                         <strong>Heads up!</strong> <?php echo $flash_desc; ?>
                                     </div>
-    <?php } ?>
+                                <?php } ?>
 
 
-    <?php if ($flash_status == 'success') { ?>
+                                <?php if ($flash_status == 'success') { ?>
                                     <div class="alert alert-success">
                                         <strong>Well done!</strong> <?php echo $flash_desc; ?>
                                     </div>
                                 <?php } ?>
-<?php } ?>
+                            <?php } ?>
 
 
 
-                            <h3 class="card-inside-title"><?php $lang_edit_customer ;?></h3>
+                            <h3 class="card-inside-title"><?php $lang_edit_customer; ?></h3>
                             <div class="row clearfix">
 
                                 <div class="col-sm-6">
@@ -67,13 +67,13 @@ $mobile = $custDtaData[0]->mobile;
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                             <input type="text" name="mobile" class="form-control" maxlength="499" autofocus autocomplete="off" value="<?php echo $mobile; ?>" />
+                                            <input type="text" name="mobile" class="form-control" maxlength="499" autofocus autocomplete="off" value="<?php echo $mobile; ?>" />
                                             <label class="form-label"><?php echo $lang_mobile; ?></label>
                                         </div>
                                     </div>
                                 </div>
 
-                                
+
                             </div>
 
                             <div class="row clearfix">

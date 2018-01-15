@@ -39,7 +39,7 @@ $mobile = $custDtaData[0]->mobile;
                                 </button>
                             </a>
                         </ul>
-                        
+
                     </div>
                     <?php
                 }
@@ -204,62 +204,62 @@ $mobile = $custDtaData[0]->mobile;
                                                 ?>
                                             </td>
                                         </tr>
-                                         <?php
-                                                if (count($pcodeArray) > 1) {
-                                                    for ($p = 1; $p < count($pcodeArray); ++$p) {
-                                                        ?>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <?php echo $pnameArray[$p] . ' [' . $pcodeArray[$p] . ']'; ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $qtyArray[$p]; ?>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                }
+                                        <?php
+                                        if (count($pcodeArray) > 1) {
+                                            for ($p = 1; $p < count($pcodeArray); ++$p) {
                                                 ?>
-                                            <?php }
-                                            ?>
-                                        
-                                        
-                                        <tr>
-                                                <td colspan="6" align="center" style="border-top: 1px solid #010101;"><b><?php echo $lang_total; ?></b></td>
-                                                <td style="border-top: 1px solid #010101;">
-                                                    <b><?php echo number_format($total_subTotal_amt, 2) . " ($currency)"; ?></b>
-                                                </td>
-                                                <td style="border-top: 1px solid #010101;">
-                                                    <b><?php echo number_format($total_taxTotal_amt, 2) . " ($currency)"; ?></b>
-                                                </td>
-                                                <td style="border-top: 1px solid #010101;">
-                                                    <b><?php echo number_format($total_grandTotal_amt, 2) . " ($currency)"; ?></b>
-                                                </td>
-                                                <td style="border-top: 1px solid #010101;"></td>
-                                            </tr>		
-                                            <?php
-                                        } else {
-                                            ?>
-
-                                            <tr>
-                                                <td colspan="6"><?php echo $lang_no_match_found; ?></td>
-                                            </tr>
-                                            <?php
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <?php echo $pnameArray[$p] . ' [' . $pcodeArray[$p] . ']'; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo $qtyArray[$p]; ?>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <?php
+                                            }
                                         }
                                         ?>
+                                    <?php }
+                                    ?>
+
+
+                                    <tr>
+                                        <td colspan="6" align="center" style="border-top: 1px solid #010101;"><b><?php echo $lang_total; ?></b></td>
+                                        <td style="border-top: 1px solid #010101;">
+                                            <b><?php echo number_format($total_subTotal_amt, 2) . " ($currency)"; ?></b>
+                                        </td>
+                                        <td style="border-top: 1px solid #010101;">
+                                            <b><?php echo number_format($total_taxTotal_amt, 2) . " ($currency)"; ?></b>
+                                        </td>
+                                        <td style="border-top: 1px solid #010101;">
+                                            <b><?php echo number_format($total_grandTotal_amt, 2) . " ($currency)"; ?></b>
+                                        </td>
+                                        <td style="border-top: 1px solid #010101;"></td>
+                                    </tr>		
+                                    <?php
+                                } else {
+                                    ?>
+
+                                    <tr>
+                                        <td colspan="6"><?php echo $lang_no_match_found; ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-              
+
 
 
             </div>

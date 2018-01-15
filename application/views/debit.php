@@ -45,7 +45,7 @@ require_once 'includes/header.php';
     <div class="container-fluid">
         <div class="row clearfix">
             <!-- Task Info -->
-          
+
 
 
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
@@ -54,7 +54,7 @@ require_once 'includes/header.php';
                 if ($user_role < 3) {
                     ?>
                     <div class="header">
-                        <h3><?php echo $lang_debit ; ?></h3>
+                        <h3><?php echo $lang_debit; ?></h3>
                         <ul class="header-dropdown m-r--5">
 
                             <a href="<?= base_url() ?>debit/exportDebit" style="text-decoration: none;">
@@ -126,31 +126,31 @@ require_once 'includes/header.php';
                                     <th width="16%"><?php echo $lang_customer_name; ?></th>
                                     <th width="16%"><?php echo $lang_grand_total; ?></th>
                                     <th width="17%">Paid Amount</th>
-                                    <th width="36%"><?php echo $lang_unpaid_amount ; ?></th>
-                                    <th width="7%"><?php echo $lang_action ; ?></th>
+                                    <th width="36%"><?php echo $lang_unpaid_amount; ?></th>
+                                    <th width="7%"><?php echo $lang_action; ?></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                        if (count($results) > 0) {
-                                            $totalGrandTotal = 0;
-                                            $totalPaidAmount = 0;
-                                            $totalUnPaidAmount = 0;
-                                            foreach ($results as $data) {
-                                                $id = $data->id;
-                                                $cust_name = $data->customer_name;
-                                                $order_date = date("$display_dateformat", strtotime($data->ordered_datetime));
-                                                $outlet_name = $data->outlet_name;
-                                                $grandTotal = $data->grandtotal;
-                                                $paid_amt = $data->paid_amt;
-                                                $totalGrandTotal = $totalGrandTotal + $data->grandtotal;
-                                                $totalPaidAmount = $totalPaidAmount + $data->paid_amt;
-                                                $unpaid_amt = 0;
-                                                $unpaid_amt = $paid_amt - $grandTotal;
+                                if (count($results) > 0) {
+                                    $totalGrandTotal = 0;
+                                    $totalPaidAmount = 0;
+                                    $totalUnPaidAmount = 0;
+                                    foreach ($results as $data) {
+                                        $id = $data->id;
+                                        $cust_name = $data->customer_name;
+                                        $order_date = date("$display_dateformat", strtotime($data->ordered_datetime));
+                                        $outlet_name = $data->outlet_name;
+                                        $grandTotal = $data->grandtotal;
+                                        $paid_amt = $data->paid_amt;
+                                        $totalGrandTotal = $totalGrandTotal + $data->grandtotal;
+                                        $totalPaidAmount = $totalPaidAmount + $data->paid_amt;
+                                        $unpaid_amt = 0;
+                                        $unpaid_amt = $paid_amt - $grandTotal;
 
 
-                                                $totalUnPaidAmount = $totalUnPaidAmount - $unpaid_amt;
-                                                ?>
+                                        $totalUnPaidAmount = $totalUnPaidAmount - $unpaid_amt;
+                                        ?>
                                         <tr>
                                             <td><?php echo $id; ?></td>
                                             <td><?php echo $order_date; ?></td>
@@ -159,42 +159,42 @@ require_once 'includes/header.php';
                                             <td><?php echo number_format($grandTotal, 2); ?></td>
                                             <td><?php echo number_format($paid_amt, 2); ?></td>
                                             <td><?php echo number_format($unpaid_amt, 2); ?></td>
-                                            
+
 
                                             <td>
                                                 <a href="<?= base_url() ?>debit/make_payment?id=<?php echo $id; ?>">
-                                                   <i class="material-icons">payment</i>
+                                                    <i class="material-icons">payment</i>
                                                 </a>
 
                                             </td>
                                         </tr>
-                                         <?php }
-                                            ?>
-                                        <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><b>Total : </b></td>
-                                                <td><b><?php echo number_format($totalGrandTotal, 2); ?></b></td>
-                                                <td><b><?php echo number_format($totalPaidAmount, 2); ?></b></td>
-                                                <td><b><?php echo number_format($totalUnPaidAmount, 2); ?></b></td>
-                                                <td>
-                                                    <a href="<?= base_url() ?>debit/make_payment?id=<?php echo $id; ?>" style="text-decoration: none;">
-                                                        <button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_make_payment; ?>&nbsp;&nbsp;</button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        
-                                        
-                                        
-                                        <?php } else {
-                                            ?>
+                                    <?php }
+                                    ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><b>Total : </b></td>
+                                        <td><b><?php echo number_format($totalGrandTotal, 2); ?></b></td>
+                                        <td><b><?php echo number_format($totalPaidAmount, 2); ?></b></td>
+                                        <td><b><?php echo number_format($totalUnPaidAmount, 2); ?></b></td>
+                                        <td>
+                                            <a href="<?= base_url() ?>debit/make_payment?id=<?php echo $id; ?>" style="text-decoration: none;">
+                                                <button class="btn btn-primary" style="padding: 4px 12px;">&nbsp;&nbsp;<?php echo $lang_make_payment; ?>&nbsp;&nbsp;</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+
+                                <?php } else {
+                                    ?>
                                     <tr class="no-records-found">
                                         <td colspan="5"><?php echo $lang_no_match_found; ?></td>
                                     </tr>
-                                   <?php
-                                        }
-                                        ?>
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>

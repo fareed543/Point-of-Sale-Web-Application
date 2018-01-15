@@ -121,10 +121,10 @@ require_once 'includes/header.php';
                                             $orderData = $orderResult->result();
 
                                             foreach ($orderData as $data) {
-												/*echo "<pre>";
-												print_r($data);
-												echo "<pre>";*/
-												$return_change = $data->return_change;
+                                                /* echo "<pre>";
+                                                  print_r($data);
+                                                  echo "<pre>"; */
+                                                $return_change = $data->return_change;
                                                 $order_id = $data->id;
                                                 $cust_fn = $data->customer_name;
                                                 $ordered_dtm = date("$setting_dateformat H:i A", strtotime($data->ordered_datetime));
@@ -165,10 +165,10 @@ require_once 'includes/header.php';
                                                         $displayPaidAmount = $displayPaidAmount + $paid_amt;
                                                         $totalPaidAmount = $totalPaidAmount + $paid_amt;
                                                     }
-													if($return_change >0){
-														$displayPaidAmount = $displayPaidAmount - $return_change;
+                                                    if ($return_change > 0) {
+                                                        $displayPaidAmount = $displayPaidAmount - $return_change;
                                                         $totalPaidAmount = $totalPaidAmount - $return_change;
-													}
+                                                    }
                                                 }
                                                 ?>
                                                 <tr>

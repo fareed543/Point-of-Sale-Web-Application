@@ -14,8 +14,8 @@ require_once 'includes/header.php';
             <li class="active"><i class="material-icons">view_module</i> <?php echo $lang_add_expenses_category; ?> </li>
         </ol>
         <form action="<?= base_url() ?>expenses/insertExpenseCategory" method="post">
-            
-                   <div class="row">
+
+            <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
@@ -38,7 +38,7 @@ require_once 'includes/header.php';
                             <?php } ?>
 
 
-                            <h3 class="card-inside-title"><?php echo  $lang_add_expenses_category ?></h3>
+                            <h3 class="card-inside-title"><?php echo $lang_add_expenses_category ?></h3>
                             <div class="row clearfix">
 
                                 <div class="col-sm-6">

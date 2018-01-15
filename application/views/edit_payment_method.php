@@ -59,19 +59,19 @@ $payment_status = $payDtaData[0]->status;
 
                     <?php
                     if ($user_role == 1) {
-                        /*?>
-                        <div class="row">
-                            <div class="col-md-12" style="text-align: right;">
-                                <form action="<?= base_url() ?>setting/deletePaymentMethod" method="post" onsubmit="return confirm('Do you want to delete this Payment Method?')">
-                                    <input type="hidden" name="pay_id" value="<?php echo $id; ?>" />
-                                    <input type="hidden" name="pay_name" value="<?php echo $payment_name; ?>" />
-                                    <button type="submit" class="btn btn-primary" style="border: 0px; background-color: #c72a25;">
-                                        <?php echo $lang_delete_payment_method; ?>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <?php */
+                        /* ?>
+                          <div class="row">
+                          <div class="col-md-12" style="text-align: right;">
+                          <form action="<?= base_url() ?>setting/deletePaymentMethod" method="post" onsubmit="return confirm('Do you want to delete this Payment Method?')">
+                          <input type="hidden" name="pay_id" value="<?php echo $id; ?>" />
+                          <input type="hidden" name="pay_name" value="<?php echo $payment_name; ?>" />
+                          <button type="submit" class="btn btn-primary" style="border: 0px; background-color: #c72a25;">
+                          <?php echo $lang_delete_payment_method; ?>
+                          </button>
+                          </form>
+                          </div>
+                          </div>
+                          <?php */
                     }
                     ?>
 

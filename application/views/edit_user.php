@@ -1,12 +1,16 @@
 <?php require_once 'includes/header.php'; ?>
-
-
 <link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <section class="content">
     <div class="container-fluid">
-        <?php echo $lang_edit_user; ?> : <?php echo $fullname; ?>
+       
 
+		<ol class="breadcrumb breadcrumb-bg-cyan">
+			<li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
+			<li><a href="<?= base_url() ?>setting/users"><i class="material-icons">person</i> USERS</a></li>
+			<li><i class="material-icons">person</i>  <?php echo $lang_edit_user; ?> : <?php echo $fullname; ?></li>
+		</ol>
+		
         <form action="<?= base_url() ?>setting/updateUser" method="post">
             <div class="row">
                 <div class="col-md-12">
@@ -62,7 +66,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group form-float">
                                         <div class="form-line">
-                                            <input type="password" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" value="" />
+                                            <input type="password" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="pin" class="form-control" maxlength="4" value="<?php echo $pin; ?>" />
                                             <label class="form-label">Passcode</label>
                                         </div>
                                     </div>
@@ -71,16 +75,8 @@
                                 <div class="col-sm-6">
                                         <!--<p><?php echo $lang_outlets; ?></p>-->
                                     <select name="outlet" class="form-control show-tick" data-live-search="true">
-                                        <option value="1" <?php
-                                        if ($status == '1') {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>><?php echo $lang_active; ?></option>
-                                        <option value="0" <?php
-                                        if ($status == '0') {
-                                            echo 'selected="selected"';
-                                        }
-                                        ?>><?php echo $lang_status; ?></option>
+                                        <option value="1" <?php	if ($status == '1') {  echo 'selected="selected"';	}?>><?php echo $lang_active; ?></option>
+                                        <option value="0" <?php	if ($status == '0') {	echo 'selected="selected"';	}?>><?php echo $lang_status; ?></option>
                                     </select>
                                 </div>
 
@@ -94,31 +90,13 @@
                                     <select name="role" class="form-control show-tick" data-live-search="true">
                                         <option value=""><?php echo $lang_choose_role; ?></option>
                                         <?php
-                                        if ($user_role == 3) {
-                                            
-                                        }
                                         $roleData = $this->Constant_model->getDataAll('user_roles', 'id', 'ASC');
                                         for ($r = 0; $r < count($roleData); ++$r) {
                                             $role_id = $roleData[$r]->id;
                                             $role_name = $roleData[$r]->name;
-
-                                            if ($user_role == 2) {
-                                                if ($role_id == 1) {
-                                                    continue;
-                                                }
-                                            }
-                                            if ($user_role == 3) {
-                                                if ($role_id < 3) {
-                                                    continue;
-                                                }
-                                            }
                                             ?>
-                                            <option value="<?php echo $role_id; ?>" <?php
-                                            if ($db_role_id == $role_id) {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>>
-                                                        <?php echo $role_name; ?>
+                                            <option value="<?php echo $role_id; ?>" <?php if ($db_role_id == $role_id) { echo 'selected="selected"';}?>>
+                                                <?php echo $role_name; ?>
                                             </option>
                                             <?php
                                         }
@@ -141,21 +119,12 @@
                                             $outlet_id = $outletData[$u]->id;
                                             $outlet_name = $outletData[$u]->name;
                                             ?>
-                                            <option value="<?php echo $outlet_id; ?>" <?php
-                                            if ($db_outlet_id == $outlet_id) {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>>
-                                                        <?php echo $outlet_name; ?>
-                                            </option>
+                                            <option value="<?php echo $outlet_id; ?>" <?php if ($db_outlet_id == $outlet_id) { echo 'selected="selected"'; }?>><?php echo $outlet_name; ?></option>
                                             <?php
                                         }
                                         ?>
                                     </select>
                                 </div>
-
-
-
                             </div>
 
 

@@ -534,8 +534,8 @@ class Setting extends CI_Controller {
 		
 		$data['fullname'] = $userDtaData[0]->fullname;
 		$data['email'] = $userDtaData[0]->email;
-		$data['role_id'] = $userDtaData[0]->role_id;
-		$data['outlet_id'] = $userDtaData[0]->outlet_id;
+		$data['db_role_id'] = $userDtaData[0]->role_id;
+		$data['db_outlet_id'] = $userDtaData[0]->outlet_id;
 		$data['pin'] = $userDtaData[0]->pin;
 		$data['status'] = $userDtaData[0]->status;
         $this->load->view('edit_user', $data);
@@ -1086,13 +1086,20 @@ class Setting extends CI_Controller {
 
     // Delete User;
     public function deleteUser() {
-        $us_id = $this->input->post('us_id');
+	
+		$id = $this->input->get('id');
+        if ($this->Constant_model->deleteData('pos_user', $id)) {
+            $this->session->set_flashdata('alert_msg', array('success', 'Delete User', "User Successfully Deleted."));
+            redirect(base_url() . 'setting/users');
+        }
+	
+        /*$us_id = $this->input->post('us_id');
         $us_name = $this->input->post('us_name');
 
         if ($this->Constant_model->deleteData('users', $us_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete User', "Successfully Deleted User : $us_name."));
             redirect(base_url() . 'setting/users');
-        }
+        }*/
     }
 
     // Delete Payment Method;
@@ -1366,8 +1373,8 @@ class Setting extends CI_Controller {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', 'Please Choose User Role!', "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
             redirect(base_url() . 'setting/adduser');
         } else {
-            $ckEmailData = $this->Constant_model->getDataOneColumn('users', 'email', "$email");
-            $ckPinData = $this->Constant_model->getDataOneColumn('users', 'pin', "$pin");
+            $ckEmailData = $this->Constant_model->getDataOneColumn('pos_user', 'email', "$email");
+            $ckPinData = $this->Constant_model->getDataOneColumn('pos_user', 'pin', "$pin");
 
             if ((count($ckEmailData) == 0) && (count($ckPinData) == 0)) {
                 $password = $this->encryptPassword($pass);
@@ -1384,9 +1391,9 @@ class Setting extends CI_Controller {
                     'status' => '1',
                 );
 
-                if ($this->Constant_model->insertData('users', $ins_user_data)) {
+                if ($this->Constant_model->insertData('pos_user', $ins_user_data)) {
                     $this->session->set_flashdata('alert_msg', array('success', 'Add New User', "Successfully Added New User Account with Email : $email.", '', '', '', '', '', ''));
-                    redirect(base_url() . 'setting/adduser');
+                    redirect(base_url() . 'setting/users');
                 }
             } else {
 

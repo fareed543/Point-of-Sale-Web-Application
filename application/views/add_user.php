@@ -5,7 +5,14 @@ require_once 'includes/header.php';
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <section class="content">
     <div class="container-fluid">
-        <?php echo $lang_add_new_user; ?>
+        
+		
+		<ol class="breadcrumb breadcrumb-bg-cyan">
+			<li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
+			<li><a href="<?= base_url() ?>setting/users"><i class="material-icons">person</i> USERS</a></li>
+			<li><i class="material-icons">person</i> <?php echo $lang_add_new_user; ?></li>
+		</ol>
+				
         <form action="<?= base_url() ?>setting/insertUser" method="post">
             <div class="row">
                 <div class="col-md-12">

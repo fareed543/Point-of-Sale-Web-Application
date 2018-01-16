@@ -748,9 +748,8 @@ class Expenses extends CI_Controller {
     // View Edit Expenses Category;
     public function expense_category_edit() {
         $id = $this->input->get('id');
-
         $data['id'] = $id;
-
+		
         $data['lang_dashboard'] = $this->lang->line('dashboard');
         $data['lang_customers'] = $this->lang->line('customers');
         $data['lang_gift_card'] = $this->lang->line('gift_card');
@@ -825,7 +824,10 @@ class Expenses extends CI_Controller {
         $data['lang_expenses_category_name'] = $this->lang->line('expenses_category_name');
         $data['lang_add_expenses_category'] = $this->lang->line('add_expenses_category');
         $data['lang_edit_expenses_category'] = $this->lang->line('edit_expenses_category');
-
+		
+		$expData = $this->Constant_model->getDataOneColumn('expense_categories', 'id', $id);
+		$data['exp_name'] = $expData[0]->name;
+		$data['status'] = $expData[0]->status;
         $this->load->view('expense_category_edit', $data);
     }
 

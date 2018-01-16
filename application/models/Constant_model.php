@@ -120,7 +120,7 @@ class Constant_model extends CI_Model {
 
     // Update Data to Any Table;
     public function updateData($table, $data, $id) {
-        $this->db->where('id', $id);
+        $this->db->where('user_id', $id);
         $this->db->update("$table", $data);
 
         return true;
@@ -128,7 +128,7 @@ class Constant_model extends CI_Model {
 
     // Delete Data from Any Table;
     public function deleteData($table, $id) {
-        $this->db->where('id', $id);
+        $this->db->where('user_id', $id);
         $this->db->delete("$table");
 
         return true;

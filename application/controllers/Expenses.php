@@ -852,7 +852,7 @@ class Expenses extends CI_Controller {
                 'updated_datetime' => $tm,
                 'status' => $status,
             );
-            if ($this->Constant_model->updateData('expense_categories', $upd_data, $id)) {
+            if ($this->Constant_model->updatePaymentMethodData('expense_categories', $upd_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Expense Category', "Successfully Updated Expense Category Name : $name!"));
                 redirect(base_url() . 'expenses/expense_category_edit?id=' . $id);
             }
@@ -884,6 +884,15 @@ class Expenses extends CI_Controller {
         }
     }
 
+	
+	public function deleteExpenseCategory() {
+         $id = $this->input->get('id');
+         if ($this->Constant_model->deletePaymentMethodData('expenses', $id)) {
+             $this->session->set_flashdata('alert_msg', array('success', 'Delete Expenses', "Successfully Deleted Expenses!"));
+             redirect(base_url() . 'expenses/expense_category');
+         }
+    }
+	
     // Delete Expenses;
     public function deleteExpenses() {
         $id = $this->input->get('id');

@@ -117,6 +117,22 @@ class Constant_model extends CI_Model {
 
         return $this->db->insert_id();
     }
+	
+	
+	// Update Data to Any Table;
+    public function updatePaymentMethodData($table, $data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update("$table", $data);
+        return true;
+    }
+	
+	public function deletePaymentMethodData($table, $id) {
+        $this->db->where('id', $id);
+        $this->db->delete("$table");
+        return true;
+    }
+	
+	
 
     // Update Data to Any Table;
     public function updateData($table, $data, $id) {
@@ -130,7 +146,6 @@ class Constant_model extends CI_Model {
     public function deleteData($table, $id) {
         $this->db->where('user_id', $id);
         $this->db->delete("$table");
-
         return true;
     }
 

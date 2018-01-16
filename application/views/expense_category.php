@@ -54,7 +54,6 @@ require_once 'includes/header.php';
                             <table class="table table-hover dashboard-task-infos">
                                 <thead>
                                     <tr>
-
                                         <th width="15%"><?php echo $lang_expenses_category_name; ?></th>
                                         <th width="10%"><?php echo $lang_status; ?></th>
                                         <th width="10%"><?php echo $lang_action; ?></th>
@@ -76,12 +75,8 @@ require_once 'includes/header.php';
                                                 </td>
                                                 <td>
                                                     <?php
-                                                    if ($exp_status == '1') {
-                                                        echo '<span style="color: #090;">' . $lang_active . '</span>';
-                                                    }
-                                                    if ($exp_status == '0') {
-                                                        echo '<span style="color: #f9243f;">' . $lang_inactive . '</span>';
-                                                    }
+                                                    if ($exp_status == '1') {	echo $lang_active ;	}
+                                                    if ($exp_status == '0') {	echo $lang_inactive ;	}
                                                     ?>
                                                 </td>
 
@@ -90,7 +85,7 @@ require_once 'includes/header.php';
                                                         <i class="material-icons">mode_edit</i>
                                                     </a>
 
-                                                    <a href="#">
+                                                    <a href="<?= base_url() ?>expenses/deleteExpenseCategory?id=<?php echo $exp_id; ?>">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 </td>

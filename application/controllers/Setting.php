@@ -1215,7 +1215,7 @@ class Setting extends CI_Controller {
                 'updated_user_id' => $us_id,
                 'updated_datetime' => $tm,
             );
-            if ($this->Constant_model->updateData('payment_method', $upd_data, $id)) {
+            if ($this->Constant_model->updatePaymentMethodData('payment_method', $upd_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Payment Method', 'Successfully Updated Payment Method.'));
                 redirect(base_url() . 'setting/editpaymentmethod?id=' . $id);
             }

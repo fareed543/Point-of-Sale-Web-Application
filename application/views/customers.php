@@ -5,10 +5,10 @@
             <!-- Task Info -->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ol class="breadcrumb breadcrumb-bg-cyan">
-                <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-                <li><i class="material-icons">view_module</i> <?php echo $lang_customers; ?></li>
+                    <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li><i class="material-icons">view_module</i> <?php echo $lang_customers; ?></li>
 
-            </ol>			
+                </ol>			
                 <?php
                 if (!empty($alert_msg)) {
                     $flash_status = $alert_msg[0];
@@ -40,18 +40,44 @@
                             </a>
                         </ul>
                     </div>
+                    <div class="row header" style="margin-top: 10px;">
+                        <form action="<?= base_url() ?>customers/searchcustomer" method="get">
+                            <div class="col-md-3">
+                                <div class="form-line">
+                                    <label class="form-label"><?php echo $lang_name; ?></label>
+                                    <input type="text" name="name" class="form-control" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-line">
+                                    <label class="form-label"><?php echo $lang_email; ?></label>
+                                    <input type="text" name="email" class="form-control" />
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-line">
+                                    <label class="form-label"><?php echo $lang_mobile; ?></label>
+                                    <input type="text" name="mobile" class="form-control" />
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-line">
+                                    <label>&nbsp;</label><br />
+                                    <button class="btn btn-primary" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_search; ?>&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <form action="<?= base_url() ?>customers/searchcustomer" method="get">
-                                <table class="table table-hover dashboard-task-infos">
-                                    <tr>
-                                        <th width="15%"><input type="text" name="name" class="form-control" /></th>
-                                        <th width="15%"><input type="text" name="email" class="form-control" /></th>
-                                        <th width="15%"><input type="text" name="mobile" class="form-control" /></th>
-                                        <th width="10%"><button class="btn btn-primary"><?php echo $lang_search; ?></button></th>
-                                    </tr>
-                                </table>
-                            </form>
+                            
                             <table class="table table-hover dashboard-task-infos">
                                 <thead>
                                     <tr>

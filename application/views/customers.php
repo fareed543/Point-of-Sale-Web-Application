@@ -5,9 +5,10 @@
             <!-- Task Info -->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ol class="breadcrumb breadcrumb-bg-cyan">
-                    <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">store</i> <?php echo $lang_customers; ?></li>
-                </ol>				
+                <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li><i class="material-icons">view_module</i> <?php echo $lang_customers; ?></li>
+
+            </ol>			
                 <?php
                 if (!empty($alert_msg)) {
                     $flash_status = $alert_msg[0];

@@ -49,6 +49,11 @@ require_once 'includes/header.php';
 
 
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+             <ol class="breadcrumb breadcrumb-bg-cyan">
+                <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li><i class="material-icons">add_shopping_cart</i> <?php echo $lang_debit; ?></li>
+
+            </ol>
             <div class="card">
                 <?php
                 if ($user_role < 3) {

@@ -60,6 +60,11 @@ if (isset($_GET['report'])) {
 
 
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+            <ol class="breadcrumb breadcrumb-bg-cyan">
+                <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li><a href="<?php echo base_url() ?>debit/view"><i class="material-icons">add_shopping_cart</i> <?php echo $lang_debit; ?></a></li>
+                <li class="active"><i class="material-icons">search</i> <?php echo $lang_search; ?></li>
+            </ol>
             <div class="card">
                 <?php
                 if ($user_role < 3) {

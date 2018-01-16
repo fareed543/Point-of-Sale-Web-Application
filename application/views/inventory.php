@@ -4,6 +4,11 @@
         <div class="row clearfix">
             <!-- Task Info -->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li><i class="material-icons">store</i> <?php echo $lang_name; ?>   </li>
+
+                </ol>
                 <div class="card">
                     <div class="header">
                         <h2><?php echo $lang_inventory; ?></h2>

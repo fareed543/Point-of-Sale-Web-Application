@@ -424,7 +424,7 @@ if (isset($_GET['report'])) {
                                                     }
                                                 }
                                                 ?></td>
-                                            <td><?php number_format($subTotal, 2, '.', ''); ?></td>
+                                            <td><?php echo number_format($subTotal, 2, '.', ''); ?></td>
                                             <td><?php echo number_format($tax, 2, '.', ''); ?></td>
                                             <td><?php echo number_format($grandTotal, 2, '.', ''); ?></td>
 

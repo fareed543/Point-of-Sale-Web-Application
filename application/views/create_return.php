@@ -26,8 +26,10 @@ require_once 'includes/header.php';
 <script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
 <script src="<?= base_url() ?>assets/js/typeahead.min.js"></script>
 
-<!-- Select2 -->
-<link href="<?= base_url() ?>assets/css/select2.min.css" rel="stylesheet">
+<!--Select Dropdown js start-->     
+<link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!--Select Dropdown js end-->
 
 <script>
     $(document).ready(function () {
@@ -171,368 +173,423 @@ require_once 'includes/header.php';
     }
 </style>
 
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li><i class="material-icons">assignment_return</i> <?php echo $lang_create_return_order; ?></li>
+
+                </ol>
+
+                <form action="<?= base_url() ?>returnorder/insertReturnOrder" method="post">
+
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <?php
+                                    if (!empty($alert_msg)) {
+                                        $flash_status = $alert_msg[0];
+                                        $flash_header = $alert_msg[1];
+                                        $flash_desc = $alert_msg[2];
+                                        ?>
+                                        <?php if ($flash_status == 'failure') { ?>
+                                            <div class="alert alert-info" id="notificationWrp">
+                                                <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                                            </div>
+                                        <?php } ?>
 
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_create_return_order; ?></h1>
-        </div>
-    </div><!--/.row-->
+                                        <?php if ($flash_status == 'success') { ?>
+                                            <div class="alert alert-success" id="notificationWrp">
+                                                <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
 
-    <form action="<?= base_url() ?>returnorder/insertReturnOrder" method="post" onsubmit="return confirm('<?php echo $lang_are_you_confirm_return; ?>')">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-
-                        <?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
-
-                            if ($flash_status == 'failure') {
-                                ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-warning" role="alert">
-                                            <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-success" role="alert">
-                                            <i class="icono-check" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
-
-
-                        <script type="text/javascript" src="<?= base_url() ?>assets/js/search/jquery.searchabledropdown.js"></script>
-                        <script type="text/javascript">
-        $(document).ready(function () {
-            jQuery.browser = {};
-            (function () {
-                jQuery.browser.msie = false;
-                jQuery.browser.version = 0;
-                if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-                    jQuery.browser.msie = true;
-                    jQuery.browser.version = RegExp.$1;
-                }
-            })();
-
-            $("#customerSearch").searchable();
-        });
-
-        function calculateGrand(ele) {
-            if (ele.length > 0) {
-                var tax = document.getElementById("tax").value;
-                tax = parseFloat(tax);
-
-                ele = parseFloat(ele);
-
-                var total_tax_amt = ele * (tax / 100);
-                var grandTotal = ele + total_tax_amt;
-
-
-                document.getElementById("refund_tax").value = total_tax_amt.toFixed(2);
-                document.getElementById("refund_grand").value = grandTotal.toFixed(2);
-            } else {
-                document.getElementById("refund_tax").value = 0;
-                document.getElementById("refund_grand").value = 0;
+                                    <script type="text/javascript" src="<?= base_url() ?>assets/js/search/jquery.searchabledropdown.js"></script>
+                                    <script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
             }
-        }
+        })();
 
-                        </script>					
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_customers; ?> <span style="color: #F00">*</span></label>
-                                    <select name="customer" class="form-control" style="width: 100%;" required id="customerSearch">
-                                        <option value=""><?php echo $lang_search_customer; ?></option>
-                                        <?php
-                                        $custResult = $this->db->query('SELECT * FROM customers ORDER BY fullname');
-                                        $custData = $custResult->result();
-                                        for ($c = 0; $c < count($custData); ++$c) {
-                                            $cust_id = $custData[$c]->id;
-                                            $cust_fn = $custData[$c]->fullname;
-                                            $cust_mb = $custData[$c]->mobile;
-                                            ?>
-                                            <option value="<?php echo $cust_id; ?>" <?php
-                                            if ($url_cust_id == $cust_id) {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>>
-                                                        <?php echo $cust_fn; ?>
+        $("#customerSearch").searchable();
+    });
+
+    function calculateGrand(ele) {
+        if (ele.length > 0) {
+            var tax = document.getElementById("tax").value;
+            tax = parseFloat(tax);
+
+            ele = parseFloat(ele);
+
+            var total_tax_amt = ele * (tax / 100);
+            var grandTotal = ele + total_tax_amt;
+
+
+            document.getElementById("refund_tax").value = total_tax_amt.toFixed(2);
+            document.getElementById("refund_grand").value = grandTotal.toFixed(2);
+        } else {
+            document.getElementById("refund_tax").value = 0;
+            document.getElementById("refund_grand").value = 0;
+        }
+    }
+
+                                    </script>
+
+                                    <h3 class="card-inside-title"><?php echo $lang_create_return_order; ?></h3>
+                                    <div class="row clearfix">
+                                        <div class="col-md-3">
+                                            <div class="form-line">
+                                                <label class="form-label"><?php echo $lang_customers; ?></label>
+                                                <select name="customer" class="form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_search_customer; ?></option>
+                                                    <?php
+                                                    $custResult = $this->db->query('SELECT * FROM customers ORDER BY fullname');
+                                                    $custData = $custResult->result();
+                                                    for ($c = 0; $c < count($custData); ++$c) {
+                                                        $cust_id = $custData[$c]->id;
+                                                        $cust_fn = $custData[$c]->fullname;
+                                                        $cust_mb = $custData[$c]->mobile;
+                                                        ?>
+                                                        <option value="<?php echo $cust_id; ?>" <?php
+                                                        if ($url_cust_id == $cust_id) {
+                                                            echo 'selected="selected"';
+                                                        }
+                                                        ?>>
+                                                                    <?php echo $cust_fn; ?>
+                                                                    <?php
+                                                                    if (!empty($cust_mb)) {
+                                                                        echo '[' . $cust_mb . ']';
+                                                                    }
+                                                                    ?>
+                                                        </option>
                                                         <?php
-                                                        if (!empty($cust_mb)) {
-                                                            echo '[' . $cust_mb . ']';
+                                                        unset($cust_id);
+                                                        unset($cust_fn);
+                                                        unset($cust_mb);
+                                                    }
+                                                    unset($custResult);
+                                                    unset($custData);
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <label class="form-label"><?php echo $lang_outlets; ?> </label>
+                                                <select name="outlet" class="form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_search_outlet; ?></option>
+                                                    <?php
+                                                    if ($user_role == 1) {
+                                                        $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
+                                                    } else {
+                                                        $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
+                                                    }
+                                                    for ($u = 0; $u < count($outletData); ++$u) {
+                                                        $outlet_id = $outletData[$u]->id;
+                                                        $outlet_name = $outletData[$u]->name;
+                                                        ?>
+                                                        <option value="<?php echo $outlet_id; ?>">
+                                                            <?php echo $outlet_name; ?>
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5"></div>
+
+
+
+
+
+
+
+                                    </div>
+
+                                    <div class="row clearfix">
+                                        <div class="col-sm-7">
+                                            <div class="form-group form-float" style="padding-top: 10px;" >
+                                                <div class="form-line">
+                                                    <textarea class="form-control" name="remark"  rows="5" required></textarea>
+                                                    <label class="form-label"><?php echo $lang_remark; ?></label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-5"></div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
+
+
+                                                <label class="form-label"><?php echo $lang_refund_amount; ?> (<?php echo $currency; ?>)</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" name="refund_amt" class="form-control" onkeyup="calculateGrand(this.value)" maxlength="30" required autocomplete="off" placeholder="Enter Refund Amount"/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group form-float">
+                                                <div class="" style=" color: #afb1b2;">
+
+                                                    * <?php echo $lang_return_type_positive; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
+
+
+                                                <label class="form-label"><?php echo $lang_refund_tax; ?> (<?php echo $tax; ?>%)</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" name="refund_tax" id="refund_tax" class="form-control" required readonly />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group form-float">
+                                                <div class="" style=" color: #afb1b2;">
+
+                                                    * <?php echo $lang_return_invoice_effect; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
+
+
+                                                <label class="form-label"><?php echo $lang_refund_grand_total; ?> (<?php echo $currency; ?>)</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" name="refund_grand" id="refund_grand" class="form-control" required readonly />
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group form-float">
+                                                <div class="" style=" color: #afb1b2;">
+
+                                                    * <?php echo $lang_return_invoice_effect; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="tax" value="<?php echo $tax; ?>" />
+                                    <script type="text/javascript">
+                                        function checkChequePayment(ele) {
+                                            if (ele == "5") {
+                                                document.getElementById("cheque_wrp").style.display = "block";
+                                                document.getElementById("cheque").required = true;
+                                                document.getElementById("cheque").focus();
+                                            } else {
+                                                document.getElementById("cheque_wrp").style.display = "none";
+                                                document.getElementById("cheque").required = false;
+                                            }
+                                        }
+                                    </script>
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
+
+
+                                                <label class="form-label"><?php echo $lang_refund_by; ?></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select name="customer" class="form-control show-tick" data-live-search="true" required>
+                                                        <option value=""><?php echo $lang_choose_refund_by; ?></option>
+                                                        <?php
+                                                        $payMethodData = $this->Constant_model->getDataOneColumn('payment_method', 'status', '1');
+                                                        for ($p = 0; $p < count($payMethodData); ++$p) {
+                                                            $payMethod_id = $payMethodData[$p]->id;
+                                                            $payMethod_name = $payMethodData[$p]->name;
+
+                                                            if (($payMethod_id == 6) || ($payMethod_id == 7)) {
+                                                                continue;
+                                                            }
+                                                            ?>
+                                                            <option value="<?php echo $payMethod_id; ?>"><?php echo $payMethod_name; ?></option>
+                                                            <?php
                                                         }
                                                         ?>
-                                            </option>
-                                            <?php
-                                            unset($cust_id);
-                                            unset($cust_fn);
-                                            unset($cust_mb);
-                                        }
-                                        unset($custResult);
-                                        unset($custData);
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_outlets; ?> <span style="color: #F00">*</span></label>
-                                    <select name="outlet" class="form-control" required>
-                                        <option value=""><?php echo $lang_search_outlet; ?></option>
-                                        <?php
-                                        if ($user_role == 1) {
-                                            $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
-                                        } else {
-                                            $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
-                                        }
-                                        for ($u = 0; $u < count($outletData); ++$u) {
-                                            $outlet_id = $outletData[$u]->id;
-                                            $outlet_name = $outletData[$u]->name;
-                                            ?>
-                                            <option value="<?php echo $outlet_id; ?>">
-                                                <?php echo $outlet_name; ?>
-                                            </option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-5"></div>
-                        </div>
+                                                    </select>
 
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_remark; ?></label>
-                                    <textarea name="remark" class="form-control" style="height: 70px;"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-5"></div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_refund_amount; ?> (<?php echo $currency; ?>)</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="refund_amt" class="form-control" required onkeyup="calculateGrand(this.value)" />
-                            </div>
-                            <div class="col-md-5" style="padding-top: 10px; color: #afb1b2;">
-                                * <?php echo $lang_return_type_positive; ?>
-                            </div>
-                        </div>
-
-                        <div class="row" style="padding-top: 5px;">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_refund_tax; ?> (<?php echo $tax; ?>%)</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="refund_tax" id="refund_tax" class="form-control" required readonly />
-                            </div>
-                            <div class="col-md-5" style="padding-top: 10px; color: #afb1b2;">
-                                * <?php echo $lang_return_invoice_effect; ?>
-                            </div>
-                        </div>
-
-                        <div class="row" style="padding-top: 5px;">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_refund_grand_total; ?> (<?php echo $currency; ?>)</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="refund_grand" id="refund_grand" class="form-control" required readonly />
-                            </div>
-                            <div class="col-md-5" style="padding-top: 10px; color: #afb1b2;">
-                                * <?php echo $lang_return_invoice_effect; ?>
-                            </div>
-                        </div>
-
-                        <input type="hidden" id="tax" value="<?php echo $tax; ?>" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5"></div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
 
 
-                        <script type="text/javascript">
-                            function checkChequePayment(ele) {
-                                if (ele == "5") {
-                                    document.getElementById("cheque_wrp").style.display = "block";
-                                    document.getElementById("cheque").required = true;
-                                    document.getElementById("cheque").focus();
-                                } else {
-                                    document.getElementById("cheque_wrp").style.display = "none";
-                                    document.getElementById("cheque").required = false;
-                                }
-                            }
-                        </script>					
-                        <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_refund_by; ?></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="refund_by" class="form-control" style="" onchange="checkChequePayment(this.value)" required>
-                                    <option value=""><?php echo $lang_choose_refund_by; ?></option>
-                                    <?php
-                                    $payMethodData = $this->Constant_model->getDataOneColumn('payment_method', 'status', '1');
-                                    for ($p = 0; $p < count($payMethodData); ++$p) {
-                                        $payMethod_id = $payMethodData[$p]->id;
-                                        $payMethod_name = $payMethodData[$p]->name;
+                                                <label class="form-label">Cheque Number</label>
 
-                                        if (($payMethod_id == 6) || ($payMethod_id == 7)) {
-                                            continue;
-                                        }
-                                        ?>
-                                        <option value="<?php echo $payMethod_id; ?>"><?php echo $payMethod_name; ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-md-5"></div>
-                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <input type="text" name="cheque_numb" class="form-control" id="cheque" style="" />
 
-                        <div class="row" id="cheque_wrp" style="display: none; padding-bottom: 5px; padding-top: 5px;">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;">Cheque Number</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="cheque_numb" class="form-control" id="cheque" style="" />
-                            </div>
-                            <div class="col-md-5"></div>
-                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5"></div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
 
-                        <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_refund_method; ?></label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="refund_method" class="form-control" required style="">
-                                    <option value=""><?php echo $lang_choose_refund_method; ?></option>
-                                    <option value="1"><?php echo $lang_full_refund; ?></option>
-                                    <option value="2"><?php echo $lang_partial_refund; ?></option>
-                                </select>
-                            </div>
-                            <div class="col-md-5"></div>
-                        </div>
 
-                        <div class="row" style="margin-top: 5px;">
-                            <div class="col-md-12" style="border-top: 1px solid #ccc;"></div>
-                        </div>
+                                                <label class="form-label"><?php echo $lang_refund_method; ?></label>
 
-                        <!-- Product List // START -->
-                        <div class="row" style="padding-top: 7px;">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label style="font-size: 13px;"><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
-                                    <!-- <input type="text" class="form-control" id="typeahead" placeholder="Search Product" name="typeahead" /> -->
-                                    <select id="typeahead" class="add_product_po form-control">
-                                        <option value=""><?php echo $lang_search_product_by_namecode; ?></option>
-                                        <?php
-                                        $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
-                                        for ($p = 0; $p < count($prodData); ++$p) {
-                                            $prod_code = $prodData[$p]->code;
-                                            $prod_name = $prodData[$p]->name;
-                                            ?>
-                                            <option value="<?php echo $prod_code; ?>">
-                                                <?php echo $prod_name . ' [' . $prod_code . ']'; ?>
-                                            </option>
-                                            <?php
-                                            unset($prod_code);
-                                            unset($prod_name);
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-8" style="padding-top: 23px;">
-                                <div style="background-color: #686868; color: #FFF; width: 300px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList"><?php echo $lang_add_to_return_item_list; ?></div>
-                            </div>
-                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-float">
+                                                <div class="form-line">
+                                                    <select name="refund_method" class="form-control show-tick" data-live-search="true" required>
+                                                        <option value=""><?php echo $lang_choose_refund_method; ?></option>
+                                                        <option value="1"><?php echo $lang_full_refund; ?></option>
+                                                        <option value="2"><?php echo $lang_partial_refund; ?></option>
+                                                    </select>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
-                                                <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
-                                                <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_return_quantity; ?></th>
-                                                <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_condition; ?></th>
-                                                <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="addItemWrp">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5"></div>
+                                    </div>
+                                    <div class="row" style="margin-top: 5px;">
+                                        <div class="col-md-12" style="border-top: 1px solid #ccc;"></div>
+                                    </div>
+                                    <div class="row ">
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-line">
+                                                <label class="form-label"><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
+                                                <select id="typeahead"  class="add_product_po form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_search_product_by_namecode; ?></option>
+                                                    <?php
+                                                    $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
+                                                    for ($p = 0; $p < count($prodData); ++$p) {
+                                                        $prod_code = $prodData[$p]->code;
+                                                        $prod_name = $prodData[$p]->name;
+                                                        ?>
+                                                        <option value="<?php echo $prod_code; ?>">
+                                                            <?php echo $prod_name . ' [' . $prod_code . ']'; ?>
+                                                        </option>
+                                                        <?php
+                                                        unset($prod_code);
+                                                        unset($prod_name);
+                                                    }
+                                                    ?>
+                                                </select>
 
-                        <!-- Product List // END -->
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7" style="padding-top: 30px;">
+                                            <div class="form-line">
+                                                <div class="header">
+                                                    <ul class="header-dropdown m-r--5">
+
+                                                        <button class="btn btn-primary" ><?php echo $lang_add_to_return_item_list; ?></button>
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover dashboard-task-infos">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
+                                                        <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
+                                                        <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_return_quantity; ?></th>
+                                                        <th width="20%" style="background-color: #686868; color: #FFF;"><?php echo $lang_condition; ?></th>
+                                                        <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="addItemWrp">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-md-12" style="padding-top: 30px;">
+                                            <div class="form-line">
+                                                <div class="header">
+                                                    <input type="hidden" id="row_count" name="row_count" value="1" />
+                                                    <button class="btn btn-primary" ><?php echo $lang_submit; ?></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
+                                </div><!-- Panel body // END -->
 
+                            </div><!-- Panel default // END -->
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group" style="text-align: center;">
-                                    <input type="hidden" id="row_count" name="row_count" value="1" />
-                                    <button class="btn btn-primary" style="padding: 12px 20px;">
-                                        <?php echo $lang_submit; ?>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div><!-- Panel Body // END -->
-                </div><!-- Panel Default // END -->
-
-                <?php
-                if ($url_sales_id > 0) {
-                    ?>
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h1 class="page-header" style="color: #0079c0; text-align: center;"><?php echo $lang_previous_sales; ?></h1>
-                                </div>
-                            </div>
-
-                            <div class="row">
+                            <?php
+                            if ($url_sales_id > 0) {
+                                ?>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row ">
+                                            <div class="col-md-12" >
+                                                <div class="form-line">
+                                                    <h1 class="page-header" style="color: #0079c0; text-align: center;"><?php echo $lang_previous_sales; ?></h1>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">
 
@@ -769,34 +826,38 @@ require_once 'includes/header.php';
                                 </div>
                                 <div class="col-md-3"></div>
                             </div>
+                                        
+                                    </div>
 
-                        </div>
-                    </div>
-                    <?php
-                }
-                ?>
+                                </div>
+                                <?php
+                            }
+                            ?>
 
 
-            </div><!-- Col md 12 // END -->
+
+
+                        </div><!-- Col Md 12 -->
+                    </div><!-- row end -->
+                </form>
+            </div><!-- col-xs-12  // END -->
         </div><!-- Row // END -->
-    </form>
+    </div><!-- container-fluid end -->
 
-    <br /><br /><br /><br /><br />
+</section><!--section end here-->
 
-</div><!-- Right Colmn // END -->
 
 
 <?php
 require_once 'includes/footer.php';
 ?>
 
-<script src="<?= base_url() ?>assets/js/select2.full.min.js"></script>
 <!-- Select2 -->
 <script>
-                                    $(document).ready(function () {
-                                        $(".add_product_po").select2({
-                                            placeholder: "<?php echo $lang_search_product_by_namecode; ?>",
-                                            allowClear: true
-                                        });
-                                    });
+    $(document).ready(function () {
+        $(".add_product_po").select2({
+            placeholder: "<?php echo $lang_search_product_by_namecode; ?>",
+            allowClear: true
+        });
+    });
 </script>

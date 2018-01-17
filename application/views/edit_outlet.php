@@ -78,7 +78,7 @@ $outlet_footer = $outletData[0]->receipt_footer;
                                         <div class="col-sm-6">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <textarea class="form-control" name="outlet_address" rows="5" required><?php echo $outlet_address; ?></textarea>
+                                                    <textarea class="form-control" name="outlet_address" rows="5" required ><?php echo $outlet_address; ?></textarea>
                                                     <label class="form-label"><?php echo $lang_address; ?></label>
                                                 </div>
                                             </div>

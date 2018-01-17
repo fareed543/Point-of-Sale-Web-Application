@@ -5,6 +5,11 @@ require_once 'includes/header.php';
 <link rel="stylesheet" href="<?= base_url() ?>assets/js/jquery-ui.css">
 <script src="<?= base_url() ?>assets/js/jquery-1.12.4.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery-ui.js"></script>
+<!--Select Dropdown js start-->
+
+<link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!--Select Dropdown js end-->
 
 <script>
     $(function () {
@@ -34,303 +39,321 @@ if (isset($_GET['report'])) {
 }
 ?>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_return_order_report; ?></h1>
-        </div>
-    </div><!--/.row-->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <!-- Task Info -->
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
 
+
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+            <ol class="breadcrumb breadcrumb-bg-cyan">
+                <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li><i class="material-icons">report</i> <?php echo $lang_sales_report; ?></li>
+
+            </ol>
+            <div class="card">
+
+
+
+
+                <div class="header">
+                    <h3><?php echo $lang_return_order_report;
+;
+?></h3>
+                    <?php
+                    if (isset($_GET['report'])) {
+                        ?>
+                        <ul class="header-dropdown m-r--5">
+
+                            <a href="<?= base_url() ?>returnorder/exportReturnReport?report=<?php echo $_GET['report']; ?>&start_date=<?php echo $url_start; ?>&end_date=<?php echo $url_end; ?>&outlet=<?php echo $url_outlet; ?>&paid=<?php echo $url_paid_by; ?>" style="text-decoration: none;">
+                                <button type="button" info="" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
+    <?php echo $lang_export_to_excel; ?>
+                                </button>
+                            </a>
+                        </ul>
+                        <?php
+                    }
+                    ?>
+                </div>
+
+
+                <div class="row header" style="margin-top: 10px;">
                     <form action="<?= base_url() ?>returnorder/return_report" method="get">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><?php echo $lang_outlets; ?></label>
-                                    <select name="outlet" class="form-control" required>
-                                        <?php
-                                        if ($user_role == '1') {
-                                            ?>
-                                            <option value=""><?php echo $lang_choose_outlet; ?></option>
-                                            <option value="-" <?php
-                                            if ($url_outlet == '-') {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>><?php echo $lang_all_outlets; ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-
-                                        <?php
-                                        if ($user_role == '1') {
-                                            $outletData = $this->Constant_model->getDataAll('outlets', 'id', 'ASC');
-                                        } else {
-                                            $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
-                                        }
-                                        for ($o = 0; $o < count($outletData); ++$o) {
-                                            $outlet_id = $outletData[$o]->id;
-                                            $outlet_fn = $outletData[$o]->name;
-                                            ?>
-                                            <option value="<?php echo $outlet_id; ?>" <?php
-                                            if ($url_outlet == $outlet_id) {
-                                                echo 'selected="selected"';
-                                            }
-                                            ?>>
-                                                        <?php echo $outlet_fn; ?>
-                                            </option>
-                                            <?php
-                                        }
+                        <!--<div class="col-md-2"></div>-->
+                        <div class="col-md-3">
+                            <div class="form-line">
+                                <label class="form-label"><?php echo $lang_outlets; ?></label>
+                                <select name="outlet" class="form-control show-tick" data-live-search="true" required>
+                                    <?php
+                                    if ($user_role == '1') {
                                         ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label><?php echo $lang_refund_by; ?></label>
-                                    <select name="paid" class="form-control" required>
-                                        <option value=""><?php echo $lang_choose_paid_by; ?></option>
+                                        <option value=""><?php echo $lang_choose_outlet; ?></option>
                                         <option value="-" <?php
-                                        if ($url_paid_by == '-') {
+                                        if ($url_outlet == '-') {
                                             echo 'selected="selected"';
                                         }
-                                        ?>><?php echo $lang_all; ?></option>
+                                        ?>><?php echo $lang_all_outlets; ?></option>
                                                 <?php
-                                                $paymentData = $this->Constant_model->getDataAll('payment_method', 'name', 'ASC');
-                                                for ($p = 0; $p < count($paymentData); ++$p) {
-                                                    $pay_id = $paymentData[$p]->id;
-                                                    $pay_name = $paymentData[$p]->name;
-                                                    ?>
-                                            <option value="<?php echo $pay_id; ?>" <?php
-                                            if ($url_paid_by == "$pay_id") {
-                                                echo 'selected="selected"';
                                             }
-                                            ?>>
-                                                        <?php echo $pay_name; ?>
-                                            </option>
-                                            <?php
-                                        }
+                                            ?>
+
+                                    <?php
+                                    if ($user_role == '1') {
+                                        $outletData = $this->Constant_model->getDataAll('outlets', 'id', 'ASC');
+                                    } else {
+                                        $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
+                                    }
+                                    for ($o = 0; $o < count($outletData); ++$o) {
+                                        $outlet_id = $outletData[$o]->id;
+                                        $outlet_fn = $outletData[$o]->name;
                                         ?>
-                                    </select>
-                                </div>
+                                        <option value="<?php echo $outlet_id; ?>" <?php
+                                        if ($url_outlet == $outlet_id) {
+                                            echo 'selected="selected"';
+                                        }
+                                        ?>>
+                                        <?php echo $outlet_fn; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label><?php echo $lang_start_date; ?></label>
-                                    <input type="text" name="start_date" class="form-control" id="startDate" required value="<?php echo $url_start; ?>" />
-                                </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-line">
+                                <label class="form-label"><?php echo $lang_refund_by; ?></label>
+                                <select name="paid" class="form-control show-tick" data-live-search="true" required>
+                                    <option value=""><?php echo $lang_choose_paid_by; ?></option>
+                                    <option value="-" <?php
+                                    if ($url_paid_by == '-') {
+                                        echo 'selected="selected"';
+                                    }
+                                    ?>><?php echo $lang_all; ?></option>
+                                            <?php
+                                            $paymentData = $this->Constant_model->getDataAll('payment_method', 'name', 'ASC');
+                                            for ($p = 0; $p < count($paymentData); ++$p) {
+                                                $pay_id = $paymentData[$p]->id;
+                                                $pay_name = $paymentData[$p]->name;
+                                                ?>
+                                        <option value="<?php echo $pay_id; ?>" <?php
+                                        if ($url_paid_by == "$pay_id") {
+                                            echo 'selected="selected"';
+                                        }
+                                        ?>>
+                                        <?php echo $pay_name; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label><?php echo $lang_end_date; ?></label>
-                                    <input type="text" name="end_date" class="form-control" id="endDate" required value="<?php echo $url_end; ?>" />
-                                </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <label class="form-label"><?php echo $lang_start_date; ?></label>
+                                <input type="text" name="start_date" class="form-control" id="startDate" required value="<?php echo $url_start; ?>"  />
+
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>&nbsp;</label><br />
-                                    <input type="hidden" name="report" value="1" />
-                                    <input type="submit" class="btn btn-primary" value="<?php echo $lang_get_report; ?>" />
-                                </div>
+
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <label class="form-label"><?php echo $lang_end_date; ?></label>
+                                <input type="text" name="end_date" class="form-control" id="endDate" required value="<?php echo $url_end; ?>" />
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-line">
+                                <input type="hidden" name="report" value="1" />
+                                <label>&nbsp;</label><br />
+                                <button class="btn btn-primary" style="width: 100%;">&nbsp;&nbsp;<?php echo $lang_get_report; ?>&nbsp;&nbsp;</button>
                             </div>
                         </div>
                     </form>
+                </div>
 
-                    <script type="text/javascript" src="<?= base_url() ?>assets/js/datatables/jquery-1.12.3.js"></script>
-                    <script type="text/javascript" src="<?= base_url() ?>assets/js/datatables/jquery.dataTables.min.js"></script>
-                    <link href="<?= base_url() ?>assets/js/datatables/jquery.dataTables.min.css" rel="stylesheet">
-                    <script type="text/javascript">
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-                    </script>
+                <?php
+                if (isset($_GET['report'])) {
+                    if ($site_dateformat == 'd/m/Y') {
+                        $startArray = explode('/', $url_start);
+                        $endArray = explode('/', $url_end);
 
-                    <?php
-                    if (isset($_GET['report'])) {
-                        if ($site_dateformat == 'd/m/Y') {
-                            $startArray = explode('/', $url_start);
-                            $endArray = explode('/', $url_end);
+                        $start_day = $startArray[0];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[0];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[0];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[0];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'd.m.Y') {
+                        $startArray = explode('.', $url_start);
+                        $endArray = explode('.', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'd.m.Y') {
-                            $startArray = explode('.', $url_start);
-                            $endArray = explode('.', $url_end);
+                        $start_day = $startArray[0];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[0];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[0];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[0];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'd-m-Y') {
+                        $startArray = explode('-', $url_start);
+                        $endArray = explode('-', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'd-m-Y') {
-                            $startArray = explode('-', $url_start);
-                            $endArray = explode('-', $url_end);
+                        $start_day = $startArray[0];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[0];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[0];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[0];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
+                    if ($site_dateformat == 'm/d/Y') {
+                        $startArray = explode('/', $url_start);
+                        $endArray = explode('/', $url_end);
 
-                        if ($site_dateformat == 'm/d/Y') {
-                            $startArray = explode('/', $url_start);
-                            $endArray = explode('/', $url_end);
+                        $start_day = $startArray[1];
+                        $start_mon = $startArray[0];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[1];
-                            $start_mon = $startArray[0];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[1];
+                        $end_mon = $endArray[0];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[1];
-                            $end_mon = $endArray[0];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'm.d.Y') {
+                        $startArray = explode('.', $url_start);
+                        $endArray = explode('.', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'm.d.Y') {
-                            $startArray = explode('.', $url_start);
-                            $endArray = explode('.', $url_end);
+                        $start_day = $startArray[1];
+                        $start_mon = $startArray[0];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[1];
-                            $start_mon = $startArray[0];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[1];
+                        $end_mon = $endArray[0];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[1];
-                            $end_mon = $endArray[0];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'm-d-Y') {
+                        $startArray = explode('-', $url_start);
+                        $endArray = explode('-', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'm-d-Y') {
-                            $startArray = explode('-', $url_start);
-                            $endArray = explode('-', $url_end);
+                        $start_day = $startArray[1];
+                        $start_mon = $startArray[0];
+                        $start_yea = $startArray[2];
 
-                            $start_day = $startArray[1];
-                            $start_mon = $startArray[0];
-                            $start_yea = $startArray[2];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[1];
+                        $end_mon = $endArray[0];
+                        $end_yea = $endArray[2];
 
-                            $end_day = $endArray[1];
-                            $end_mon = $endArray[0];
-                            $end_yea = $endArray[2];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
+                    if ($site_dateformat == 'Y.m.d') {
+                        $startArray = explode('.', $url_start);
+                        $endArray = explode('.', $url_end);
 
-                        if ($site_dateformat == 'Y.m.d') {
-                            $startArray = explode('.', $url_start);
-                            $endArray = explode('.', $url_end);
+                        $start_day = $startArray[2];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[0];
 
-                            $start_day = $startArray[2];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[0];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[2];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[0];
 
-                            $end_day = $endArray[2];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[0];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'Y/m/d') {
+                        $startArray = explode('/', $url_start);
+                        $endArray = explode('/', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'Y/m/d') {
-                            $startArray = explode('/', $url_start);
-                            $endArray = explode('/', $url_end);
+                        $start_day = $startArray[2];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[0];
 
-                            $start_day = $startArray[2];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[0];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[2];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[0];
 
-                            $end_day = $endArray[2];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[0];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    if ($site_dateformat == 'Y-m-d') {
+                        $startArray = explode('-', $url_start);
+                        $endArray = explode('-', $url_end);
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        if ($site_dateformat == 'Y-m-d') {
-                            $startArray = explode('-', $url_start);
-                            $endArray = explode('-', $url_end);
+                        $start_day = $startArray[2];
+                        $start_mon = $startArray[1];
+                        $start_yea = $startArray[0];
 
-                            $start_day = $startArray[2];
-                            $start_mon = $startArray[1];
-                            $start_yea = $startArray[0];
+                        $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
 
-                            $url_start = $start_yea . '-' . $start_mon . '-' . $start_day;
+                        $end_day = $endArray[2];
+                        $end_mon = $endArray[1];
+                        $end_yea = $endArray[0];
 
-                            $end_day = $endArray[2];
-                            $end_mon = $endArray[1];
-                            $end_yea = $endArray[0];
+                        $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
+                    }
+                    ?>
 
-                            $url_end = $end_yea . '-' . $end_mon . '-' . $end_day;
-                        }
-                        ?>
-                        <div class="row" style="margin-top: 10px;">
-                            <div class="col-md-12" style="text-align: right;">
-                                <a href="<?= base_url() ?>returnorder/exportReturnReport?report=<?php echo $_GET['report']; ?>&start_date=<?php echo $url_start; ?>&end_date=<?php echo $url_end; ?>&outlet=<?php echo $url_outlet; ?>&paid=<?php echo $url_paid_by; ?>" style="text-decoration: none">
-                                    <button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
-                                        <?php echo $lang_export_to_excel; ?>
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 10px;">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-
-                                    <table id="example" class="display" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th width="14%"><?php echo $lang_date; ?></th>
-                                                <th width="5%"><?php echo $lang_sale_id; ?></th>
-                                                <th width="10%"><?php echo $lang_outlets; ?></th>
-                                                <th width="10%"><?php echo $lang_refund_by; ?></th>
-                                                <th width="10%"><?php echo $lang_refund_method; ?></th>
-                                                <th width="10%"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</th>
-                                                <th width="10%">
-                                                    <?php echo $lang_tax; ?> (<?php echo $site_currency; ?>)
-                                                </th>
-                                                <th width="10%">
-                                                    <?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)
-                                                </th>
-                                                <th width="10%"><?php echo $lang_action; ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <?php
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-hover dashboard-task-infos">
+                                <thead>
+                                    <tr>
+                                        <th width="14%"><?php echo $lang_date; ?></th>
+                                        <th width="5%"><?php echo $lang_sale_id; ?></th>
+                                        <th width="10%"><?php echo $lang_outlets; ?></th>
+                                        <th width="10%"><?php echo $lang_refund_by; ?></th>
+                                        <th width="10%"><?php echo $lang_refund_method; ?></th>
+                                        <th width="10%"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</th>
+                                        <th width="10%">
+    <?php echo $lang_tax; ?> (<?php echo $site_currency; ?>)
+                                        </th>
+                                        <th width="10%">
+    <?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)
+                                        </th>
+                                        <th width="10%"><?php echo $lang_action; ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <?php
                                             $total_sub_amt = 0;
                                             $total_tax_amt = 0;
                                             $total_grand_amt = 0;
@@ -439,44 +462,49 @@ if (isset($_GET['report'])) {
                                             unset($orderResult);
                                             ?>
 
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-
-                        <?php
+                    </div>
+                 <?php
                         if ($orderRows > 0) {
                             ?>
-                            <div class="row" style="padding-top: 10px; padding-bottom: 10px; margin-top: 50px; font-size: 18px; letter-spacing: 0.5px;">
-                                <div class="col-md-2" style="font-weight: bold;"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</div>
-                                <div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($total_sub_amt, 2); ?></div>
-                            </div>
-                            <div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
-                                <div class="col-md-2" style="font-weight: bold;"><?php echo $lang_tax_total; ?> (<?php echo $site_currency; ?>)</div>
-                                <div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($total_tax_amt, 2); ?></div>
-                            </div>
-                            <div class="row" style="padding-top: 10px; padding-bottom: 10px; font-size: 18px; letter-spacing: 0.5px;">
-                                <div class="col-md-2" style="font-weight: bold;"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</div>
-                                <div class="col-md-10" style="font-weight: bold;">: <?php echo number_format($total_grand_amt, 2); ?></div>
-                            </div>
-                        <?php }
-                        ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover dashboard-task-infos">
+                            <thead>
+                                <tr  style="text-align:center;">
+                                    <th></th>
+                                    <th style="text-align:center;">Summary</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center;"><?php echo $lang_sub_total; ?> (<?php echo $site_currency; ?>)</th>
+                                    <th style="text-align:center;"><?php echo $lang_tax_total; ?> (<?php echo $site_currency; ?>)</th>
+                                    <th style="text-align:center;"><?php echo $lang_grand_total; ?> (<?php echo $site_currency; ?>)</th>
 
-                        <?php
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <td style="text-align:center;"> <?php echo number_format($total_sub_amt, 2); ?></td>
+                            <td style="text-align:center;"><?php echo number_format($total_tax_amt, 2); ?></td>
+                            <td style="text-align:center;"><?php echo number_format($total_grand_amt, 2); ?></td>
+                            </tbody>
+                        </table>
+                       
+
+
+
+                </div>
+                 <?php }
+                        ?>
+                 <?php
                     }
                     ?>
-
-
-                </div><!-- Panel Body // END -->
-            </div><!-- Panel Default // END -->
-        </div><!-- Col md 12 // END -->
-    </div><!-- Row // END -->
-
-    <br /><br /><br />
-
-</div><!-- Right Colmn // END -->
+                <!--</div>-->
+                <!-- #END# Task Info -->
+            </div>
+        </div>
+</section><!-- Right Colmn // END -->
 
 
 

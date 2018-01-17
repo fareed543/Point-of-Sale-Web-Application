@@ -6,7 +6,6 @@ require_once 'includes/header.php';
 <script src="<?= base_url() ?>assets/js/jquery-1.12.4.js"></script>
 <script src="<?= base_url() ?>assets/js/jquery-ui.js"></script>
 <!--Select Dropdown js start-->
-
 <link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <!--Select Dropdown js end-->

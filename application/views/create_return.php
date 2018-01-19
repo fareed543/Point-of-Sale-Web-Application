@@ -506,10 +506,17 @@ require_once 'includes/header.php';
                                         <div class="col-md-12" style="border-top: 1px solid #ccc;"></div>
                                     </div>
                                     <div class="row ">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
 
-                                        <div class="col-md-5">
+
+                                               <label class="form-label"><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
                                             <div class="form-line">
-                                                <label class="form-label"><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
+                                                
                                                 <select id="typeahead"  class="add_product_po form-control show-tick" data-live-search="true" required>
                                                     <option value=""><?php echo $lang_search_product_by_namecode; ?></option>
                                                     <?php
@@ -530,7 +537,7 @@ require_once 'includes/header.php';
 
                                             </div>
                                         </div>
-                                        <div class="col-sm-7" style="padding-top: 30px;">
+                                        <div class="col-sm-6" >
                                             <div class="form-line">
                                                 <div class="header">
                                                     <ul class="header-dropdown m-r--5">
@@ -590,243 +597,243 @@ require_once 'includes/header.php';
                                             </div>
                                         </div>
                                         <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-6">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
 
-                                    <style type="text/css" media="all">
-                                        #wrapper { 
-                                            min-width: 250px; 
-                                            margin: 0px auto; 
-                                        }
-                                        #wrapper img { 
-                                            max-width: 300px; 
-                                            width: auto; 
-                                        }
-
-                                        h2, h3, p { 
-                                            margin: 5px 0;
-                                        }
-                                        .left { 
-                                            width:100%; 
-                                            float:left; 
-                                            text-align:left; 
-                                            margin-bottom: 3px;
-                                            margin-top: 3px;
-                                        }
-                                        .right { 
-                                            width:40%; 
-                                            float:right; 
-                                            text-align:right; 
-                                            margin-bottom: 3px; 
-                                        }
-                                        .table, .totals { 
-                                            width: 100%; 
-                                            margin:10px 0; 
-                                        }
-                                        .table th { 
-                                            border-top: 1px solid #000; 
-                                            border-bottom: 1px solid #000; 
-                                            padding-top: 4px;
-                                            padding-bottom: 4px;
-                                        }
-                                        .table td { 
-                                            padding:0; 
-                                        }
-                                        .totals td { 
-                                            width: 24%; 
-                                            padding:0; 
-                                        }
-                                        .table td:nth-child(2) { 
-                                            overflow:hidden; 
-                                        }
-
-
-                                    </style>					
-
-                                    <?php
-                                    $orderData = $this->Constant_model->getDataOneColumn('orders', 'id', $url_sales_id);
-                                    if (count($orderData) == 1) {
-                                        $ordered_dtm = date("$dateformat H:i A", strtotime($orderData[0]->ordered_datetime));
-                                        $cust_fullname = $orderData[0]->customer_name;
-                                        $outlet_id = $orderData[0]->outlet_id;
-                                        $subTotal = $orderData[0]->subtotal;
-                                        $dis_amt = $orderData[0]->discount_total;
-                                        $tax_amt = $orderData[0]->tax;
-                                        $grandTotal = $orderData[0]->grandtotal;
-                                        $us_id = $orderData[0]->created_user_id;
-                                        $pay_method_id = $orderData[0]->payment_method;
-                                        $paid_amt = $orderData[0]->paid_amt;
-                                        $return_change = $orderData[0]->return_change;
-                                        $cheque_numb = $orderData[0]->cheque_number;
-                                        $dis_percentage = $orderData[0]->discount_percentage;
-                                        $card_numb = $orderData[0]->gift_card;
-
-                                        $staff_name = '';
-                                        $staffData = $this->Constant_model->getDataOneColumn('users', 'id', $us_id);
-
-                                        $staff_name = $staffData[0]->fullname;
-
-                                        $outlet_name = '';
-                                        $outlet_address = '';
-                                        $outlet_contact = '';
-
-                                        $receipt_header = '';
-                                        $receipt_footer = '';
-
-                                        $outletNameData = $this->Constant_model->getDataOneColumn('outlets', 'id', $outlet_id);
-                                        if (count($outletNameData) == 1) {
-                                            $outlet_name = $outletNameData[0]->name;
-                                            $outlet_address = $outletNameData[0]->address;
-                                            $outlet_contact = $outletNameData[0]->contact_number;
-
-                                            $receipt_header = $outletNameData[0]->receipt_header;
-                                            $receipt_footer = $outletNameData[0]->receipt_footer;
-                                        }
-
-                                        $pay_method_name = '';
-                                        $payNameData = $this->Constant_model->getDataOneColumn('payment_method', 'id', $pay_method_id);
-                                        $pay_method_name = $payNameData[0]->name;
-                                        ?>
-                                        <div id="wrapper">
-                                            <h2 style="padding-top: 0px; padding-bottom: 20px; font-size: 22px;"><strong><?php echo $outlet_name; ?></strong></h2>
-                                            <span class="left"><?php echo $lang_address; ?> : <?php echo $outlet_address; ?></span>	
-                                            <span class="left"><?php echo $lang_telephone; ?> : <?php echo $outlet_contact; ?></span> 
-                                            <span class="left"><?php echo $lang_date; ?> : <?php echo $ordered_dtm; ?></span>
-                                            <span class="left"><?php echo $lang_customer; ?> : <?php echo $cust_fullname; ?></span> 
-
-                                            <div style="clear:both;"></div>
-
-                                            <table class="table" cellspacing="0"  border="0"> 
-                                                <thead> 
-                                                    <tr> 
-                                                        <th width="10%"><em>#</em></th> 
-                                                        <th width="35%" align="left"><?php echo $lang_products; ?></th>
-                                                        <th width="10%"><?php echo $lang_quantity; ?></th>
-                                                        <th width="25%" style="text-align: center;"><?php echo $lang_per_item_price; ?></th>
-                                                        <th width="20%" align="right" style="text-align: right;"><?php echo $lang_total; ?></th> 
-                                                    </tr> 
-                                                </thead> 
-                                                <tbody> 
-                                                    <?php
-                                                    $total_item_amt = 0;
-                                                    $total_item_qty = 0;
-
-                                                    $orderItemResult = $this->db->query("SELECT * FROM order_items WHERE order_id = '$url_sales_id' ORDER BY id ");
-                                                    $orderItemData = $orderItemResult->result();
-                                                    for ($i = 0; $i < count($orderItemData); ++$i) {
-                                                        $pcode = $orderItemData[$i]->product_code;
-                                                        $name = $orderItemData[$i]->product_name;
-                                                        $qty = $orderItemData[$i]->qty;
-                                                        $price = $orderItemData[$i]->price;
-
-                                                        $each_row_price = 0;
-                                                        $each_row_price = $qty * $price;
-
-                                                        $total_item_amt += $each_row_price;
-                                                        ?>
-                                                        <tr>
-                                                            <td style="text-align:center; width:30px;" valign="top"><?php echo $i + 1; ?></td>
-                                                            <td style="text-align:left; width:130px; padding-bottom: 10px" valign="top"><?php echo $name; ?><br />[<?php echo $pcode; ?>]</td>
-                                                            <td style="text-align:center; width:50px;" valign="top"><?php echo $qty; ?></td>
-                                                            <td style="text-align:center; width:50px;" valign="top"><?php echo number_format($price, 2); ?></td>
-                                                            <td style="text-align:right; width:70px;" valign="top"><?php echo number_format($each_row_price, 2); ?></td>
-                                                        </tr>	
-                                                        <?php
-                                                        $total_item_qty += $qty;
-
-                                                        unset($pcode);
-                                                        unset($name);
-                                                        unset($qty);
-                                                        unset($price);
+                                                <style type="text/css" media="all">
+                                                    #wrapper { 
+                                                        min-width: 250px; 
+                                                        margin: 0px auto; 
                                                     }
-                                                    unset($orderItemResult);
-                                                    unset($orderItemData);
+                                                    #wrapper img { 
+                                                        max-width: 300px; 
+                                                        width: auto; 
+                                                    }
+
+                                                    h2, h3, p { 
+                                                        margin: 5px 0;
+                                                    }
+                                                    .left { 
+                                                        width:100%; 
+                                                        float:left; 
+                                                        text-align:left; 
+                                                        margin-bottom: 3px;
+                                                        margin-top: 3px;
+                                                    }
+                                                    .right { 
+                                                        width:40%; 
+                                                        float:right; 
+                                                        text-align:right; 
+                                                        margin-bottom: 3px; 
+                                                    }
+                                                    .table, .totals { 
+                                                        width: 100%; 
+                                                        margin:10px 0; 
+                                                    }
+                                                    .table th { 
+                                                        border-top: 1px solid #000; 
+                                                        border-bottom: 1px solid #000; 
+                                                        padding-top: 4px;
+                                                        padding-bottom: 4px;
+                                                    }
+                                                    .table td { 
+                                                        padding:0; 
+                                                    }
+                                                    .totals td { 
+                                                        width: 24%; 
+                                                        padding:0; 
+                                                    }
+                                                    .table td:nth-child(2) { 
+                                                        overflow:hidden; 
+                                                    }
+
+
+                                                </style>					
+
+                                                <?php
+                                                $orderData = $this->Constant_model->getDataOneColumn('orders', 'id', $url_sales_id);
+                                                if (count($orderData) == 1) {
+                                                    $ordered_dtm = date("$dateformat H:i A", strtotime($orderData[0]->ordered_datetime));
+                                                    $cust_fullname = $orderData[0]->customer_name;
+                                                    $outlet_id = $orderData[0]->outlet_id;
+                                                    $subTotal = $orderData[0]->subtotal;
+                                                    $dis_amt = $orderData[0]->discount_total;
+                                                    $tax_amt = $orderData[0]->tax;
+                                                    $grandTotal = $orderData[0]->grandtotal;
+                                                    $us_id = $orderData[0]->created_user_id;
+                                                    $pay_method_id = $orderData[0]->payment_method;
+                                                    $paid_amt = $orderData[0]->paid_amt;
+                                                    $return_change = $orderData[0]->return_change;
+                                                    $cheque_numb = $orderData[0]->cheque_number;
+                                                    $dis_percentage = $orderData[0]->discount_percentage;
+                                                    $card_numb = $orderData[0]->gift_card;
+
+                                                    $staff_name = '';
+                                                    $staffData = $this->Constant_model->getDataOneColumn('users', 'id', $us_id);
+
+                                                    $staff_name = $staffData[0]->fullname;
+
+                                                    $outlet_name = '';
+                                                    $outlet_address = '';
+                                                    $outlet_contact = '';
+
+                                                    $receipt_header = '';
+                                                    $receipt_footer = '';
+
+                                                    $outletNameData = $this->Constant_model->getDataOneColumn('outlets', 'id', $outlet_id);
+                                                    if (count($outletNameData) == 1) {
+                                                        $outlet_name = $outletNameData[0]->name;
+                                                        $outlet_address = $outletNameData[0]->address;
+                                                        $outlet_contact = $outletNameData[0]->contact_number;
+
+                                                        $receipt_header = $outletNameData[0]->receipt_header;
+                                                        $receipt_footer = $outletNameData[0]->receipt_footer;
+                                                    }
+
+                                                    $pay_method_name = '';
+                                                    $payNameData = $this->Constant_model->getDataOneColumn('payment_method', 'id', $pay_method_id);
+                                                    $pay_method_name = $payNameData[0]->name;
                                                     ?>
+                                                    <div id="wrapper">
+                                                        <h2 style="padding-top: 0px; padding-bottom: 20px; font-size: 22px;"><strong><?php echo $outlet_name; ?></strong></h2>
+                                                        <span class="left"><?php echo $lang_address; ?> : <?php echo $outlet_address; ?></span>	
+                                                        <span class="left"><?php echo $lang_telephone; ?> : <?php echo $outlet_contact; ?></span> 
+                                                        <span class="left"><?php echo $lang_date; ?> : <?php echo $ordered_dtm; ?></span>
+                                                        <span class="left"><?php echo $lang_customer; ?> : <?php echo $cust_fullname; ?></span> 
 
-                                                </tbody> 
-                                            </table> 
+                                                        <div style="clear:both;"></div>
 
+                                                        <table class="table" cellspacing="0"  border="0"> 
+                                                            <thead> 
+                                                                <tr> 
+                                                                    <th width="10%"><em>#</em></th> 
+                                                                    <th width="35%" align="left"><?php echo $lang_products; ?></th>
+                                                                    <th width="10%"><?php echo $lang_quantity; ?></th>
+                                                                    <th width="25%" style="text-align: center;"><?php echo $lang_per_item_price; ?></th>
+                                                                    <th width="20%" align="right" style="text-align: right;"><?php echo $lang_total; ?></th> 
+                                                                </tr> 
+                                                            </thead> 
+                                                            <tbody> 
+                                                                <?php
+                                                                $total_item_amt = 0;
+                                                                $total_item_qty = 0;
 
-                                            <table class="totals" cellspacing="0" border="0" style="margin-bottom:5px; border-top: 1px solid #000;">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="text-align:left; padding-top: 5px;"><?php echo $lang_total_items; ?></td>
-                                                        <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;"><?php echo $total_item_qty; ?></td>
-                                                        <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_total; ?></td>
-                                                        <td style="text-align:right;font-weight:bold;"><?php echo number_format($total_item_amt, 2, '.', ''); ?></td>
-                                                    </tr>
+                                                                $orderItemResult = $this->db->query("SELECT * FROM order_items WHERE order_id = '$url_sales_id' ORDER BY id ");
+                                                                $orderItemData = $orderItemResult->result();
+                                                                for ($i = 0; $i < count($orderItemData); ++$i) {
+                                                                    $pcode = $orderItemData[$i]->product_code;
+                                                                    $name = $orderItemData[$i]->product_name;
+                                                                    $qty = $orderItemData[$i]->qty;
+                                                                    $price = $orderItemData[$i]->price;
 
-                                                    <?php
-                                                    if ($dis_amt > 0) {
-                                                        ?>
-                                                        <tr>
-                                                            <td style="text-align:left;"></td>
-                                                            <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;"></td>
-                                                            <td style="text-align:left; padding-left:1.5%; padding-bottom: 5px;">
-                                                                <?php echo $lang_discount; ?>&nbsp;<?php
-                                                                if (!empty($dis_percentage)) {
-                                                                    echo '(' . $dis_percentage . ')';
+                                                                    $each_row_price = 0;
+                                                                    $each_row_price = $qty * $price;
+
+                                                                    $total_item_amt += $each_row_price;
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td style="text-align:center; width:30px;" valign="top"><?php echo $i + 1; ?></td>
+                                                                        <td style="text-align:left; width:130px; padding-bottom: 10px" valign="top"><?php echo $name; ?><br />[<?php echo $pcode; ?>]</td>
+                                                                        <td style="text-align:center; width:50px;" valign="top"><?php echo $qty; ?></td>
+                                                                        <td style="text-align:center; width:50px;" valign="top"><?php echo number_format($price, 2); ?></td>
+                                                                        <td style="text-align:right; width:70px;" valign="top"><?php echo number_format($each_row_price, 2); ?></td>
+                                                                    </tr>	
+                                                                    <?php
+                                                                    $total_item_qty += $qty;
+
+                                                                    unset($pcode);
+                                                                    unset($name);
+                                                                    unset($qty);
+                                                                    unset($price);
                                                                 }
+                                                                unset($orderItemResult);
+                                                                unset($orderItemData);
                                                                 ?>
-                                                            </td>
-                                                            <td style="text-align:right;font-weight:bold;">-<?php echo $dis_amt; ?></td>
-                                                        </tr>
-                                                    <?php }
-                                                    ?>
-                                                    <tr>
-                                                        <td style="text-align:left; padding-top: 5px;">&nbsp;</td>
-                                                        <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">&nbsp;</td>
-                                                        <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_sub_total; ?></td>
-                                                        <td style="text-align:right;font-weight:bold;"><?php echo $subTotal; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="text-align:left; padding-top: 5px;">&nbsp;</td>
-                                                        <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">&nbsp;</td>
-                                                        <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_tax; ?></td>
-                                                        <td style="text-align:right;font-weight:bold;"><?php echo $tax_amt; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2" style="text-align:left; font-weight:bold; border-top:1px solid #000; padding-top:5px;"><?php echo $lang_grand_total; ?></td>
-                                                        <td colspan="2" style="border-top:1px solid #000; padding-top:5px; text-align:right; font-weight:bold;"><?php echo $grandTotal; ?></td>
-                                                    </tr>
 
-                                                    <tr>    
-                                                        <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;"><?php echo $lang_paid_amt; ?></td>
-                                                        <td colspan="2" style="padding-top:5px; text-align:right; font-weight:bold;"><?php echo $paid_amt; ?></td>
-                                                    </tr>
+                                                            </tbody> 
+                                                        </table> 
+
+
+                                                        <table class="totals" cellspacing="0" border="0" style="margin-bottom:5px; border-top: 1px solid #000;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="text-align:left; padding-top: 5px;"><?php echo $lang_total_items; ?></td>
+                                                                    <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;"><?php echo $total_item_qty; ?></td>
+                                                                    <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_total; ?></td>
+                                                                    <td style="text-align:right;font-weight:bold;"><?php echo number_format($total_item_amt, 2, '.', ''); ?></td>
+                                                                </tr>
+
+                                                                <?php
+                                                                if ($dis_amt > 0) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td style="text-align:left;"></td>
+                                                                        <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;"></td>
+                                                                        <td style="text-align:left; padding-left:1.5%; padding-bottom: 5px;">
+                                                                            <?php echo $lang_discount; ?>&nbsp;<?php
+                                                                            if (!empty($dis_percentage)) {
+                                                                                echo '(' . $dis_percentage . ')';
+                                                                            }
+                                                                            ?>
+                                                                        </td>
+                                                                        <td style="text-align:right;font-weight:bold;">-<?php echo $dis_amt; ?></td>
+                                                                    </tr>
+                                                                <?php }
+                                                                ?>
+                                                                <tr>
+                                                                    <td style="text-align:left; padding-top: 5px;">&nbsp;</td>
+                                                                    <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">&nbsp;</td>
+                                                                    <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_sub_total; ?></td>
+                                                                    <td style="text-align:right;font-weight:bold;"><?php echo $subTotal; ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:left; padding-top: 5px;">&nbsp;</td>
+                                                                    <td style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">&nbsp;</td>
+                                                                    <td style="text-align:left; padding-left:1.5%;"><?php echo $lang_tax; ?></td>
+                                                                    <td style="text-align:right;font-weight:bold;"><?php echo $tax_amt; ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" style="text-align:left; font-weight:bold; border-top:1px solid #000; padding-top:5px;"><?php echo $lang_grand_total; ?></td>
+                                                                    <td colspan="2" style="border-top:1px solid #000; padding-top:5px; text-align:right; font-weight:bold;"><?php echo $grandTotal; ?></td>
+                                                                </tr>
+
+                                                                <tr>    
+                                                                    <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;"><?php echo $lang_paid_amt; ?></td>
+                                                                    <td colspan="2" style="padding-top:5px; text-align:right; font-weight:bold;"><?php echo $paid_amt; ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                if ($return_change > 0) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;"><?php echo $lang_return_change; ?></td>
+                                                                        <td colspan="2" style="padding-top:5px; text-align:right; font-weight:bold;"><?php echo $return_change; ?></td>
+                                                                    </tr>
+                                                                <?php }
+                                                                ?>
+                                                                <tr>
+                                                                    <td style="text-align:left; padding-top: 5px; font-weight: bold; border-top: 1px solid #000;"><?php echo $lang_paid_by; ?> : </td>
+                                                                    <td style="text-align:right; padding-top: 5px; border-top: 1px solid #000;font-weight:bold;" colspan="3">
+                                                                        <?php echo $pay_method_name; ?>
+                                                                        <?php
+                                                                        if ($pay_method_id == '5') {
+                                                                            echo "(Cheque No. : $cheque_numb)";
+                                                                        }
+                                                                        if ($pay_method_id == '7') {
+                                                                            echo "(Card Number : $card_numb)";
+                                                                        }
+                                                                        ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                     <?php
-                                                    if ($return_change > 0) {
-                                                        ?>
-                                                        <tr>
-                                                            <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;"><?php echo $lang_return_change; ?></td>
-                                                            <td colspan="2" style="padding-top:5px; text-align:right; font-weight:bold;"><?php echo $return_change; ?></td>
-                                                        </tr>
-                                                    <?php }
-                                                    ?>
-                                                    <tr>
-                                                        <td style="text-align:left; padding-top: 5px; font-weight: bold; border-top: 1px solid #000;"><?php echo $lang_paid_by; ?> : </td>
-                                                        <td style="text-align:right; padding-top: 5px; border-top: 1px solid #000;font-weight:bold;" colspan="3">
-                                                            <?php echo $pay_method_name; ?>
-                                                            <?php
-                                                            if ($pay_method_id == '5') {
-                                                                echo "(Cheque No. : $cheque_numb)";
-                                                            }
-                                                            if ($pay_method_id == '7') {
-                                                                echo "(Card Number : $card_numb)";
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                }        // End of Checking Order;
+                                                ?>
+                                            </div>
+                                            <div class="col-md-3"></div>
                                         </div>
-                                        <?php
-                                    }        // End of Checking Order;
-                                    ?>
-                                </div>
-                                <div class="col-md-3"></div>
-                            </div>
-                                        
+
                                     </div>
 
                                 </div>

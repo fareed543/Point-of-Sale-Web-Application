@@ -333,7 +333,7 @@ require_once 'includes/header.php';
                                         </div>
                                         <div class="col-md-5"></div>
                                     </div>
-                                    <div class="row ">
+                                    <div class="row clearfix">
                                         <div class="col-sm-3">
                                             <div class="form-group form-float">
 

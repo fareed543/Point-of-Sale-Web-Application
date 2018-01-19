@@ -7,6 +7,13 @@ require_once 'includes/header.php';
 <script src="<?= base_url() ?>assets/js/bootstrap.min.js"></script>
 <script src="<?= base_url() ?>assets/js/typeahead.min.js"></script>
 
+
+
+<!--Select Dropdown js start-->     
+<link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!--Select Dropdown js end-->
+
 <!-- Select2 -->
 <link href="<?= base_url() ?>assets/css/select2.min.css" rel="stylesheet">
 
@@ -160,231 +167,228 @@ require_once 'includes/header.php';
 
 
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_create_purchase_order; ?></h1>
-        </div>
-    </div><!--/.row-->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-    <form action="<?= base_url() ?>purchase_order/insertNewPO" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li><a href="<?php echo base_url()?>purchase_order/po_view"><i class="material-icons">shopping_basket</i> Purchase Order</a></li>
+                    <li><i class="material-icons">create</i> <?php echo $lang_create_purchase_order; ?></li>
 
-                        <?php
-                        if (!empty($alert_msg)) {
-                            $flash_status = $alert_msg[0];
-                            $flash_header = $alert_msg[1];
-                            $flash_desc = $alert_msg[2];
+                </ol>
 
-                            if ($flash_status == 'failure') {
-                                ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-warning" role="alert">
-                                            <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                <form action="<?= base_url() ?>purchase_order/insertNewPO" method="post" enctype="multipart/form-data">
+
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <?php
+                                    if (!empty($alert_msg)) {
+                                        $flash_status = $alert_msg[0];
+                                        $flash_header = $alert_msg[1];
+                                        $flash_desc = $alert_msg[2];
+                                        ?>
+                                        <?php if ($flash_status == 'failure') { ?>
+                                            <div class="alert alert-info" id="notificationWrp">
+                                                <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                                            </div>
+                                        <?php } ?>
+
+
+                                        <?php if ($flash_status == 'success') { ?>
+                                            <div class="alert alert-success" id="notificationWrp">
+                                                <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
+
+
+
+                                    <h3 class="card-inside-title"><?php echo $lang_create_purchase_order; ?></h3>
+                                    <div class="row clearfix">
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <label class="form-label"><?php echo $lang_purchase_order_number; ?></label>
+                                                <input type="text" name="po_number" class="form-control" maxlength="250" autofocus required autocomplete="off" />
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+                                                <label class="form-label"><?php echo $lang_outlets; ?> <span style="color: #F00">*</span></label>
+                                                <select name="outlet" class="form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_choose_outlet; ?></option>
+                                                    <?php
+                                                    if ($user_role == 1) {
+                                                        $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
+                                                    } else {
+                                                        $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
+                                                    }
+                                                    for ($u = 0; $u < count($outletData); ++$u) {
+                                                        $outlet_id = $outletData[$u]->id;
+                                                        $outlet_name = $outletData[$u]->name;
+                                                        ?>
+                                                        <option value="<?php echo $outlet_id; ?>">
+                                                            <?php echo $outlet_name; ?>
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-line">
+
+                                                <label class="form-label"><?php echo $lang_suppliers; ?> <span style="color: #F00">*</span></label>
+                                                <select name="supplier" class="form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_choose_supplier; ?></option>
+                                                    <?php
+                                                    $supplierData = $this->Constant_model->getDataOneColumnSortColumn('suppliers', 'status', '1', 'name', 'ASC');
+                                                    for ($s = 0; $s < count($supplierData); ++$s) {
+                                                        $supplier_id = $supplierData[$s]->id;
+                                                        $supplier_name = $supplierData[$s]->name;
+                                                        ?>
+                                                        <option value="<?php echo $supplier_id; ?>"><?php echo $supplier_name; ?></option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                     
+
+                                    <div class="row clearfix">
+                                        <div class="col-md-7">
+                                             <div class="form-group form-float" style="padding-top: 10px;" >
+                                                <div class="form-line">
+                                                    <textarea class="form-control" name="note"  rows="5" required></textarea>
+                                                    <label class="form-label"><?php echo $lang_note; ?></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group  " style="padding-top: 30px;">
+                                                <div class="form-line"  >
+                                                    <input type="text" name="po_date" value="<?php echo date($dateformat, time()); ?>" readonly class="form-control" />
+                                                    <label class="form-label"><?php echo $lang_created_date; ?> </label>
+                                                </div>
+                                            </div>
+                                            <div  class="col-sm-3"></div>
+
+                                        </div>
+                                        
+                                       
+                                            <!--                                             <div class="form-line">
+                                                                                             
+                                                                                         </div>-->
+                                        </div>
+                                    <div class="row clearfix" style=" padding-right: 10px;padding-left: 10px;">
+                                        <div class="col-md-12" style="border-top: 1px solid #ccc; padding-bottom: 20px;" ></div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-float">
+
+
+                                                <label class="form-label"><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-line">
+
+                                                <select id="typeahead"  class="add_product_po form-control show-tick" data-live-search="true" required>
+                                                    <option value=""><?php echo $lang_search_product_by_namecode; ?></option>
+                                                    <?php
+                                                    $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
+                                                    for ($p = 0; $p < count($prodData); ++$p) {
+                                                        $prod_code = $prodData[$p]->code;
+                                                        $prod_name = $prodData[$p]->name;
+                                                        ?>
+                                                        <option value="<?php echo $prod_code; ?>">
+                                                            <?php echo $prod_name . ' [' . $prod_code . ']'; ?>
+                                                        </option>
+                                                        <?php
+                                                        unset($prod_code);
+                                                        unset($prod_name);
+                                                    }
+                                                    ?>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" >
+                                            <div class="form-line">
+                                                <div class="header">
+                                                    <ul class="header-dropdown m-r--5">
+
+                                                        <button class="btn btn-primary"  id="addToList" ><?php echo $lang_add_to_list; ?></button>
+
+                                                    </ul>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <?php
-                            }
-                            if ($flash_status == 'success') {
-                                ?>
-                                <div class="row" id="notificationWrp">
-                                    <div class="col-md-12">
-                                        <div class="alert bg-success" role="alert">
-                                            <i class="icono-check" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                                   
+                                    <div class="body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover dashboard-task-infos">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
+                                                        <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
+                                                        <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_order_qty; ?></th>
+                                                        <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="addItemWrp">
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                </div>
-                                <?php
-                            }
-                        }
-                        ?>
-
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_purchase_order_number; ?> <span style="color: #F00">*</span></label>
-                                    <input type="text" name="po_number" class="form-control" maxlength="250" autofocus required autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_outlets; ?> <span style="color: #F00">*</span></label>
-                                    <select name="outlet" class="form-control" required>
-                                        <option value=""><?php echo $lang_choose_outlet; ?></option>
-                                        <?php
-                                        if ($user_role == 1) {
-                                            $outletData = $this->Constant_model->getDataOneColumnSortColumn('outlets', 'status', '1', 'name', 'ASC');
-                                        } else {
-                                            $outletData = $this->Constant_model->getDataOneColumn('outlets', 'id', "$user_outlet");
-                                        }
-                                        for ($u = 0; $u < count($outletData); ++$u) {
-                                            $outlet_id = $outletData[$u]->id;
-                                            $outlet_name = $outletData[$u]->name;
-                                            ?>
-                                            <option value="<?php echo $outlet_id; ?>">
-                                                <?php echo $outlet_name; ?>
-                                            </option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_suppliers; ?> <span style="color: #F00">*</span></label>
-                                    <select name="supplier" class="form-control" required>
-                                        <option value=""><?php echo $lang_choose_supplier; ?></option>
-                                        <?php
-                                        $supplierData = $this->Constant_model->getDataOneColumnSortColumn('suppliers', 'status', '1', 'name', 'ASC');
-                                        for ($s = 0; $s < count($supplierData); ++$s) {
-                                            $supplier_id = $supplierData[$s]->id;
-                                            $supplier_name = $supplierData[$s]->name;
-                                            ?>
-                                            <option value="<?php echo $supplier_id; ?>"><?php echo $supplier_name; ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_created_date; ?> <span style="color: #F00">*</span></label>
-                                    <input type="text" name="po_date" value="<?php echo date($dateformat, time()); ?>" readonly class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_note; ?></label>
-                                    <textarea name="note" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <!--
-                                <div class="form-group">
-                                        <label>File</label>
-                                        <br />
-                                        <input id="uploadFile" readonly style="height: 40px; width: 270px; border: 1px solid #ccc" />
-                                        <div class="fileUpload btn btn-primary" style="padding: 9px 12px;">
-                                            <span>Browse</span>
-                                            <input id="uploadBtn" name="uploadFile" type="file" class="upload" />
+                                    <div class="row ">
+                                        <div class="col-md-12" style="padding-top: 30px;">
+                                            <div class="form-line">
+                                                <div class="header">
+                                                    <input type="hidden" id="row_count" name="row_count" value="1" />
+                                                    <button class="btn btn-primary" ><?php echo $lang_submit; ?></button>
+                                                </div>
+                                            </div>
                                         </div>
-                                </div>
-                                -->
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12" style="border-top: 1px solid #ccc;"></div>
-                        </div>
-
-                        <!-- Product List // START -->
-                        <div class="row" style="padding-top: 7px;">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label><?php echo $lang_search_product; ?> <span style="color: #F00">*</span></label>
-                                    <!-- <input type="text" class="form-control" id="typeahead" placeholder="Search Product" name="typeahead" /> -->
-                                    <select id="typeahead" class="add_product_po form-control">
-                                        <option value=""><?php echo $lang_search_product_by_namecode; ?></option>
-                                        <?php
-                                        $prodData = $this->Constant_model->getDataAll('products', 'id', 'DESC');
-                                        for ($p = 0; $p < count($prodData); ++$p) {
-                                            $prod_code = $prodData[$p]->code;
-                                            $prod_name = $prodData[$p]->name;
-                                            ?>
-                                            <option value="<?php echo $prod_code; ?>">
-                                                <?php echo $prod_name . ' [' . $prod_code . ']'; ?>
-                                            </option>
-                                            <?php
-                                            unset($prod_code);
-                                            unset($prod_name);
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <label>&nbsp;</label>
-                                <div style="background-color: #686868; color: #FFF; width: 200px; text-align: center; border-radius: 4px; padding: 9px 0px; cursor: pointer;" id="addToList"><?php echo $lang_add_to_list; ?></div>
-                            </div>
-                        </div>
-
-                        <!--
-                                                                <div class="row">
-                                                                        <div class="col-md-4" id="displaySearchProduct">
-                                                                                
-                                                                        </div>
-                                                                </div>
-                        -->
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_name; ?></th>
-                                                <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_product_code; ?></th>
-                                                <th width="30%" style="background-color: #686868; color: #FFF;"><?php echo $lang_order_qty; ?></th>
-                                                <th width="10%" style="background-color: #686868; color: #FFF;"><?php echo $lang_action; ?></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="addItemWrp">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product List // END -->
-
-
-
-
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <center>
-                                    <div class="form-group">
-                                        <input type="hidden" id="row_count" name="row_count" value="1" />
-                                        <button class="btn btn-primary" style="padding: 15px 40px;"><?php echo $lang_submit; ?></button>
                                     </div>
-                                </center>
-                            </div>
-                        </div>
 
 
 
-                    </div><!-- Panel Body // END -->
-                </div><!-- Panel Default // END -->
+                                </div><!-- Panel body // END -->
 
-                <a href="<?= base_url() ?>purchase_order/po_view" style="text-decoration: none;">
-                    <div class="btn btn-success" style="background-color: #999; color: #FFF; padding: 0px 12px 0px 2px; border: 1px solid #999;"> 
-                        <i class="icono-caretLeft" style="color: #FFF;"></i><?php echo $lang_back; ?>
-                    </div>
-                </a>
+                            </div><!-- Panel default // END -->
 
-            </div><!-- Col md 12 // END -->
+
+
+
+                        </div><!-- Col Md 12 -->
+                    </div><!-- row end -->
+                </form>
+            </div><!-- col-xs-12  // END -->
         </div><!-- Row // END -->
-    </form>
+    </div><!-- container-fluid end -->
 
-    <br /><br /><br /><br /><br />
-
-</div><!-- Right Colmn // END -->
+</section><!-- Right Colmn // END -->
 
 
 <?php

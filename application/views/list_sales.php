@@ -10,93 +10,77 @@ require_once 'includes/header.php';
     });
 </script>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_today_sales; ?></h1>
-        </div>
-    </div><!--/.row-->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <!-- Task Info -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li class="active"><i class="material-icons">list</i><?php echo $lang_today_sales; ?></li>
+                </ol>
 
-    <script type="text/javascript">
-        function openReceipt(ele) {
-            var myWindow = window.open(ele, "", "width=380, height=550");
-        }
-    </script>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <?php
-                    if (!empty($alert_msg)) {
-                        $flash_status = $alert_msg[0];
-                        $flash_header = $alert_msg[1];
-                        $flash_desc = $alert_msg[2];
-
-                        if ($flash_status == 'failure') {
-                            ?>
-                            <div class="row" id="notificationWrp">
-                                <div class="col-md-12">
-                                    <div class="alert bg-warning" role="alert">
-                                        <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                        <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                        if ($flash_status == 'success') {
-                            ?>
-                            <div class="row" id="notificationWrp">
-                                <div class="col-md-12">
-                                    <div class="alert bg-success" role="alert">
-                                        <i class="icono-check" style="color: #FFF;"></i> 
-                                        <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
+                <?php
+                if (!empty($alert_msg)) {
+                    $flash_status = $alert_msg[0];
+                    $flash_header = $alert_msg[1];
+                    $flash_desc = $alert_msg[2];
                     ?>
+                    <?php if ($flash_status == 'failure') { ?>
+                        <div class="alert alert-info">
+                            <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
 
-                    <div class="row">
-                        <div class="col-md-12" style="text-align: right;">
-                            <a href="<?= base_url() ?>sales/exportSales" style="text-decoration: none">
+
+                    <?php if ($flash_status == 'success') { ?>
+                        <div class="alert alert-success">
+                            <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+                <script type="text/javascript">
+                    function openReceipt(ele) {
+                        var myWindow = window.open(ele, "", "width=380, height=550");
+                    }
+                </script>
+
+                <div class="card">
+                    <div class="header">
+                        <h2><?php echo $lang_today_sales; ?></h2>
+                        <ul class="header-dropdown m-r--5">
+                            <a href="<?= base_url() ?>sales/exportSales" style="text-decoration: none;">
                                 <button type="button" class="btn btn-success" style="background-color: #5cb85c; border-color: #4cae4c;">
                                     <?php echo $lang_export_to_excel; ?>
                                 </button>
                             </a>
-                        </div>
+                        </ul>
                     </div>
-
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12">
-                            <?php
-                            $totalPaidAmount = 0;
-                            $totalGrandTotal = 0;
-                            ?>
-                            <div class="table-responsive">
-                                <table id="example" class="display" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th width="14%"><?php echo $lang_date; ?></th>
-                                            <th width="7%"><?php echo $lang_sale_id; ?></th>
-                                            <th width="7%"><?php echo $lang_users; ?></th>
-                                            <th width="6%"><?php echo $lang_type; ?></th>
-                                            <th width="12%"><?php echo $lang_outlets; ?></th>
-                                            <th width="10%"><?php echo $lang_customer; ?></th>
-                                            <th width="5%"><?php echo $lang_items; ?></th>
-                                            <th width="8%"><?php echo $lang_sub_total; ?></th>
-                                            <th width="8%"><?php echo $lang_tax; ?></th>
-                                            <th width="8%">Paid Amount</th>
-                                            <th width="8%"><?php echo $lang_grand_total; ?></th>
-                                            <th width="10%"><?php echo $lang_action; ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                    <div class="body">
+                        <?php
+                        $totalPaidAmount = 0;
+                        $totalGrandTotal = 0;
+                        ?>
+                        <div class="table-responsive">
+                            <table  id="example"  class="table table-hover dashboard-task-infos">
+                                <thead>
+                                    <tr>
+                                        <th width="5%"><?php echo $lang_date; ?></th>
+                                        <th width="12%"><?php echo $lang_sale_id; ?></th>
+                                        <th width="7%"><?php echo $lang_users; ?></th>
+                                        <th width="6%"><?php echo $lang_type; ?></th>
+                                        <th width="12%"><?php echo $lang_outlets; ?></th>
+                                        <th width="10%"><?php echo $lang_customer; ?></th>
+                                        <th width="5%"><?php echo $lang_items; ?></th>
+                                        <th width="12%"><?php echo $lang_sub_total; ?></th>
+                                        <th width="8%"><?php echo $lang_tax; ?></th>
+                                        <th width="12%">Paid Amount</th>
+                                        <th width="12%"><?php echo $lang_grand_total; ?></th>
+                                        <th width="10%"><?php echo $lang_action; ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <?php
                                         $today_start = date('Y-m-d 00:00:00', time());
                                         $today_end = date('Y-m-d 23:59:59', time());
 
@@ -224,8 +208,8 @@ require_once 'includes/header.php';
                                         }
                                         ?>
 
-                                    </tbody>
-                                    <?php if (($totalPaidAmount > 0) || ($totalGrandTotal > 0)) { ?>
+                                </tbody>
+                                <?php if (($totalPaidAmount > 0) || ($totalGrandTotal > 0)) { ?>
                                         <tfoot>
                                             <tr>
                                                 <th width="14%"></th>
@@ -243,22 +227,15 @@ require_once 'includes/header.php';
                                             </tr>
                                         </tfoot>
                                     <?php } ?>
-                                </table>
-                            </div>
-
+                            </table>
                         </div>
                     </div>
-
-
-
-                </div><!-- Panel Body // END -->
-            </div><!-- Panel Default // END -->
-        </div><!-- Col md 12 // END -->
-    </div><!-- Row // END -->
-
-    <br /><br /><br />
-
-</div><!-- Right Colmn // END -->
+                </div>
+            </div>
+            <!-- #END# Task Info -->
+        </div>
+    </div>
+</section><!-- Right Colmn // END -->
 
 
 

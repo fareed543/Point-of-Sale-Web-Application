@@ -10,59 +10,48 @@ require_once 'includes/header.php';
     });
 </script>
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $lang_opened_bill; ?></h1>
-        </div>
-    </div><!--/.row-->
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <!-- Task Info -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                    <li class="active"><i class="material-icons">payment</i> <?php echo $lang_opened_bill; ?></li>
+                </ol>
 
-                    <?php
-                    if (!empty($alert_msg)) {
-                        $flash_status = $alert_msg[0];
-                        $flash_header = $alert_msg[1];
-                        $flash_desc = $alert_msg[2];
-
-                        if ($flash_status == 'failure') {
-                            ?>
-                            <div class="row" id="notificationWrp">
-                                <div class="col-md-12">
-                                    <div class="alert bg-warning" role="alert">
-                                        <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                        <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                        if ($flash_status == 'success') {
-                            ?>
-                            <div class="row" id="notificationWrp">
-                                <div class="col-md-12">
-                                    <div class="alert bg-success" role="alert">
-                                        <i class="icono-check" style="color: #FFF;"></i> 
-                                        <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
+                <?php
+                if (!empty($alert_msg)) {
+                    $flash_status = $alert_msg[0];
+                    $flash_header = $alert_msg[1];
+                    $flash_desc = $alert_msg[2];
                     ?>
+                    <?php if ($flash_status == 'failure') { ?>
+                        <div class="alert alert-info">
+                            <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
 
-                    <div class="row" style="margin-top: 10px;">
-                        <div class="col-md-12">
 
-                            <div class="table-responsive">
-                                <table id="example" class="display" cellspacing="0" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th width="14%"><?php echo $lang_date; ?></th>
+                    <?php if ($flash_status == 'success') { ?>
+                        <div class="alert alert-success">
+                            <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+
+                <div class="card">
+                    <div class="header">
+                        <h2><?php echo $lang_opened_bill; ?></h2>
+                        
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-hover dashboard-task-infos">
+                                <thead>
+                                    <tr>
+                                        <th width="14%"><?php echo $lang_date; ?></th>
                                             <th width="11%"><?php echo $lang_customer; ?></th>
                                             <th width="14%"><?php echo $lang_outlets; ?></th>
                                             <th width="14%"><?php echo $lang_ref_number; ?></th>
@@ -71,10 +60,10 @@ require_once 'includes/header.php';
                                             <th width="7%"><?php echo $lang_tax; ?></th>
                                             <th width="10%"><?php echo $lang_grand_total; ?></th>
                                             <th width="10%"><?php echo $lang_action; ?></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     <?php
                                         $billResult = $this->db->query("SELECT * FROM suspend WHERE status = '0' ORDER BY id DESC ");
                                         $billRows = $billResult->num_rows();
 
@@ -126,22 +115,16 @@ require_once 'includes/header.php';
                                         unset($billResult);
                                         unset($billRows);
                                         ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-
-                </div><!-- Panel Body // END -->
-            </div><!-- Panel Default // END -->
-        </div><!-- Col md 12 // END -->
-    </div><!-- Row // END -->
-
-    <br /><br /><br />
-
-</div><!-- Right Colmn // END -->
+                </div>
+            </div>
+            <!-- #END# Task Info -->
+        </div>
+    </div>
+</section><!-- Right Colmn // END -->
 
 
 

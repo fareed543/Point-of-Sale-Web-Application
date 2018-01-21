@@ -26,7 +26,7 @@ $site_logo = $siteDtaData[0]->site_logo;
 
                 <ol class="breadcrumb breadcrumb-bg-cyan">
                     <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-                    <li class="active"><i class="material-icons">store</i> <?php echo $lang_system_setting; ?></li>
+                    <li class="active"><i class="material-icons">settings</i> <?php echo $lang_system_setting; ?></li>
                 </ol>
 
                 <form action="<?= base_url() ?>setting/updateSiteSetting" method="post" enctype="multipart/form-data">

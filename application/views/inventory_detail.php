@@ -5,8 +5,8 @@ require_once 'includes/header.php';
     <div class="container-fluid">
          <ol class="breadcrumb breadcrumb-bg-cyan">
             <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>/inventory/view"><i class="material-icons">store</i> <?php echo $lang_name; ?></a></li>
-            <li class="active"><i class="material-icons">details</i> <?php echo $lang_inventory_by_outlet; ?></li>
+            <li><a href="<?php echo base_url() ?>/inventory/view"><i class="material-icons">store</i> <?php echo $lang_inventory; ?></a></li>
+            <li class="active"><i class="material-icons">remove_red_eye</i> <?php echo $lang_inventory_by_outlet; ?></li>
         </ol>
         <?php echo $lang_inventory_for_product; ?> : <?php echo $pcode; ?>
         <div class="row">

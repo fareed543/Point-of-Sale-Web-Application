@@ -23,7 +23,7 @@ $outlet_footer = $outletData[0]->receipt_footer;
                 <ol class="breadcrumb breadcrumb-bg-cyan">
                     <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
                     <li class="active"><a href="<?= base_url() ?>setting/outlets"><i class="material-icons">store</i> Outlets</a></li>
-                    <li class="active"><i class="material-icons">store</i> <?php echo $lang_edit_outlet; ?> : <?php echo $outlet_name; ?></li>
+                    <li class="active"><i class="material-icons">mode_edit</i> <?php echo $lang_edit_outlet; ?> : <?php echo $outlet_name; ?></li>
                 </ol>
 
                 <form action="<?= base_url() ?>setting/updateOutlet" method="post">

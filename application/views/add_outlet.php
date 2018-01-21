@@ -10,7 +10,7 @@ require_once 'includes/header.php';
                 <ol class="breadcrumb breadcrumb-bg-cyan">
                     <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
                     <li class="active"><a href="<?= base_url() ?>setting/outlets"><i class="material-icons">store</i> Outlets</a></li>
-                    <li class="active"><i class="material-icons">store</i> <?php echo $lang_add_new_outlet; ?></li>
+                    <li class="active"><i class="material-icons">add</i> <?php echo $lang_add_new_outlet; ?></li>
                 </ol>
 
                 <?php

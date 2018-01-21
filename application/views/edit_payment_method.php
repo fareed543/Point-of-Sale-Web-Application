@@ -15,8 +15,8 @@ $payment_status = $payDtaData[0]->status;
     <div class="container-fluid">
         <ol class="breadcrumb breadcrumb-bg-cyan">
             <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>expenses/expense_category"><i class="material-icons">view_module</i> <?php echo $lang_expenses_category; ?></a></li>
-            <li class="active"><i class="material-icons">view_module</i> <?php echo $lang_edit_payment_method; ?> : <?php echo $payment_name; ?></li>
+            <li><a href="<?php echo base_url() ?>setting/payment_methods"><i class="material-icons">payment</i> <?php echo $lang_expenses_category; ?></a></li>
+            <li class="active"><i class="material-icons">mode_edit</i> <?php echo $lang_edit_payment_method; ?> : <?php echo $payment_name; ?></li>
 		</ol>
 		
 		<?php

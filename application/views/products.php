@@ -2,6 +2,11 @@
 <section class="content">
     <div class="container-fluid">
 
+        <ol class="breadcrumb breadcrumb-bg-cyan">
+            <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+            <li class="active"><i class="material-icons">view_module</i> <?php echo $lang_list_products; ?></li>
+        </ol>
+
         <div class="row clearfix">
             <!-- Task Info -->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -84,12 +89,12 @@
                                                 if ($thumbnail == 'no_image.jpg') {
                                                     $large_file_path = base_url() . 'assets/upload/products/small/no_image.jpg';
                                                     ?>
-                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg"/>
+                                                                            <img src="<?= base_url() ?>assets/upload/products/xsmall/no_image.jpg"/>
                                                     <?php
                                                 } else {
                                                     $large_file_path = base_url() . 'assets/upload/products/small/' . $data->code . '/' . $thumbnail;
                                                     ?>
-                                                                        <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $data->code; ?>/<?php echo $thumbnail; ?>"/>
+                                                                            <img src="<?= base_url() ?>assets/upload/products/xsmall/<?php echo $data->code; ?>/<?php echo $thumbnail; ?>"/>
                                                 <?php }
                                                 ?>
                                                 </td>-->

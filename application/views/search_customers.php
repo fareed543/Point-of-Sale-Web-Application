@@ -6,6 +6,12 @@ require_once 'includes/header.php';
     <div class="container-fluid">
         <div class="row clearfix">
             <!-- Task Info -->
+            <ol class="breadcrumb breadcrumb-bg-cyan">
+                <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li class="active"><a href="<?= base_url() ?>customers/view"><i class="material-icons">view_module</i>  <?php echo $lang_customers; ?></a></li>
+                <li class="active"><i class="material-icons">search</i> <?php echo $lang_search_customer; ?></li>
+
+            </ol>
 
 
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->

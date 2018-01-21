@@ -14,7 +14,13 @@ $mobile = $custDtaData[0]->mobile;
 
 <section class="content">
     <div class="container-fluid">
-        <?php echo $lang_edit_customer; ?> : <?php echo $fullname; ?>
+        
+        <ol class="breadcrumb breadcrumb-bg-cyan">
+                <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
+                <li class="active"><a href="<?= base_url() ?>customers/view"><i class="material-icons">view_module</i>  <?php echo $lang_customers; ?></a></li>
+                <li class="active"><i class="material-icons">edit_mode</i> <?php echo $lang_edit_customer; ?></li>
+
+            </ol>
 
         <form action="<?= base_url() ?>customers/updateCustomer" method="post">
             <div class="row">

@@ -4,6 +4,11 @@ require_once 'includes/header.php';
 <section class="content">
     <div class="container-fluid">
         <!--<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">-->
+        <ol class="breadcrumb breadcrumb-bg-cyan">
+			<li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
+			 <li><a href="<?= base_url() ?>setting/suppliers"><i class="material-icons">input</i><?php echo $lang_suppliers; ?></a></li>
+			<li><i class="material-icons">add</i> Add Suppliers</li>
+		</ol>
         <?php echo $lang_add_supplier; ?>
         <form action="<?= base_url() ?>setting/insertSupplier" method="post">
             <div class="row">

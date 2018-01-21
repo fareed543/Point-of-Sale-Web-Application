@@ -7,8 +7,13 @@ require_once 'includes/header.php';
     <div class="container-fluid">
         <div class="row clearfix">
             <!-- Task Info -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ol class="breadcrumb breadcrumb-bg-cyan">
+                    <li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
+                    <li><a href="<?= base_url() ?>setting/addsupplier"><i class="material-icons">input</i><?php echo $lang_suppliers; ?></a></li>
+
+                </ol>
                 <?php
                 if (!empty($alert_msg)) {
                     $flash_status = $alert_msg[0];

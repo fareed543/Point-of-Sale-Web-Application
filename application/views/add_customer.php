@@ -6,7 +6,7 @@ require_once 'includes/header.php';
     <div class="container-fluid">
           <ol class="breadcrumb breadcrumb-bg-cyan">
                 <li><a href="<?= base_url() ?>"><i class="material-icons">home</i> Home</a></li>
-                <li class="active"><a href="<?= base_url() ?>customers/view"><i class="material-icons">view_module</i>  <?php echo $lang_customers; ?></a></li>
+                <li class="active"><a href="<?= base_url() ?>customers/view"><i class="material-icons">person</i>  <?php echo $lang_customers; ?></a></li>
                 <li class="active"><i class="material-icons">add_box</i> <?php echo $lang_add_customer; ?></li>
 
             </ol>

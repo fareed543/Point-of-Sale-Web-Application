@@ -23,6 +23,11 @@ $supplier_tax = $supplierData[0]->tax;
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
 <section class="content">
     <div class="container-fluid">
+        <ol class="breadcrumb breadcrumb-bg-cyan">
+            <li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
+            <li><a href="<?= base_url() ?>setting/suppliers"><i class="material-icons">input</i><?php echo $lang_suppliers; ?></a></li>
+            <li><i class="material-icons">mode_edit</i><?php echo $lang_edit_supplier; ?></li>
+        </ol>
         <?php echo $lang_edit_supplier; ?> : <?php echo $supplier_name; ?>
         <form action="<?= base_url() ?>setting/updateSupplier" method="post">
             <div class="row">

@@ -192,7 +192,7 @@ $po_status = $poDtaData[0]->status;
                     <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
                     <li><a href="<?php echo base_url() ?>purchase_order/po_view"><i class="material-icons">shopping_basket</i> Purchase Order</a></li>
                     
-                       <li><i class="material-icons">edit_mode</i> <?php if ($po_status == '1'){ echo $lang_edit_po_before_sent; } else { echo  $lang_sent_to_supplier ; }?></li>
+                       <li><i class="material-icons">mode_edit</i> <?php if ($po_status == '1'){ echo $lang_edit_po_before_sent; } else { echo  $lang_sent_to_supplier ; }?></li>
                             
                 </ol>
 

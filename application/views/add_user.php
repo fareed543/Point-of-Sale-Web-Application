@@ -10,7 +10,7 @@ require_once 'includes/header.php';
 		<ol class="breadcrumb breadcrumb-bg-cyan">
 			<li><a href="<?= base_url() ?>dashboard"><i class="material-icons">home</i> Home</a></li>
 			<li><a href="<?= base_url() ?>setting/users"><i class="material-icons">person</i> USERS</a></li>
-			<li><i class="material-icons">person</i> <?php echo $lang_add_new_user; ?></li>
+			<li><i class="material-icons">add</i> <?php echo $lang_add_new_user; ?></li>
 		</ol>
 				
         <form action="<?= base_url() ?>setting/insertUser" method="post">

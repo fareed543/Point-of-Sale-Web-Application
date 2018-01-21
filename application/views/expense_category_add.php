@@ -11,7 +11,7 @@ require_once 'includes/header.php';
         <ol class="breadcrumb breadcrumb-bg-cyan">
             <li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
             <li><a href="<?php echo base_url() ?>expenses/expense_category"><i class="material-icons">view_module</i> <?php echo $lang_expenses_category; ?></a></li>
-            <li class="active"><i class="material-icons">view_module</i> <?php echo $lang_add_expenses_category; ?> </li>
+            <li class="active"><i class="material-icons">add</i> <?php echo $lang_add_expenses_category; ?> </li>
         </ol>
         <form action="<?= base_url() ?>expenses/insertExpenseCategory" method="post">
 

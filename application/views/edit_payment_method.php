@@ -68,7 +68,7 @@ $payment_status = $payDtaData[0]->status;
 								<div class="col-sm-6">
 									<div class="form-group">
 										<button class="btn btn-primary"><?php echo $lang_update; ?></button>
-										<a class="btn btn-primary" href="<?= base_url() ?>expenses/expense_category"><?php echo $lang_back; ?></a>
+										<a class="btn btn-primary" href="<?= base_url() ?>setting/payment_methods"><?php echo $lang_back; ?></a>
 									</div>
 								</div>
 							</div>

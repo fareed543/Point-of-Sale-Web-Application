@@ -78,7 +78,7 @@ date_default_timezone_set("$setting_timezone");
 
                                 if ($flash_status == 'failure') {
                                     ?>
-                                    <div class="form-group warning-message" style="text-align: center; color: #c72a25; margin-top: 15px;">
+                                    <div class="form-group warning-message">
                                         <?php echo $flash_desc; ?>
                                     </div>
                                     <?php
@@ -109,13 +109,16 @@ date_default_timezone_set("$setting_timezone");
                                 <div class="grid__col grid__col--1-of-3"><button>8</button></div>
                                 <div class="grid__col grid__col--1-of-3"><button>9</button></div>
 
-                                <div class="grid__col grid__col--1-of-3"></div>
+                                <div class="grid__col grid__col--1-of-3"><button class="delete">CLEAR</button></div>
                                 <div class="grid__col grid__col--1-of-3"><button>0</button></div>
                                 <div class="grid__col grid__col--1-of-3"><button class="delete">DELETE</button></div>
                             </div>
                         </div>
                         <p><strong>- OR -</strong></p>
                         <p><strong id="login_with_username">LOGIN WITH USERNAME</strong></p>
+						 <p><strong>- OR -</strong></p>
+						<p><a href="<?= base_url() ?>auth/register"><strong id="login_with_username">Create your Store</strong></a></p>
+						 
                         <?php /* ?>
                           <div class="login_footer">
                           <div class="copy">&copy; <?php echo date('Y', time()); ?> - Test Codeigniter App - All Rights Reserved.</div>

@@ -28,6 +28,7 @@ class Auth extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->helper('url');
+		$this->load->model('Constant_model');
     }
 
     public function index() {
@@ -56,6 +57,42 @@ class Auth extends CI_Controller {
         echo $response;
     }
 
+	
+	public function createstore() {
+		
+	
+		if (isset($_POST['register'])) {
+			$outlet_data = array(
+			'name' => $_POST['outlet'],
+			'address' => $_POST['address'],
+			'contact_number' => $_POST['contact_number'],
+			);
+			$outletId = $this->Constant_model->insertData('outlets', $outlet_data);
+			if($outletId){
+				$user_data = array(
+				'fullname' => $_POST['owner'],
+				'email' => $_POST['email'],
+				'password' =>  md5($_POST['password']),
+				'role_id' => 1,
+				'outlet_id' => $outletId,
+				'pin' => $_POST['pin'],
+				'status' => '1',
+				);
+				
+				$user = $this->Constant_model->insertData('pos_user', $user_data);
+				if($user){
+					$this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please check mail to activate your account!'));
+                	$this->load->view('register');
+				}
+			}
+		}
+    }
+	
+	public function register() {
+		$this->load->view('register');
+    }
+	
+	
     public function login() {
         //$pin = $this->input->post('pin');
         if (!isset($_POST['sp_login'])) {
@@ -65,9 +102,6 @@ class Auth extends CI_Controller {
                     'pin' => $this->input->post('pin'),
                 );
                 $result = $this->Auth_model->verifyLogInwithPin($data);
-                /*echo "<pre>";
-                print_r($result);
-                exit;*/
                 if ($result['valid']) {
                     $userdata = array(
                         'sessionid' => 'pos',

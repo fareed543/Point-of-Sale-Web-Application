@@ -108,7 +108,8 @@ class Constant_model extends CI_Model {
 
     // Insert Data to Any Table;
     public function insertData($table, $data) {
-        return $this->db->insert("$table", $data);
+        $this->db->insert("$table", $data);
+		return $this->db->insert_id();
     }
 
     // Insert Data to Any Table and get the last id;

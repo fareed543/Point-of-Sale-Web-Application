@@ -783,7 +783,7 @@ class Products extends CI_Controller {
                 'color' => $color,
                 'status' => $status,
             );
-            $this->Constant_model->updateData('products', $upd_data, $id);
+            $this->Constant_model->updateDatabyID('products', $upd_data, $id);
 
             $mainPhoto_fn = $_FILES['uploadFile']['name'];
             if (!empty($mainPhoto_fn)) {

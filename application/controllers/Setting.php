@@ -1105,10 +1105,11 @@ class Setting extends CI_Controller {
 
     // Delete Payment Method;
     public function deletePaymentMethod() {
-        $pay_id = $this->input->post('pay_id');
-        $pay_name = $this->input->post('pay_name');
+        $pay_id = $this->uri->segment(3, 0);
+        $pay_name = $this->uri->segment(4, 0);
+       
 
-        if ($this->Constant_model->deleteData('payment_method', $pay_id)) {
+        if ($this->Constant_model->deleteDatabyID('payment_method', $pay_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Payment Method', "Successfully Deleted Payment Method : $pay_name."));
             redirect(base_url() . 'setting/payment_methods');
         }

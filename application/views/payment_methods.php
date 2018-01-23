@@ -8,6 +8,27 @@
 					<li><a href="<?php echo base_url() ?>"><i class="material-icons">home</i> Home</a></li>
 					<li><a href="<?php echo base_url() ?>setting/payment_methods"><i class="material-icons">payment</i> <?php echo $lang_payment_methods; ?></a></li>
 				</ol>
+                
+                
+                <?php
+                if (!empty($alert_msg)) {
+                    $flash_status = $alert_msg[0];
+                    $flash_header = $alert_msg[1];
+                    $flash_desc = $alert_msg[2];
+                    ?>
+                    <?php if ($flash_status == 'failure') { ?>
+                        <div class="alert alert-info">
+                            <strong>Heads up!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
+
+
+                    <?php if ($flash_status == 'success') { ?>
+                        <div class="alert alert-success">
+                            <strong>Well done!</strong> <?php echo $flash_desc; ?>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
                 <div class="card">
                     <div class="header">
                         <h2><?php echo $lang_payment_methods; ?></h2>
@@ -49,7 +70,7 @@
 															<i class="material-icons">mode_edit</i>
 														</a>
 														
-														<a href="<?= base_url() ?>setting/deletepaymentmethod?id=<?php echo $data->id; ?>">
+														<a href="<?= base_url() ?>setting/deletepaymentmethod/<?php echo $data->id; ?>/<?php echo $data->name; ?>">
 															<i class="material-icons">delete_forever</i>
 														</a>
 													</td>

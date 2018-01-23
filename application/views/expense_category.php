@@ -85,7 +85,7 @@ require_once 'includes/header.php';
                                                         <i class="material-icons">mode_edit</i>
                                                     </a>
 
-                                                    <a href="<?= base_url() ?>expenses/deleteExpenseCategory?id=<?php echo $exp_id; ?>">
+                                                    <a href="<?= base_url() ?>expenses/deleteExpenseCategory/<?php echo $exp_id; ?>">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 </td>

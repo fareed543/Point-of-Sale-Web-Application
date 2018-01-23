@@ -128,6 +128,7 @@ class Constant_model extends CI_Model {
     }
 	
 	public function deletePaymentMethodData($table, $id) {
+           
         $this->db->where('id', $id);
         $this->db->delete("$table");
         return true;

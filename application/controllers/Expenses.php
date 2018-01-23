@@ -886,8 +886,9 @@ class Expenses extends CI_Controller {
 
 	
 	public function deleteExpenseCategory() {
-         $id = $this->input->get('id');
-         if ($this->Constant_model->deletePaymentMethodData('expenses', $id)) {
+        
+           $id = $this->uri->segment(3, 0);
+         if ($this->Constant_model->deletePaymentMethodData('expense_categories', $id)) {
              $this->session->set_flashdata('alert_msg', array('success', 'Delete Expenses', "Successfully Deleted Expenses!"));
              redirect(base_url() . 'expenses/expense_category');
          }
@@ -895,7 +896,7 @@ class Expenses extends CI_Controller {
 	
     // Delete Expenses;
     public function deleteExpenses() {
-        $id = $this->input->get('id');
+      $id = $this->uri->segment(3, 0);
 
         $expDtaData = $this->Constant_model->getDataOneColumn('expenses', 'id', $id);
         if (count($expDtaData) == 0) {

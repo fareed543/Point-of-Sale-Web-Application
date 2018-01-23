@@ -225,7 +225,7 @@ require_once 'includes/header.php';
                                                 <?php
                                                 if ($user_outlet < 3) {
                                                     ?>
-                                                    <a href="<?= base_url() ?>expenses/deleteExpenses?id=<?php echo $id; ?>" onclick="return confirm('<?php echo $lang_expenses_delete_confirm; ?>')">
+                                                    <a href="<?= base_url() ?>expenses/deleteExpenses/<?php echo $id; ?>" onclick="return confirm('<?php echo $lang_expenses_delete_confirm; ?>')">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 <?php }

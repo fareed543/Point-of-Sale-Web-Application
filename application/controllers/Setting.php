@@ -1440,7 +1440,7 @@ class Setting extends CI_Controller {
                 'updated_user_id' => $us_id,
                 'updated_datetime' => $tm,
             );
-            if ($this->Constant_model->updateData('outlets', $upd_outlet_data, $id)) {
+            if ($this->Constant_model->updateDatabyID('outlets', $upd_outlet_data, $id)) {
                 $this->session->set_flashdata('alert_msg', array('success', 'Update Outlet', "Successfully updated Outlet : $outlet_name."));
 				redirect(base_url() . 'setting/outlets');
                 //redirect(base_url() . 'setting/editoutlet?id=' . $id);

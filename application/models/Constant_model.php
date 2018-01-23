@@ -162,6 +162,13 @@ class Constant_model extends CI_Model {
         $this->db->delete("$table");
         return true;
     }
+    
+      public function updateDatabyID($table, $data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update("$table", $data);
+
+        return true;
+    }
 
 
 }

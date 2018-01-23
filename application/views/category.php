@@ -79,7 +79,7 @@
                                                         <i class="material-icons">mode_edit</i>
                                                     </a>
 
-                                                    <a href="#">
+                                                    <a href="<?= base_url() ?>products/deleteproductcategory/<?php echo $data->id; ?>/<?php echo $data->name; ?>/">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 </td>

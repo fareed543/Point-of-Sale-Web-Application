@@ -714,10 +714,11 @@ class Products extends CI_Controller {
 
     // Delete Product Category;
     public function deleteproductcategory() {
-        $cat_id = $this->input->post('cat_id');
-        $cat_name = $this->input->post('cat_name');
+        $cat_id = $this->uri->segment(3, 0);
+        $cat_name = $this->uri->segment(4, 0);
+        
 
-        if ($this->Constant_model->deleteData('category', $cat_id)) {
+        if ($this->Constant_model->deleteDatabyID('category', $cat_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Product Category', "Successfully Deleted Product Category : $cat_name."));
             redirect(base_url() . 'products/product_category');
         }

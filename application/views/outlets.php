@@ -78,7 +78,7 @@
                                                         <i class="material-icons">mode_edit</i>
                                                     </a>
 
-                                                    <a href="<?= base_url() ?>setting/deleteoutlet?outlet_id=<?php echo $data->id; ?>">
+                                                    <a href="<?= base_url() ?>setting/deleteoutlet/<?php echo $data->id; ?>">
                                                         <i class="material-icons">delete_forever</i>
                                                     </a>
                                                 </td>

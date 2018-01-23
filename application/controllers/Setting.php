@@ -1067,10 +1067,11 @@ class Setting extends CI_Controller {
 
     // Delete Outlet;
     public function deleteOutlet() {
-        $outlet_id = $this->input->get('outlet_id');
+         $outlet_id = $this->uri->segment(3, 0);
+//        $outlet_id = $this->input->get('outlet_id');
         //$outlet_name = $this->input->post('outlet_name');
 
-        if ($this->Constant_model->deleteData('outlets', $outlet_id)) {
+        if ($this->Constant_model->deleteDatabyID('outlets', $outlet_id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete Outlet', "Successfully Deleted Outlet."));
             redirect(base_url() . 'setting/outlets');
         }

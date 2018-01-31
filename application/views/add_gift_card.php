@@ -57,7 +57,7 @@ require_once 'includes/header.php';
                                     <div class="col-md-12">
                                         <div class="alert bg-warning" role="alert">
                                             <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -68,8 +68,8 @@ require_once 'includes/header.php';
                                 <div class="row" id="notificationWrp">
                                     <div class="col-md-12">
                                         <div class="alert bg-success" role="alert">
-                                            <i class="icono-check" style="color: #FFF;"></i> 
-                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                                            <i class="icono-check"></i> 
+                                            <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -82,12 +82,12 @@ require_once 'includes/header.php';
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><?php echo $lang_gift_card_number; ?> <span style="color: #F00">*</span></label>
+                                    <label><?php echo $lang_gift_card_number; ?> <span>*</span></label>
 
                                     <div class="input-group">
                                         <input id="btn-input" type="text" class="form-control input-md" name="gift_card_numb" required autocomplete="off" />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-md" id="btn-todo" style="padding: 2px 12px;">
+                                            <button class="btn btn-primary btn-md" id="btn-todo">
                                                 <i class="icono-gear"></i>
                                                 <?php echo $lang_generate; ?>
                                             </button>
@@ -121,7 +121,7 @@ require_once 'includes/header.php';
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <button class="btn btn-primary">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $lang_add; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                    <button class="btn btn-primary"><?php echo $lang_add; ?></button>
                                 </div>
                             </div>
                             <div class="col-md-4"></div>

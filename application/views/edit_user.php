@@ -12,6 +12,7 @@
 		</ol>
 		
         <form action="<?= base_url() ?>setting/updateUser" method="post">
+			<input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">

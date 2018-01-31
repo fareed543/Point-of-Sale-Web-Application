@@ -165,7 +165,7 @@ require_once 'includes/header.php';
                                         <div class="col-sm-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <label class="form-label"><?php echo $lang_expenses_category; ?> <span style="color: #F00">* </label>
+                                                    <label class="form-label"><?php echo $lang_expenses_category; ?> <span>* </label>
                                                     <select name="category" class="form-control show-tick" style="" data-live-search="true" required>
                                                         <option value=""><?php echo $lang_choose_expenses_category; ?></option>
                                                         <?php

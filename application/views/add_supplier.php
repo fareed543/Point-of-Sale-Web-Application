@@ -28,7 +28,7 @@ require_once 'includes/header.php';
                                         <div class="col-md-12">
                                             <div class="alert bg-warning" role="alert">
                                                 <i class="icono-exclamationCircle" style="color: #FFF;"></i> 
-                                                <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert" style="cursor: pointer; color: #FFF; float: right;"></i>
+                                                <?php echo $flash_desc; ?> <i class="icono-cross" id="closeAlert"></i>
                                             </div>
                                         </div>
                                     </div>

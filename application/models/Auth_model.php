@@ -14,7 +14,7 @@ class Auth_model extends CI_Model {
         $email = $data['email'];
         $password = $this->encryptPassword($data['password']);
 
-        $query = $this->db->get_where('pos_user', array('email' => $email));
+        $query = $this->db->get_where('users', array('email' => $email));
         $user_data = $query->row();
 
         if (count($user_data) > 0) {
@@ -46,7 +46,7 @@ class Auth_model extends CI_Model {
 
     public function verifyLogInwithPin($data) {
         $pin = $data['pin'];
-        $query = $this->db->get_where('pos_user', array('pin' => $pin));
+        $query = $this->db->get_where('users', array('pin' => $pin));
         $user_data = $query->row();
 
         /*echo "<pre>";
@@ -57,7 +57,7 @@ class Auth_model extends CI_Model {
             $result = array();
             
             $result['valid'] = true;
-            $result['user_id'] = $user_data->user_id;
+            $result['id'] = $user_data->id;
             $result['fullname'] = $user_data->fullname;
             $result['user_email'] = $user_data->email;
             $result['role_id'] = $user_data->role_id;

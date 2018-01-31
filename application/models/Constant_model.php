@@ -138,7 +138,7 @@ class Constant_model extends CI_Model {
 
     // Update Data to Any Table;
     public function updateData($table, $data, $id) {
-        $this->db->where('user_id', $id);
+        $this->db->where('id', $id);
         $this->db->update("$table", $data);
 
         return true;

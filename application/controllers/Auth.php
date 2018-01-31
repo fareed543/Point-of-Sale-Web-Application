@@ -79,7 +79,7 @@ class Auth extends CI_Controller {
 				'status' => '1',
 				);
 				
-				$user = $this->Constant_model->insertData('pos_user', $user_data);
+				$user = $this->Constant_model->insertData('user', $user_data);
 				if($user){
 					$this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please check mail to activate your account!'));
                 	$this->load->view('register');
@@ -105,7 +105,7 @@ class Auth extends CI_Controller {
                 if ($result['valid']) {
                     $userdata = array(
                         'sessionid' => 'pos',
-                        'user_id' => $result['user_id'],
+                        'user_id' => $result['id'],
                         'fullname' => $result['fullname'],
                         'user_email' => $result['user_email'],
                         'user_role' => $result['role_id'],
@@ -126,10 +126,8 @@ class Auth extends CI_Controller {
                 'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
             );
-
             $em = $this->input->post('email');
             $ps = $this->input->post('password');
-
             if (empty($em)) {
                 $this->session->set_flashdata('alert_msg', array('failure', 'Login', 'Please enter your username!'));
                 redirect(base_url());

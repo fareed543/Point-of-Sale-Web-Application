@@ -63,13 +63,13 @@
                                                 <td><?php echo $outlet_name; ?></td>
                                                 <td><?php echo ($status == '1') ? $lang_active : $lang_inactive; ?></td>
                                                 <td>
-                                                    <a href="<?= base_url() ?>setting/changePassword?id=<?php echo $data->user_id; ?>">
+                                                    <a href="<?= base_url() ?>setting/changePassword?id=<?php echo $data->id; ?>">
                                                         <i class="material-icons" title="<?php echo $lang_change_password; ?>">lock_outline</i>
                                                     </a>
-                                                    <a href="<?= base_url() ?>setting/edituser?id=<?php echo $data->user_id; ?>">
+                                                    <a href="<?= base_url() ?>setting/edituser?id=<?php echo $data->id; ?>">
                                                         <i class="material-icons" title="<?php echo $lang_edit; ?>">mode_edit</i>
                                                     </a>
-                                                    <a href="<?= base_url() ?>setting/deleteUser?id=<?php echo $data->user_id; ?>">
+                                                    <a href="<?= base_url() ?>setting/deleteUser?id=<?php echo $data->id; ?>">
                                                         <i class="material-icons" title="Delete">delete_forever</i>
                                                     </a>
                                                 </td>

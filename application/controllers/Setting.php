@@ -527,7 +527,7 @@ class Setting extends CI_Controller {
         $data['lang_active'] = $this->lang->line('active');
         $data['lang_inactive'] = $this->lang->line('inactive');
 		
-		$userDtaData = $this->Constant_model->getDataOneColumn('pos_user', 'user_id', $id);
+		$userDtaData = $this->Constant_model->getDataOneColumn('users', 'id', $id);
 		if (count($userDtaData) == 0) {
 			$this->load->view('users', $data);
 		}
@@ -1089,7 +1089,7 @@ class Setting extends CI_Controller {
     public function deleteUser() {
 	
 		$id = $this->input->get('id');
-        if ($this->Constant_model->deleteData('pos_user', $id)) {
+        if ($this->Constant_model->deleteData('users', $id)) {
             $this->session->set_flashdata('alert_msg', array('success', 'Delete User', "User Successfully Deleted."));
             redirect(base_url() . 'setting/users');
         }
@@ -1375,8 +1375,8 @@ class Setting extends CI_Controller {
             $this->session->set_flashdata('alert_msg', array('failure', 'Add New User', 'Please Choose User Role!', "$fn", "$email", "$pass", "$conpass", "$role", "$outlet"));
             redirect(base_url() . 'setting/adduser');
         } else {
-            $ckEmailData = $this->Constant_model->getDataOneColumn('pos_user', 'email', "$email");
-            $ckPinData = $this->Constant_model->getDataOneColumn('pos_user', 'pin', "$pin");
+            $ckEmailData = $this->Constant_model->getDataOneColumn('user', 'email', "$email");
+            $ckPinData = $this->Constant_model->getDataOneColumn('user', 'pin', "$pin");
 
             if ((count($ckEmailData) == 0) && (count($ckPinData) == 0)) {
                 $password = $this->encryptPassword($pass);

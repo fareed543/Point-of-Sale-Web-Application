@@ -1,6 +1,4 @@
-<?php
-require_once 'includes/header.php';
-?>
+<?php require_once 'includes/header.php'; ?>
 <!--Select Dropdown js start-->     
 <link href="<?= base_url() ?>assets/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
@@ -135,7 +133,7 @@ require_once 'includes/header.php';
                                         <div class="col-sm-4">
                                             <div class="form-group form-float">
                                                 <div class="form-line">
-                                                    <label><?php echo $lang_retail_price; ?> (<?php echo $lang_price; ?>) <span style="color: #F00">*</span></label>
+                                                    <label><?php echo $lang_retail_price; ?> (<?php echo $lang_price; ?>) <span>*</span></label>
                                                     <input type="text" name="retail" class="form-control" maxlength="250" required autocomplete="off" />
 
                                                 </div>
@@ -146,10 +144,10 @@ require_once 'includes/header.php';
                                             <div class="form-group form-float">
                                                 <div class="form-line">
 
-                                                    <label><?php echo $lang_product_image; ?> <span style="color: #F00">*</span></label>
+                                                    <label><?php echo $lang_product_image; ?> <span>*</span></label>
                                                     <br />
-                                                    <input id="uploadFile" readonly style="height: 40px; width: 230px; border: 1px solid #ccc" />
-                                                    <div class="fileUpload btn btn-primary" style="padding: 9px 12px;">
+                                                    <input id="uploadFile" readonly/>
+                                                    <div class="fileUpload btn btn-primary">
                                                         <span><?php echo $lang_browse; ?></span>
                                                         <input id="uploadBtn" name="uploadFile" type="file" class="upload" />
                                                     </div>
@@ -206,6 +204,4 @@ require_once 'includes/header.php';
 
 
 
-<?php
-require_once 'includes/footer.php';
-?>
+<?php require_once 'includes/footer.php'; ?>
